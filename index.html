@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LingoRead 中文智读 - Chinese-to-English Pop-up Reader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    .theme-paper { background-color: #f4f1ea; color: #1c1917; }
+    .theme-paper .reader-card { background-color: #fbf9f5; border-color: #e7e5e4; color: #292524; }
+    .theme-paper .sidebar-card { background-color: #f9f6f0; border-color: #e7e5e4; }
+    .theme-light { background-color: #f8fafc; color: #0f172a; }
+    .theme-light .reader-card { background-color: #ffffff; border-color: #e2e8f0; color: #1e293b; }
+    .theme-light .sidebar-card { background-color: #ffffff; border-color: #e2e8f0; }
+    .theme-dark { background-color: #020617; color: #f1f5f9; }
+    .theme-dark .reader-card { background-color: #0f172a; border-color: #1e293b; color: #f1f5f9; }
+    .theme-dark .sidebar-card { background-color: #0f172a; border-color: #1e293b; color: #f1f5f9; }
+    .theme-dark .top-header { background-color: rgba(15, 23, 42, 0.92); border-color: #1e293b; color: #f8fafc; }
+  </style>
+</head>
+<body class="theme-paper min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- TOP NAVIGATION BAR (Full LingoRead Header) -->
+  <header class="top-header sticky top-0 z-30 backdrop-blur-md bg-white/90 border-b border-slate-200 px-4 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-600 to-indigo-600 flex items-center justify-center text-white shadow-md font-bold text-lg">
+          文
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="font-bold text-lg tracking-tight">
+              LingoRead <span class="text-indigo-600">中文智读</span>
+            </h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200">
+              Chinese-to-English Pop-up Reader
+            </span>
+          </div>
+          <p class="text-xs text-slate-500">
+            Click any Chinese word or highlight a phrase for instant Pinyin, English definition &amp; audio
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE (READER + 4-TAB SIDEBAR) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- LEFT COLUMN: READER (8 cols) -->
+    <div class="lg:col-span-8 flex flex-col gap-4">
+      
+      <!-- Toolbar -->
+      <div class="sidebar-card rounded-xl border p-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 flex-1 min-w-[220px]">
+          <span class="text-indigo-600 font-bold">📖</span>
+          <select id="article-select" class="w-full text-sm font-medium bg-transparent border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Theme Buttons -->
+          <div class="flex items-center bg-slate-200/70 rounded-lg p-0.5 text-xs">
+            <button id="theme-light-btn" class="px-2 py-1 rounded-md cursor-pointer" title="Light Theme">☀️</button>
+            <button id="theme-paper-btn" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer" title="Warm Paper Theme">☕</button>
+            <button id="theme-dark-btn" class="px-2 py-1 rounded-md cursor-pointer" title="Dark Theme">🌙</button>
+          </div>
+
+          <!-- Font Size Buttons -->
+          <div class="flex items-center bg-slate-200/70 rounded-lg p-0.5 text-xs font-semibold text-slate-800">
+            <button id="font-base-btn" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字-</button>
+            <button id="font-lg-btn" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字</button>
+            <button id="font-xl-btn" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer">字+</button>
+          </div>
+
+          <!-- Speed Selector -->
+          <div class="flex items-center gap-1 bg-slate-200/70 rounded-lg px-2 py-1 text-xs text-slate-800">
+            <span class="text-slate-500 font-medium">Speed:</span>
+            <select id="speed-select" class="bg-transparent font-bold text-indigo-700 focus:outline-none cursor-pointer">
+              <option value="0.5">0.5x (Very Slow)</option>
+              <option value="0.65">0.65x (Slow)</option>
+              <option value="0.8">0.8x (Learner)</option>
+              <option value="0.9" selected>0.9x (Natural)</option>
+              <option value="1.0">1.0x (Normal)</option>
+              <option value="1.25">1.25x (Fast)</option>
+            </select>
+          </div>
+
+          <!-- Read Aloud / Pause / Stop Buttons -->
+          <button id="read-all-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-colors cursor-pointer">
+            <span>🔊 朗读全文 (Read Aloud)</span>
+          </button>
+          <div id="audio-active-controls" class="hidden items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded-lg">
+            <button id="pause-resume-btn" class="px-2 py-1 rounded-md text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer">⏸ Pause</button>
+            <button id="stop-audio-btn" class="px-2 py-1 rounded-md text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white cursor-pointer">⏹ Stop</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Card -->
+      <article id="reader-container" class="reader-card rounded-2xl border p-6 sm:p-10 shadow-sm transition-colors relative">
+        <div class="border-b border-slate-200/80 pb-5 mb-6">
+          <div class="flex flex-wrap items-center gap-2 mb-2.5">
+            <span id="art-level" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800"></span>
+            <span id="art-category" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700"></span>
+            <span id="art-meta" class="text-xs text-slate-500 ml-auto"></span>
+          </div>
+          <h2 id="art-title" class="text-2xl sm:text-3xl font-bold tracking-tight leading-snug"></h2>
+
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 bg-slate-100/80 px-3.5 py-2.5 rounded-xl">
+            <div class="flex items-center gap-2">
+              <span>✨ <strong>How to use:</strong> Click any Chinese word (or highlight a phrase) to open the <strong>Chinese-to-English pop-up dictionary</strong> with Pinyin &amp; audio.</span>
+            </div>
+            <div class="flex items-center gap-4 flex-wrap">
+              <label id="letter-structure-toggle-wrap" class="flex items-center gap-1.5 cursor-pointer select-none">
+                <input type="checkbox" id="toggle-structure" checked class="rounded text-indigo-600" />
+                <span class="text-indigo-700 font-semibold">Show Letter Structure (书信格式��析)</span>
+              </label>
+              <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                <input type="checkbox" id="toggle-notes" checked class="rounded text-indigo-600" />
+                <span class="text-emerald-700 font-semibold">Teacher Notes (教师注释)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paragraphs -->
+        <div id="reader-paragraphs" class="tracking-wide"></div>
+
+        <!-- Teacher Notes Footer -->
+        <div id="teacher-notes-footer" class="mt-8 pt-6 border-t border-slate-200/80"></div>
+      </article>
+    </div>
+
+    <!-- RIGHT COLUMN: 4-TAB SIDEBAR (4 cols) -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+      <div class="sidebar-card rounded-2xl border overflow-hidden flex flex-col h-full min-h-[540px]">
+        <!-- Tabs -->
+        <div class="grid grid-cols-4 border-b border-slate-200 bg-slate-100/60 p-1 gap-0.5 text-slate-700">
+          <button id="tab-btn-vocab" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer">
+            🔖 Vocab (<span id="vocab-count">0</span>)
+          </button>
+          <button id="tab-btn-structure" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+            📐 Text Type
+          </button>
+          <button id="tab-btn-questions" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+            ❓ Questions
+          </button>
+          <button id="tab-btn-library" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+            📚 Texts
+          </button>
+        </div>
+
+        <!-- Tab Content Container -->
+        <div id="sidebar-tab-content" class="p-4 flex-1 flex flex-col overflow-y-auto"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FLOATING POPUP DICTIONARY -->
+  <div id="popup-dict" class="hidden fixed z-50 w-[325px] sm:w-[345px] rounded-2xl bg-white text-slate-900 shadow-2xl border border-slate-200 p-4"></div>
+
+  <script>
+    const DICT = {"亲爱的":{"pinyin":"qīn'ài de","pos":"adj.","en":"dear; beloved (used in salutations)","ex":"亲爱的杰森 (Dear Jason) — Used in informal letters to address someone close."},"亲爱":{"pinyin":"qīn'ài","pos":"adj.","en":"dear; beloved","ex":"亲爱的朋友 (Dear friend)"},"杰森":{"pinyin":"Jiésēn","pos":"proper n.","en":"Jason (person's name)","ex":"亲爱的杰森： (Dear Jason:)"},"你好":{"pinyin":"nǐ hǎo","pos":"phrase","en":"hello; how do you do","ex":"你好！很高兴认识你。 (Hello! Nice to meet you.)"},"最近":{"pinyin":"zuìjìn","pos":"adv./n.","en":"recently; lately; these days","ex":"你最近怎么样？ (How have you been lately?)"},"怎么样":{"pinyin":"zěnmeyàng","pos":"pron.","en":"how; how about; how are things","ex":"你的新学校怎么样？ (How is your new school?)"},"忙不忙":{"pinyin":"máng bu máng","pos":"phrase","en":"busy or not? Are you busy?","ex":"你最近忙不忙？ (Have you been busy lately?)"},"忙":{"pinyin":"máng","pos":"adj./v.","en":"busy; hurriedly","ex":"我每天都很忙。 (I am very busy every day.)"},"对不起":{"pinyin":"duìbuqǐ","pos":"phrase","en":"I'm sorry; excuse me; pardon me","ex":"对不起，我来晚了。 (I'm sorry, I'm late.)"},"一直":{"pinyin":"yīzhí","pos":"adv.","en":"always; all along; continuously","ex":"一直都没跟你联系 (haven't contacted you all this time)"},"都":{"pinyin":"dōu","pos":"adv.","en":"all; both; even; already","ex":"她每天都在那儿喝咖啡。"},"没":{"pinyin":"méi","pos":"adv.","en":"not; have not (negates past actions or possession)","ex":"我现在没时间看电视。"},"跟":{"pinyin":"gēn","pos":"prep./conj.","en":"with; to; and","ex":"我跟朋友们一起吃午饭。 (I eat lunch with my friends.)"},"你":{"pinyin":"nǐ","pos":"pron.","en":"you","ex":"写信告诉我吧！"},"联系":{"pinyin":"liánxì","pos":"v./n.","en":"to contact; to get in touch; connection","ex":"一直都没跟你联系 (haven't been in touch with you)"},"因为":{"pinyin":"yīnwèi","pos":"conj.","en":"because; since","ex":"因为……所以…… (because... therefore...)"},"我":{"pinyin":"wǒ","pos":"pron.","en":"I; me","ex":"我是北京国际学校的学生。"},"每天":{"pinyin":"měitiān","pos":"n./adv.","en":"every day; daily","ex":"我每天早上六点起床。 (I get up at 6 AM every day.)"},"上":{"pinyin":"shàng","pos":"v./prep.","en":"to attend (class/work); to go up; on","ex":"每天上很多课 (take/attend many classes every day)"},"很多":{"pinyin":"hěn duō","pos":"adj.","en":"many; a lot of; much","ex":"我有很多课外活动。 (I have many extracurricular activities.)"},"课":{"pinyin":"kè","pos":"n.","en":"class; lesson; course; subject","ex":"我们上午有三节课。 (We have three classes in the morning.)"},"还要":{"pinyin":"hái yào","pos":"adv.+v.","en":"also need to; still have to; in addition","ex":"还要参加课外活动 (also have to participate in extracurricular activities)"},"参加":{"pinyin":"cānjiā","pos":"v.","en":"to participate in; to join; to attend","ex":"参加课外活动 (participate in extracurricular activities)"},"课外活动":{"pinyin":"kèwài huódòng","pos":"n.","en":"extracurricular activities; after-school activities","ex":"放学以后，我有很多课外活动。"},"课外":{"pinyin":"kèwài","pos":"adj./n.","en":"extracurricular; outside class; after school","ex":"课外阅读 (extracurricular reading)"},"活动":{"pinyin":"huódòng","pos":"n./v.","en":"activity; event; to exercise","ex":"学校有很多体育活动。"},"从早忙到晚":{"pinyin":"cóng zǎo máng dào wǎn","pos":"phrase","en":"busy from morning till night","ex":"我每天从早忙到晚。 (I'm busy from morning till night every day.)"},"从":{"pinyin":"cóng","pos":"prep.","en":"from; since","ex":"从我家到学校要一个小时。 (From my home to school takes one hour.)"},"早":{"pinyin":"zǎo","pos":"n./adj.","en":"morning; early","ex":"从早到晚 (from morning to night)"},"到":{"pinyin":"dào","pos":"v./prep.","en":"to arrive; to reach; until; to","ex":"差不多六点到家 (arrive home at almost 6 o'clock)"},"晚":{"pinyin":"wǎn","pos":"n./adj.","en":"evening; night; late","ex":"从早忙到晚"},"我的":{"pinyin":"wǒ de","pos":"pron.","en":"my; mine","ex":"我的新学校 (my new school)"},"的":{"pinyin":"de","pos":"part.","en":"possessive or modifying particle ('s / of)","ex":"学校的咖啡厅 (the school's cafe)"},"新":{"pinyin":"xīn","pos":"adj.","en":"new; fresh","ex":"新学校 (new school) / 新朋友 (new friends)"},"学校":{"pinyin":"xuéxiào","pos":"n.","en":"school; campus","ex":"我非常喜欢这个学校。"},"叫":{"pinyin":"jiào","pos":"v.","en":"to be called; to call; to name","ex":"我的新学校叫北京国际学校。"},"北京国际学校":{"pinyin":"Běijīng Guójì Xuéxiào","pos":"proper n.","en":"Beijing International School","ex":"我的新学校叫北京国际学校。"},"北京":{"pinyin":"Běijīng","pos":"proper n.","en":"Beijing (capital of China)","ex":"我在北京的电话号码 (my phone number in Beijing)"},"国际":{"pinyin":"guójì","pos":"n./adj.","en":"international","ex":"国际学校 (international school)"},"非常":{"pinyin":"fēicháng","pos":"adv.","en":"very; extremely; extraordinarily","ex":"我非常喜欢这个学校。 (I like this school very much.)"},"喜欢":{"pinyin":"xǐhuan","pos":"v.","en":"to like; to be fond of","ex":"我喜欢的日本女孩 (the Japanese girl I like)"},"这个":{"pinyin":"zhège","pos":"pron.","en":"this; this one","ex":"这个学校 (this school)"},"也":{"pinyin":"yě","pos":"adv.","en":"also; too; as well","ex":"也交了不少新朋友 (also made quite a few new friends)"},"交朋友":{"pinyin":"jiāo péngyou","pos":"v.+o.","en":"to make friends","ex":"交了不少新朋友 (made quite a few new friends)"},"交":{"pinyin":"jiāo","pos":"v.","en":"to make (friends); to hand in; to交","ex":"交朋友 (make friends)"},"了":{"pinyin":"le","pos":"part.","en":"completed action marker / change of state particle","ex":"交了不少新朋友 / 我也开始用微信了"},"不少":{"pinyin":"bù shǎo","pos":"adj.","en":"quite a few; many; not a few","ex":"交了不少新朋友 (made quite a few new friends)"},"朋友":{"pinyin":"péngyou","pos":"n.","en":"friend","ex":"新朋友 (new friend)"},"朋友们":{"pinyin":"péngyoumen","pos":"n.","en":"friends (plural)","ex":"跟朋友们一起吃午饭 (eat lunch together with friends)"},"家":{"pinyin":"jiā","pos":"n.","en":"home; family; house","ex":"我的家离学校很远。 (My home is very far from school.)"},"离":{"pinyin":"lí","pos":"prep.","en":"away from; from (indicating distance or time)","ex":"我家离学校很远。 (A 离 B + adj. = A is [distance] from B)"},"很":{"pinyin":"hěn","pos":"adv.","en":"very; quite","ex":"离学校很远 (very far from school)"},"远":{"pinyin":"yuǎn","pos":"adj.","en":"far; distant","ex":"我家离学校很远。"},"所以":{"pinyin":"suǒyǐ","pos":"conj.","en":"so; therefore; as a result","ex":"因为我的家离学校很远，所以我每天早上六点起床。"},"早上":{"pinyin":"zǎoshang","pos":"n.","en":"early morning","ex":"每天早上六点起床 (get up at 6 o'clock every morning)"},"六点":{"pinyin":"liù diǎn","pos":"n.","en":"6 o'clock","ex":"早上六点起床 / 晚上六点到家"},"点":{"pinyin":"diǎn","pos":"m.","en":"o'clock; hour; point","ex":"七点 (7 o'clock) / 三点 (3 o'clock)"},"起床":{"pinyin":"qǐchuáng","pos":"v.+o.","en":"to get up; to get out of bed","ex":"我每天早上六点起床。"},"以后":{"pinyin":"yǐhòu","pos":"n./prep.","en":"after; afterwards; later","ex":"起床以后 (after getting up) / 放学以后 (after school)"},"先":{"pinyin":"xiān","pos":"adv.","en":"first; in advance; before","ex":"先……，然后…… (first..., and then...)"},"刷牙":{"pinyin":"shuāyá","pos":"v.+o.","en":"to brush one's teeth","ex":"起床以后我先刷牙、洗脸。"},"洗脸":{"pinyin":"xǐliǎn","pos":"v.+o.","en":"to wash one's face","ex":"先刷牙、洗脸 (first brush teeth and wash face)"},"然后":{"pinyin":"ránhòu","pos":"conj.","en":"then; after that; afterwards","ex":"我先刷牙、洗脸，然后出去遛小龙。"},"出去":{"pinyin":"chūqù","pos":"v.","en":"to go out","ex":"出去遛小龙 (go out to walk Xiaolong)"},"遛":{"pinyin":"liù","pos":"v.","en":"to walk (a pet/dog); to stroll","ex":"遛狗 (walk a dog) / 遛小龙 (walk Xiaolong)"},"小龙":{"pinyin":"Xiǎolóng","pos":"proper n.","en":"Xiaolong ('Little Dragon', name of David's pet dog)","ex":"然后出去遛小龙"},"七点":{"pinyin":"qī diǎn","pos":"n.","en":"7 o'clock","ex":"七点我坐校车去学校。"},"坐":{"pinyin":"zuò","pos":"v.","en":"to take / ride (a vehicle); to sit","ex":"坐校车 (take the school bus)"},"校车":{"pinyin":"xiàochē","pos":"n.","en":"school bus","ex":"坐校车去学校 (take the school bus to school)"},"去":{"pinyin":"qù","pos":"v.","en":"to go; to go to","ex":"去学校 (go to school) / 去医院 (go to the hospital)"},"要":{"pinyin":"yào","pos":"v.","en":"to take (time); to need; to want; will","ex":"从我家到学校要一个小时。 (It takes one hour from my home to school.)"},"一个":{"pinyin":"yī gè","pos":"num.+m.","en":"one; a/an","ex":"一个小时 (one hour)"},"小时":{"pinyin":"xiǎoshí","pos":"n.","en":"hour","ex":"一个小时 (one hour)"},"我们":{"pinyin":"wǒmen","pos":"pron.","en":"we; us; our","ex":"我们上午有三节课。"},"上午":{"pinyin":"shàngwǔ","pos":"n.","en":"morning; forenoon (before noon)","ex":"我们上午有三节课。"},"有":{"pinyin":"yǒu","pos":"v.","en":"to have; there is/are","ex":"上午有三节课 (have three classes in the morning)"},"三节":{"pinyin":"sān jié","pos":"num.+m.","en":"three periods (of class)","ex":"三节课 (three classes)"},"节":{"pinyin":"jié","pos":"m.","en":"measure word for class periods or sections","ex":"一节课 (one class period)"},"每":{"pinyin":"měi","pos":"pron.","en":"every; each","ex":"每节课八十分钟 (each class is 80 minutes)"},"八十":{"pinyin":"bāshí","pos":"num.","en":"eighty (80)","ex":"八十分钟 (80 minutes)"},"分钟":{"pinyin":"fēnzhōng","pos":"n.","en":"minute","ex":"二十分钟 (20 minutes)"},"第一":{"pinyin":"dì-yī","pos":"num.","en":"first (1st)","ex":"第一节课以后 (after the first class)"},"二十":{"pinyin":"èrshí","pos":"num.","en":"twenty (20)","ex":"二十分钟的课间休息 (a 20-minute break between classes)"},"课间休息":{"pinyin":"kèjiān xiūxi","pos":"n.","en":"break between classes; recess","ex":"有二十分钟的课间休息"},"课间":{"pinyin":"kèjiān","pos":"n.","en":"interval between classes; recess","ex":"课间休息 (recess / break)"},"休息":{"pinyin":"xiūxi","pos":"v./n.","en":"to rest; to take a break","ex":"我休息的时候 (when I take a break)"},"的时候":{"pinyin":"de shíhou","pos":"phrase","en":"when...; at the time of...","ex":"我休息的时候 (when I am on break)"},"时候":{"pinyin":"shíhou","pos":"n.","en":"time; moment; period","ex":"休息的时候"},"经常":{"pinyin":"jīngcháng","pos":"adv.","en":"often; frequently; regularly","ex":"我经常去学校的咖啡厅吃早饭。"},"咖啡厅":{"pinyin":"kāfēitīng","pos":"n.","en":"cafe; coffee shop","ex":"学校的咖啡厅 (the school cafe)"},"咖啡":{"pinyin":"kāfēi","pos":"n.","en":"coffee","ex":"喝咖啡 (drink coffee)"},"吃早饭":{"pinyin":"chī zǎofàn","pos":"v.+o.","en":"to eat breakfast","ex":"去学校的咖啡厅吃早饭"},"吃":{"pinyin":"chī","pos":"v.","en":"to eat","ex":"吃早饭 / 吃午饭 / 吃晚饭"},"早饭":{"pinyin":"zǎofàn","pos":"n.","en":"breakfast","ex":"吃早饭 (eat breakfast)"},"在":{"pinyin":"zài","pos":"prep./v.","en":"at; in; on; to be at","ex":"在咖啡厅 (at the cafe) / 在学校餐厅 (in the school cafeteria)"},"可以":{"pinyin":"kěyǐ","pos":"aux.","en":"can; may; be able to","ex":"我可以看到那个我喜欢的日本女孩"},"看到":{"pinyin":"kàndào","pos":"v.","en":"to see; to catch sight of","ex":"看到那个女孩 (see that girl)"},"那个":{"pinyin":"nàge","pos":"pron.","en":"that; that one","ex":"那个我喜欢的日本女孩"},"日本":{"pinyin":"Rìběn","pos":"proper n.","en":"Japan; Japanese","ex":"日本女孩 (Japanese girl)"},"女孩":{"pinyin":"nǚhái","pos":"n.","en":"girl","ex":"日本女孩 (Japanese girl)"},"她":{"pinyin":"tā","pos":"pron.","en":"she; her","ex":"她每天都在那儿喝咖啡。"},"那儿":{"pinyin":"nàr","pos":"pron.","en":"there; that place","ex":"在那儿喝咖啡 (drink coffee there)"},"喝":{"pinyin":"hē","pos":"v.","en":"to drink","ex":"喝咖啡 (drink coffee)"},"中午":{"pinyin":"zhōngwǔ","pos":"n.","en":"noon; midday","ex":"中午我跟朋友们一起吃午饭。"},"一起":{"pinyin":"yīqǐ","pos":"adv.","en":"together; in the same place","ex":"跟朋友们一起 (together with friends)"},"餐厅":{"pinyin":"cāntīng","pos":"n.","en":"cafeteria; dining hall; restaurant","ex":"学校餐厅 (school cafeteria / dining hall)"},"吃午饭":{"pinyin":"chī wǔfàn","pos":"v.+o.","en":"to eat lunch","ex":"在学校餐厅吃午饭"},"午饭":{"pinyin":"wǔfàn","pos":"n.","en":"lunch","ex":"吃午饭 (eat lunch)"},"下午":{"pinyin":"xiàwǔ","pos":"n.","en":"afternoon","ex":"下午我只有一节课。"},"只有":{"pinyin":"zhǐyǒu","pos":"adv.+v.","en":"only have; there is only","ex":"下午我只有一节课。 (In the afternoon I only have one class.)"},"一节":{"pinyin":"yī jié","pos":"num.+m.","en":"one period (of class)","ex":"一节课 (one class)"},"三点":{"pinyin":"sān diǎn","pos":"n.","en":"3 o'clock","ex":"三点放学 (finish school at 3 o'clock)"},"放学":{"pinyin":"fàngxué","pos":"v.+o.","en":"to finish school; school is over (for the day)","ex":"下午三点放学 / 放学以后 (after school)"},"比如":{"pinyin":"bǐrú","pos":"v./prep.","en":"for example; such as; for instance","ex":"比如拉小提琴、打羽毛球等等。"},"拉小提琴":{"pinyin":"lā xiǎotíqín","pos":"v.+o.","en":"to play the violin","ex":"我喜欢拉小提琴。"},"拉":{"pinyin":"lā","pos":"v.","en":"to play (bowed string instruments); to pull","ex":"拉小提琴 (play the violin)"},"小提琴":{"pinyin":"xiǎotíqín","pos":"n.","en":"violin","ex":"拉小提琴"},"打羽毛球":{"pinyin":"dǎ yǔmáoqiú","pos":"v.+o.","en":"to play badminton","ex":"放学以后打羽毛球。"},"打":{"pinyin":"dǎ","pos":"v.","en":"to play (ball games with hands/rackets); to hit","ex":"打羽毛球 (play badminton) / 打篮球 (play basketball)"},"羽毛球":{"pinyin":"yǔmáoqiú","pos":"n.","en":"badminton; shuttlecock","ex":"打羽毛球"},"等等":{"pinyin":"děngděng","pos":"part.","en":"et cetera (etc.); and so on","ex":"拉小提琴、打羽毛球等等"},"社区服务":{"pinyin":"shèqū fúwù","pos":"n.","en":"community service","ex":"我的社区服务是去医院照顾病人。"},"社区":{"pinyin":"shèqū","pos":"n.","en":"community; neighborhood","ex":"社区服务 (community service)"},"服务":{"pinyin":"fúwù","pos":"n./v.","en":"service; to serve","ex":"社区服务"},"是":{"pinyin":"shì","pos":"v.","en":"to be (am, is, are, was, were)","ex":"我的社区服务是去医院照顾病人。"},"医院":{"pinyin":"yīyuàn","pos":"n.","en":"hospital","ex":"去医院照顾病人 (go to the hospital to take care of patients)"},"照顾":{"pinyin":"zhàogù","pos":"v.","en":"to take care of; to look after; to care for","ex":"照顾病人 (take care of patients)"},"病人":{"pinyin":"bìngrén","pos":"n.","en":"patient; sick person","ex":"去医院照顾病人"},"晚上":{"pinyin":"wǎnshang","pos":"n.","en":"evening; night","ex":"我每天晚上差不多六点到家。"},"差不多":{"pinyin":"chàbuduō","pos":"adv./adj.","en":"almost; nearly; about; roughly","ex":"差不多六点到家 (get home at almost/about 6 o'clock)"},"到家":{"pinyin":"dào jiā","pos":"v.+o.","en":"to arrive home; to get home","ex":"差不多六点到家"},"和":{"pinyin":"hé","pos":"conj./prep.","en":"and; with","ex":"和爸爸妈妈一起吃晚饭 (eat dinner with dad and mom)"},"爸爸":{"pinyin":"bàba","pos":"n.","en":"dad; father","ex":"爸爸妈妈 (dad and mom / parents)"},"妈妈":{"pinyin":"māma","pos":"n.","en":"mom; mother","ex":"和爸爸妈妈一起吃晚饭"},"吃晚饭":{"pinyin":"chī wǎnfàn","pos":"v.+o.","en":"to eat dinner / supper","ex":"七点和爸爸妈妈一起吃晚饭。"},"晚饭":{"pinyin":"wǎnfàn","pos":"n.","en":"dinner; supper","ex":"晚饭以后 (after dinner)"},"写作业":{"pinyin":"xiě zuòyè","pos":"v.+o.","en":"to do homework","ex":"晚饭以后，我写作业。"},"写":{"pinyin":"xiě","pos":"v.","en":"to write; to compose","ex":"写作业 (do homework) / 写信 (write a letter)"},"作业":{"pinyin":"zuòyè","pos":"n.","en":"homework; school assignment","ex":"我们的作业很多。 (We have a lot of homework.)"},"现在":{"pinyin":"xiànzài","pos":"n.","en":"now; at present; right now","ex":"所以我现在没时间看电视。"},"没时间":{"pinyin":"méi shíjiān","pos":"v.+o.","en":"to have no time; not have time","ex":"我现在没时间看电视。"},"时间":{"pinyin":"shíjiān","pos":"n.","en":"time","ex":"没时间 (no time)"},"看电视":{"pinyin":"kàn diànshì","pos":"v.+o.","en":"to watch TV","ex":"没时间看电视"},"看":{"pinyin":"kàn","pos":"v.","en":"to watch; to look at; to read","ex":"看电视 (watch TV) / 看书 (read a book)"},"电视":{"pinyin":"diànshì","pos":"n.","en":"television; TV","ex":"看电视"},"玩电脑游戏":{"pinyin":"wán diànnǎo yóuxì","pos":"v.+o.","en":"to play computer games","ex":"没时间看电视、玩电脑游戏。"},"玩":{"pinyin":"wán","pos":"v.","en":"to play; to have fun","ex":"玩电脑游戏"},"电脑游戏":{"pinyin":"diànnǎo yóuxì","pos":"n.","en":"computer game","ex":"玩电脑游戏"},"电脑":{"pinyin":"diànnǎo","pos":"n.","en":"computer","ex":"用电脑 (use a computer)"},"游戏":{"pinyin":"yóuxì","pos":"n.","en":"game","ex":"电脑游戏"},"电话号码":{"pinyin":"diànhuà hàomǎ","pos":"n.","en":"telephone number; phone number","ex":"我在北京的电话号码是13911677999。"},"电话":{"pinyin":"diànhuà","pos":"n.","en":"telephone; phone call","ex":"打电话 (make a phone call)"},"号码":{"pinyin":"hàomǎ","pos":"n.","en":"number (phone, room, etc.)","ex":"电话号码"},"电子邮件":{"pinyin":"diànzǐ yóujiàn","pos":"n.","en":"email (electronic mail)","ex":"新的电子邮件是 david0214@bjis.edu.cn。"},"对了":{"pinyin":"duì le","pos":"phrase","en":"by the way; oh, that's right!","ex":"对了，我也开始用微信了！ (By the way, I also started using WeChat!)"},"开始":{"pinyin":"kāishǐ","pos":"v./n.","en":"to start; to begin; beginning","ex":"我也开始用微信了。"},"用":{"pinyin":"yòng","pos":"v.","en":"to use","ex":"用微信 (use WeChat)"},"微信":{"pinyin":"Wēixìn","pos":"proper n.","en":"WeChat (popular Chinese messaging & social app)","ex":"我也开始用微信了，真的很好用！"},"真的":{"pinyin":"zhēnde","pos":"adv.","en":"really; truly; indeed","ex":"真的很好用！ (It's really easy/great to use!)"},"好用":{"pinyin":"hǎoyòng","pos":"adj.","en":"easy to use; convenient; useful","ex":"微信真的很好用！"},"新学年":{"pinyin":"xīn xuénián","pos":"n.","en":"new school year; new academic year","ex":"你的新学年怎么样？ (How is your new school year?)"},"学年":{"pinyin":"xuénián","pos":"n.","en":"school year; academic year","ex":"新学年"},"写信":{"pinyin":"xiěxìn","pos":"v.+o.","en":"to write a letter","ex":"写信告诉我吧！ (Write a letter and tell me!)"},"信":{"pinyin":"xìn","pos":"n.","en":"letter; mail; message","ex":"写信 (write a letter)"},"告诉":{"pinyin":"gàosu","pos":"v.","en":"to tell; to let know; to inform","ex":"写信告诉我吧！"},"吧":{"pinyin":"ba","pos":"part.","en":"modal particle indicating suggestion or polite request","ex":"写信告诉我吧！ (Write to tell me!)"},"祝好":{"pinyin":"zhù hǎo","pos":"phrase","en":"Best wishes! / Wish you well! (letter closing)","ex":"In Chinese letters, '祝' is written at the end of a line and '好！' starts on the next line."},"祝":{"pinyin":"zhù","pos":"v.","en":"to wish; to express good wishes","ex":"祝好！ (Best wishes!)"},"好":{"pinyin":"hǎo","pos":"adj./adv.","en":"good; well; fine","ex":"你好！ / 祝好！"},"大卫":{"pinyin":"Dàwèi","pos":"proper n.","en":"David (sender's name)","ex":"Signed at the bottom right above the date."},"年":{"pinyin":"nián","pos":"n.","en":"year","ex":"2020年10月23日 (Chinese dates follow Year-Month-Day order)"},"月":{"pinyin":"yuè","pos":"n.","en":"month; moon","ex":"10月 (October)"},"日":{"pinyin":"rì","pos":"n.","en":"day; date (formal/written)","ex":"23日 (the 23rd)"},"周末":{"pinyin":"zhōumò","pos":"n.","en":"weekend","ex":"这个周末你有什么打算？ (What are your plans for this weekend?)"},"打算":{"pinyin":"dǎsuàn","pos":"v./n.","en":"to plan; to intend; plan","ex":"我打算去图书馆看书。"},"图书馆":{"pinyin":"túshūguǎn","pos":"n.","en":"library","ex":"学校的图书馆很大。"},"复习":{"pinyin":"fùxí","pos":"v.","en":"to review; to revise","ex":"复习中文生词 (review Mandarin vocabulary)"},"考试":{"pinyin":"kǎoshì","pos":"n./v.","en":"exam; test; to take an exam","ex":"下个星期有中文考试。"},"准备":{"pinyin":"zhǔnbèi","pos":"v./n.","en":"to prepare; preparation","ex":"准备考试 (prepare for the exam)"},"运动":{"pinyin":"yùndòng","pos":"n./v.","en":"sports; exercise; to work out","ex":"我每天都做运动。"},"身体":{"pinyin":"shēntǐ","pos":"n.","en":"body; health","ex":"对身体很好 (very good for one's health)"},"健康":{"pinyin":"jiànkāng","pos":"adj./n.","en":"healthy; health","ex":"保持身体健康 (stay healthy)"}};
+    const ARTICLES = [{"id":"text-5-1","title":"Text 5.1: 给杰森的一封信 (An Informal Letter to Jason)","level":"IB / Intermediate Mandarin","category":"书信格式 · Informal Letter","readTime":"4 min read","content":"亲爱的杰森：\n你好！\n最近怎么样？忙不忙？对不起，一直都没跟你联系，因为我每天上很多课，还要参加课外活动，从早忙到晚。我的新学校叫北京国际学校。我非常喜欢这个学校，也交了不少新朋友。\n因为我的家离学校很远，所以我每天早上六点起床。起床以后我先刷牙、洗脸，然后出去遛小龙。七点我坐校车去学校，从我家到学校要一个小时。我们上午有三节课，每节课八十分钟。第一节课以后有二十分钟的课间休息，我休息的时候经常去学校的咖啡厅吃早饭。在咖啡厅我可以看到那个我喜欢的日本女孩，她每天都在那儿喝咖啡。中午我跟朋友们一起在学校餐厅吃午饭。下午我只有一节课，三点放学。\n放学以后，我有很多课外活动，比如拉小提琴、打羽毛球等等。我的社区服务是去医院照顾病人。我每天晚上差不多六点到家，七点和爸爸妈妈一起吃晚饭。晚饭以后，我写作业。我们的作业很多，所以我现在没时间看电视、玩电脑游戏。\n我在北京的电话号码是13911677999，新的电子邮件是david0214@bjis.edu.cn。对了，我也开始用微信了，真的很好用！\n你的新学年怎么样？写信告诉我吧！\n祝\n好！\n大卫\n2020年10月23日","teacherNotes":{"亲爱的":"Salutation (称呼): In an informal letter, use 亲爱的 (qīn'ài de, dear) to address your audience. Note the COLON (：) after the name, not a comma!","从早忙到晚":"Idiom/Pattern (从…到…): Busy from morning till night.","离":"Distance Structure (A 离 B + 远/近): '我的家离学校很远' means 'My home is very far from school.'","先":"Sequence Pattern (先…，然后…): 'First..., then...' — 起床以后我先刷牙、洗脸，然后出去遛小龙。","课外活动":"Extracurricular activities (kèwài huódòng) — e.g., 拉小提琴 (playing violin), 打羽毛球 (playing badminton).","社区服务":"Community service (shèqū fúwù) — 去医院照顾病人 (going to the hospital to care for patients).","祝":"Closing Wishes (祝语): The wishes may vary depending on when and who you are writing to. '祝' and '好！' are written on two lines.","2020年10月23日":"Date Format (日期): Signature and date are written in two lines at the bottom right. Date MUST be written in the order of Year (年), Month (月), and Day (日)."},"structureAnnotations":[{"part":"Salutation (称呼与问候)","lines":"亲爱的杰森： / 你好！","note":"Use 亲爱的 (qīn'ài de, dear) in an informal letter. Pay attention to the punctuation: use a COLON (：) after the recipient's name, not a comma!"},{"part":"Opening (开头)","lines":"最近怎么样？忙不忙？对不起……也交了不少新朋友。","note":"Greet the recipient, ask how they have been, explain why you haven't been in touch, and briefly introduce your new school."},{"part":"Body (正文)","lines":"因为我的家离学校很远……没时间看电视、玩电脑游戏。","note":"Describe daily schedule in chronological order (早上 → 上午 → 中午 → 下午 → 放学以后 → 晚上), including classes, extracurriculars (课外活动), and community service (社区服务)."},{"part":"Ending (结尾)","lines":"我在北京的电话号码是……写信告诉我吧！","note":"Share contact information (phone, email, WeChat) and invite the recipient to reply."},{"part":"Closing Wishes & Signature (祝语、署名与日期)","lines":"祝 / 好！ — 大卫 / 2020年10月23日","note":"Signature and date are written in two lines at the bottom right. Date must follow Year-Month-Day order (YYYY年MM月DD日)."}],"questions":["为什么大卫一直都没跟杰森联系？ (Why hasn't David contacted Jason for a long time?)","大卫每天早上几点起床？他怎么去学校？从家到学校要多长时间？ (What time does David get up, how does he go to school, and how long does it take?)","大卫放学以后有哪些课外活动？他的社区服务是什么？ (What extracurricular activities and community service does David do after school?)","中文书信的称呼标点符号和最后的日期格式跟英文信有什么不同？ (How do the punctuation after the salutation and the date format at the end differ between a Chinese letter and an English one?)"]},{"id":"sample-2","title":"Text 5.2: 我的周末安排 (My Weekend Plans)","level":"Beginner-Intermediate","category":"日常叙事 · Daily Life","readTime":"2 min read","content":"每个星期一到星期五，我都要去学校上课，从早忙到晚。到了周末，我终于可以休息一下了。\n星期六早上，我一般八点起床。吃早饭以后，我先写作业、复习中文，为下个星期的考试做准备。下午我经常跟朋友们一起去打羽毛球，因为做运动对身体健康很好。\n星期天上午，我喜欢去图书馆看书，或者在咖啡厅喝咖啡。晚上我和爸爸妈妈一起吃晚饭，看看电视，准备开始新的一个星期。","teacherNotes":{"周末":"Weekend (zhōumò)","复习":"To review / revise (fùxí)","身体健康":"Physical health / healthy body (shēntǐ jiànkāng)"},"structureAnnotations":[],"questions":["作者星期六上午一般做什么？ (What does the author usually do on Saturday morning?)","作者为什么喜欢跟朋友一起打羽毛球？ (Why does the author like playing badminton with friends?)"]}];
+    let savedVocab = [{"word":"亲爱的","pinyin":"qīn'ài de","pos":"adj.","en":"dear; beloved (used in salutations)","context":"亲爱的杰森：","addedAt":"Text 5.1"},{"word":"课外活动","pinyin":"kèwài huódòng","pos":"n.","en":"extracurricular activities","context":"还要参加课外活动，从早忙到晚。","addedAt":"Text 5.1"},{"word":"社区服务","pinyin":"shèqū fúwù","pos":"n.","en":"community service","context":"我的社区服务是去医院照顾病人。","addedAt":"Text 5.1"}];
+    let activeArticleId = ARTICLES[0].id;
+    let activeTab = 'vocab';
+    let vocabSearch = '';
+    let fontSize = 'xl';
+    let showStructure = true;
+    let highlightNotes = true;
+    let speechRate = 0.9;
+    let currentPopupWord = null;
+
+    // =========================================================================
+    // RELIABLE MANDARIN AUDIO ENGINE (Web Speech API + Cloud TTS Fallback)
+    // =========================================================================
+    let speechQueue = [];
+    let queueIndex = 0;
+    let audioState = 'idle'; // 'idle' | 'playing' | 'paused'
+    let isCancelled = true;
+    let activeLineIdx = null;
+    let bestZhVoice = null;
+    let fallbackAudioEl = null;
+
+    function findBestMandarinVoice() {
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      const zh = voices.filter(v => /zh|cmn|chinese|普通话|国语/i.test((v.lang || '') + ' ' + (v.name || '')));
+      zh.sort((a, b) => {
+        const score = (v) => {
+          const n = (v.name || '').toLowerCase();
+          const l = (v.lang || '').toLowerCase();
+          let s = (l === 'zh-cn' || l === 'cmn-hans-cn') ? 50 : 20;
+          if (n.includes('natural') || n.includes('neural')) s += 100;
+          if (n.includes('xiaoxiao') || n.includes('yunxi') || n.includes('xiaoyi')) s += 90;
+          if (n.includes('google') || n.includes('tingting') || n.includes('siri')) s += 75;
+          if (!v.localService) s += 20;
+          return s;
+        };
+        return score(b) - score(a);
+      });
+      bestZhVoice = zh[0] || null;
+      return bestZhVoice;
+    }
+
+    if ('speechSynthesis' in window) {
+      findBestMandarinVoice();
+      window.speechSynthesis.onvoiceschanged = findBestMandarinVoice;
+    }
+
+    function syncAudioUI() {
+      const readBtn = document.getElementById('read-all-btn');
+      const activeBox = document.getElementById('audio-active-controls');
+      const pauseBtn = document.getElementById('pause-resume-btn');
+      if (audioState === 'idle') {
+        readBtn.classList.remove('hidden');
+        activeBox.classList.add('hidden');
+        activeBox.classList.remove('flex');
+      } else {
+        readBtn.classList.add('hidden');
+        activeBox.classList.remove('hidden');
+        activeBox.classList.add('flex');
+        pauseBtn.textContent = audioState === 'paused' ? '▶ Resume' : '⏸ Pause';
+      }
+    }
+
+    function stopAllAudio() {
+      isCancelled = true;
+      speechQueue = [];
+      queueIndex = 0;
+      activeLineIdx = null;
+      audioState = 'idle';
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (fallbackAudioEl) {
+        fallbackAudioEl.pause();
+        fallbackAudioEl = null;
+      }
+      syncAudioUI();
+    }
+
+    function togglePauseResume() {
+      if (fallbackAudioEl) {
+        if (audioState === 'playing') {
+          fallbackAudioEl.pause();
+          audioState = 'paused';
+        } else if (audioState === 'paused') {
+          fallbackAudioEl.play();
+          audioState = 'playing';
+        }
+        syncAudioUI();
+        return;
+      }
+      if (!('speechSynthesis' in window)) return;
+      if (audioState === 'playing') {
+        window.speechSynthesis.pause();
+        audioState = 'paused';
+      } else if (audioState === 'paused') {
+        window.speechSynthesis.resume();
+        audioState = 'playing';
+      }
+      syncAudioUI();
+    }
+
+    function playNextChunk(idx, rateToUse) {
+      if (isCancelled || idx >= speechQueue.length) {
+        stopAllAudio();
+        return;
+      }
+      queueIndex = idx;
+      const chunkText = speechQueue[idx];
+
+      if ('speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(chunkText);
+        u.lang = 'zh-CN';
+        u.rate = rateToUse;
+        u.pitch = 1.0;
+        const voice = bestZhVoice || findBestMandarinVoice();
+        if (voice) {
+          u.voice = voice;
+          u.lang = voice.lang || 'zh-CN';
+        }
+        u.onend = () => {
+          if (!isCancelled) playNextChunk(idx + 1, rateToUse);
+        };
+        u.onerror = () => {
+          if (!isCancelled) playNextChunk(idx + 1, rateToUse);
+        };
+        window.speechSynthesis.resume();
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function speakMandarinText(text, customRate) {
+      if (!text) return;
+      stopAllAudio();
+      isCancelled = false;
+      const rateToUse = customRate !== undefined && customRate !== null ? customRate : speechRate;
+
+      // Split into natural Chinese clauses so TTS never chokes on long paragraphs
+      const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const chunks = [];
+      rawLines.forEach(line => {
+        const parts = line.match(/[^。！？；!?]+[。！？；!?”]*/g) || [line];
+        parts.forEach(p => { if (p.trim()) chunks.push(p.trim()); });
+      });
+
+      if (chunks.length === 0) return;
+      speechQueue = chunks;
+      audioState = 'playing';
+      syncAudioUI();
+
+      // Important 60ms delay after cancel() so Chrome/Safari/Edge don't cancel the new utterance
+      setTimeout(() => {
+        if (!isCancelled) {
+          playNextChunk(0, rateToUse);
+        }
+      }, 60);
+    }
+
+    // =========================================================================
+    // SEGMENTATION & READER RENDERING
+    // =========================================================================
+    function getActiveArticle() {
+      return ARTICLES.find(a => a.id === activeArticleId) || ARTICLES[0];
+    }
+
+    function segmentLine(line, notesMap) {
+      const allKeys = Array.from(new Set([...Object.keys(notesMap || {}), ...Object.keys(DICT)])).sort((a, b) => b.length - a.length);
+      const tokens = [];
+      let i = 0;
+      while (i < line.length) {
+        const ch = line[i];
+        if (/\s/.test(ch)) {
+          tokens.push({ text: ch, isWord: false });
+          i++;
+          continue;
+        }
+        const dateMatch = line.slice(i).match(/^\d{4}年\d{1,2}月\d{1,2}日/);
+        if (dateMatch) {
+          tokens.push({ text: dateMatch[0], isWord: true });
+          i += dateMatch[0].length;
+          continue;
+        }
+        if (/[\u4e00-\u9fff]/.test(ch)) {
+          let matched = null;
+          for (const k of allKeys) {
+            if (k.length > 1 && line.startsWith(k, i)) { matched = k; break; }
+          }
+          if (matched) {
+            tokens.push({ text: matched, isWord: true });
+            i += matched.length;
+            continue;
+          }
+          tokens.push({ text: ch, isWord: true });
+          i++;
+          continue;
+        }
+        if (/[a-zA-Z0-9@._-]/.test(ch)) {
+          let j = i + 1;
+          while (j < line.length && /[a-zA-Z0-9@._-]/.test(line[j])) j++;
+          tokens.push({ text: line.slice(i, j), isWord: false });
+          i = j;
+          continue;
+        }
+        tokens.push({ text: ch, isWord: false });
+        i++;
+      }
+      return tokens;
+    }
+
+    function renderArticle() {
+      const art = getActiveArticle();
+      document.getElementById('art-level').textContent = art.level;
+      document.getElementById('art-category').textContent = art.category || 'Mandarin Reading';
+      document.getElementById('art-meta').textContent = '⏱ ' + art.readTime + ' · ' + art.content.replace(/\s+/g, '').length + ' 汉字';
+      document.getElementById('art-title').textContent = art.title;
+
+      const structWrap = document.getElementById('letter-structure-toggle-wrap');
+      structWrap.style.display = art.id === 'text-5-1' ? 'flex' : 'none';
+
+      const container = document.getElementById('reader-paragraphs');
+      container.innerHTML = '';
+
+      const lines = art.content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const notesMap = art.teacherNotes || {};
+      const sizeClass = fontSize === 'base' ? 'text-lg leading-relaxed' : fontSize === 'lg' ? 'text-xl leading-loose' : 'text-2xl leading-[2.2]';
+
+      lines.forEach((line, lIdx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'relative group';
+
+        const isSalutation = lIdx === 0 && (line.endsWith('：') || line.endsWith(':'));
+        const isGreeting = lIdx === 1 && line.length <= 6;
+        const isWishStart = line === '祝' || line.startsWith('祝 ');
+        const isWishEnd = line === '好！' || line === '好!';
+        const isSignature = line === '大卫' || /^\d{4}年\d{1,2}月\d{1,2}日$/.test(line);
+
+        let layoutClass = 'mb-5 indent-8';
+        let badge = null;
+
+        if (isSalutation) {
+          layoutClass = 'mb-1 indent-0 font-semibold';
+          if (showStructure && art.id === 'text-5-1') badge = { text: 'Salutation (称呼 - Note the colon ：)', cls: 'bg-amber-100 text-amber-800 border-amber-300' };
+        } else if (isGreeting) {
+          layoutClass = 'mb-5 indent-8';
+        } else if (isWishStart) {
+          layoutClass = 'mt-4 mb-1 indent-8 font-medium';
+          if (showStructure && art.id === 'text-5-1') badge = { text: 'Closing Wishes (祝语 - Two lines)', cls: 'bg-purple-100 text-purple-800 border-purple-300' };
+        } else if (isWishEnd) {
+          layoutClass = 'mb-6 indent-0 font-medium';
+        } else if (isSignature) {
+          layoutClass = 'mb-1 text-right indent-0 pr-4 font-medium';
+          if (line.includes('年') && showStructure && art.id === 'text-5-1') badge = { text: 'Signature & Date (Bottom right: Year-Month-Day)', cls: 'bg-emerald-100 text-emerald-800 border-emerald-300' };
+        } else if (lIdx === 2 && showStructure && art.id === 'text-5-1') {
+          badge = { text: 'Opening (开头)', cls: 'bg-sky-100 text-sky-800 border-sky-300' };
+        } else if (lIdx === 3 && showStructure && art.id === 'text-5-1') {
+          badge = { text: 'Body (正文)', cls: 'bg-indigo-100 text-indigo-800 border-indigo-300' };
+        } else if (line.startsWith('我在北京的电话号码') && showStructure && art.id === 'text-5-1') {
+          badge = { text: 'Ending (结尾)', cls: 'bg-rose-100 text-rose-800 border-rose-300' };
+        }
+
+        if (badge) {
+          const bEl = document.createElement('div');
+          bEl.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border mb-1.5 ' + badge.cls;
+          bEl.textContent = '📌 ' + badge.text;
+          wrap.appendChild(bEl);
+        }
+
+        const p = document.createElement('p');
+        p.className = layoutClass + ' ' + sizeClass;
+
+        segmentLine(line, notesMap).forEach(tok => {
+          const span = document.createElement('span');
+          span.textContent = tok.text;
+          if (tok.isWord) {
+            const isSaved = savedVocab.some(v => v.word === tok.text);
+            const hasNote = Boolean(notesMap[tok.text]);
+            span.className = 'cursor-pointer rounded-md px-0.5 mx-[0.5px] transition-all duration-150 inline-block ' +
+              (isSaved
+                ? 'bg-amber-200/80 text-amber-950 border-b-2 border-amber-500'
+                : hasNote && highlightNotes
+                ? 'bg-emerald-100/90 border-b-2 border-dashed border-emerald-600'
+                : 'hover:bg-indigo-100 hover:text-indigo-700');
+            span.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openPopupForText(tok.text, e.currentTarget.getBoundingClientRect(), line);
+            });
+          }
+          p.appendChild(span);
+        });
+
+        const lineAudioBtn = document.createElement('button');
+        lineAudioBtn.className = 'opacity-0 group-hover:opacity-100 transition-opacity ml-2 px-1.5 py-0.5 rounded-full bg-slate-200/70 text-slate-600 hover:text-indigo-600 text-xs align-middle cursor-pointer';
+        lineAudioBtn.textContent = '🔊';
+        lineAudioBtn.title = 'Listen to this line in Mandarin';
+        lineAudioBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speakMandarinText(line, speechRate);
+        });
+        p.appendChild(lineAudioBtn);
+
+        wrap.appendChild(p);
+        container.appendChild(wrap);
+      });
+
+      // Render Teacher's Key Notes Footer
+      const footer = document.getElementById('teacher-notes-footer');
+      const noteEntries = Object.entries(notesMap);
+      if (noteEntries.length === 0) {
+        footer.innerHTML = '';
+      } else {
+        footer.innerHTML = '<h3 class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-3">👩‍🏫 Teacher's Key Vocabulary &amp; Letter Format Notes (重点词汇与书信格式提示)</h3><div id="notes-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>';
+        const grid = document.getElementById('notes-grid');
+        noteEntries.forEach(([phrase, note]) => {
+          const info = DICT[phrase];
+          const card = document.createElement('div');
+          card.className = 'p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/70 text-xs cursor-pointer hover:bg-emerald-100/70 transition-colors';
+          card.innerHTML = '<div class="font-bold text-sm text-emerald-900 flex items-center justify-between"><div><span>' + phrase + '</span>' +
+            (info && info.pinyin ? ' <span class="text-xs font-mono text-emerald-700 font-normal">[' + info.pinyin + ']</span>' : '') +
+            '</div><span>🔊</span></div><div class="text-slate-700 mt-1 leading-relaxed">' + note + '</div>';
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openPopupForText(phrase, card.getBoundingClientRect(), phrase);
+          });
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    // =========================================================================
+    // POP-UP CHINESE-TO-ENGLISH DICTIONARY
+    // =========================================================================
+    function openPopupForText(rawText, rect, contextSentence) {
+      const word = (rawText || '').trim();
+      if (!word || word.length > 80) return;
+      currentPopupWord = word;
+
+      const art = getActiveArticle();
+      const tNote = (art.teacherNotes || {})[word] || '';
+      const local = DICT[word];
+      const chars = [...word].filter(c => /[\u4e00-\u9fff]/.test(c));
+      const breakdown = [];
+      chars.forEach(c => {
+        if (DICT[c]) breakdown.push({ char: c, pinyin: DICT[c].pinyin, en: DICT[c].en.split(';')[0] });
+      });
+
+      const assembledPinyin = local ? local.pinyin : breakdown.map(b => b.pinyin).join(' ');
+      const pos = local ? local.pos : (word.length > 2 ? 'phrase' : 'word');
+      const initialEn = local ? local.en : (tNote || (breakdown.length > 0 ? breakdown.map(b => b.char + ': ' + b.en).join(' | ') : 'Looking up English meaning...'));
+      const ex = local ? local.ex : '';
+
+      const pop = document.getElementById('popup-dict');
+      pop.classList.remove('hidden');
+
+      const vw = window.innerWidth;
+      const x = Math.max(180, Math.min(vw - 180, rect.left + rect.width / 2));
+      const showBelow = rect.top < 250;
+      pop.style.left = x + 'px';
+      pop.style.top = (showBelow ? rect.bottom + 10 : rect.top - 10) + 'px';
+      pop.style.transform = showBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)';
+
+      const isSaved = savedVocab.some(v => v.word === word);
+
+      pop.innerHTML = `
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <h4 class="font-bold text-2xl text-indigo-600 leading-tight mr-1" id="pop-word-title"></h4>
+              <button id="pop-audio-normal" class="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[11px] font-semibold cursor-pointer">🔊 ${speechRate}x</button>
+              <button id="pop-audio-slow" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer">🐢 0.6x</button>
+              <button id="pop-audio-stop" class="px-2 py-1 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-[11px] font-semibold cursor-pointer">⏹</button>
+            </div>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="text-sm font-mono font-semibold text-rose-600" id="pop-pinyin"></span>
+              <span class="px-1.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-700 font-medium italic" id="pop-pos"></span>
+            </div>
+          </div>
+          <button id="pop-close-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
+        </div>
+        <div class="mt-2.5 pt-2.5 border-t border-slate-100">
+          <div class="text-sm font-semibold text-slate-800 leading-snug" id="pop-en"></div>
+          <p class="mt-1.5 text-xs text-slate-500 leading-relaxed" id="pop-ex"></p>
+        </div>
+        <div id="pop-breakdown-box"></div>
+        <div id="pop-note-box"></div>
+        <div class="mt-3 pt-2.5 border-t border-slate-100">
+          <button id="pop-save-btn" class="w-full py-2 px-3 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${isSaved ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}">
+            ${isSaved ? '✓ Saved in Vocab (已存生词本)' : '+ Save to Vocab (加入生词本)'}
+          </button>
+        </div>
+      `;
+
+      document.getElementById('pop-word-title').textContent = word;
+      document.getElementById('pop-pinyin').textContent = assembledPinyin;
+      document.getElementById('pop-pos').textContent = pos;
+      document.getElementById('pop-en').textContent = initialEn;
+      document.getElementById('pop-ex').textContent = ex ? '💡 ' + ex : '';
+
+      if (breakdown.length > 1) {
+        const bBox = document.getElementById('pop-breakdown-box');
+        bBox.className = 'mt-2.5 pt-2 border-t border-slate-100';
+        bBox.innerHTML = '<div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Character Breakdown (字义分解):</div><div class="flex flex-wrap gap-1.5">' +
+          breakdown.map(b => '<div class="px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-[11px]"><span class="font-bold text-indigo-600">' + b.char + '</span> <span class="text-slate-400">(' + b.pinyin + ')</span> <span class="text-slate-700">' + b.en + '</span></div>').join('') +
+          '</div>';
+      }
+
+      if (tNote) {
+        const nBox = document.getElementById('pop-note-box');
+        nBox.className = 'mt-2.5 p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-950';
+        nBox.innerHTML = '<b class="text-emerald-800">👩‍🏫 Teacher's Note: </b>' + tNote;
+      }
+
+      document.getElementById('pop-audio-normal').addEventListener('click', (e) => {
+        e.stopPropagation();
+        speakMandarinText(word, speechRate);
+      });
+      document.getElementById('pop-audio-slow').addEventListener('click', (e) => {
+        e.stopPropagation();
+        speakMandarinText(word, 0.6);
+      });
+      document.getElementById('pop-audio-stop').addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopAllAudio();
+      });
+      document.getElementById('pop-close-btn').addEventListener('click', () => {
+        pop.classList.add('hidden');
+      });
+      document.getElementById('pop-save-btn').addEventListener('click', () => {
+        const existingIdx = savedVocab.findIndex(v => v.word === word);
+        if (existingIdx >= 0) {
+          savedVocab.splice(existingIdx, 1);
+        } else {
+          savedVocab.unshift({
+            word,
+            pinyin: assembledPinyin,
+            pos,
+            en: document.getElementById('pop-en').textContent,
+            context: contextSentence || ''
+          });
+        }
+        renderArticle();
+        renderSidebar();
+        pop.classList.add('hidden');
+      });
+
+      // Live cloud lookup if not in built-in dictionary
+      if (!local) {
+        fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(word) + '&langpair=zh-CN|en')
+          .then(r => r.json())
+          .then(data => {
+            const tr = data && data.responseData && data.responseData.translatedText;
+            const enEl = document.getElementById('pop-en');
+            if (tr && enEl && currentPopupWord === word) {
+              enEl.textContent = tr;
+            }
+          })
+          .catch(() => {});
+      }
+    }
+
+    // =========================================================================
+    // 4-TAB SIDEBAR RENDERING
+    // =========================================================================
+    function renderSidebar() {
+      document.getElementById('vocab-count').textContent = savedVocab.length;
+      ['vocab', 'structure', 'questions', 'library'].forEach(t => {
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === activeTab) {
+          btn.className = 'py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer';
+        } else {
+          btn.className = 'py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer';
+        }
+      });
+
+      const box = document.getElementById('sidebar-tab-content');
+      const art = getActiveArticle();
+
+      if (activeTab === 'vocab') {
+        const filtered = savedVocab.filter(v =>
+          v.word.includes(vocabSearch) ||
+          (v.pinyin || '').toLowerCase().includes(vocabSearch.toLowerCase()) ||
+          (v.en || '').toLowerCase().includes(vocabSearch.toLowerCase())
+        );
+
+        box.innerHTML = `
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <input id="vocab-search-input" type="text" placeholder="Search saved Hanzi, Pinyin, or English..." value="${vocabSearch}" class="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button id="export-csv-btn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 cursor-pointer">⬇ Export CSV</button>
+          </div>
+          <div id="vocab-items-list" class="space-y-2.5 overflow-y-auto max-h-[520px] pr-1"></div>
+        `;
+
+        document.getElementById('vocab-search-input').addEventListener('input', (e) => {
+          vocabSearch = e.target.value;
+          renderSidebar();
+          const input = document.getElementById('vocab-search-input');
+          input.focus();
+          input.setSelectionRange(vocabSearch.length, vocabSearch.length);
+        });
+
+        document.getElementById('export-csv-btn').addEventListener('click', () => {
+          if (savedVocab.length === 0) return;
+          const headers = ['Chinese Word', 'Pinyin', 'Part of Speech', 'English Meaning', 'Context Sentence'];
+          const rows = savedVocab.map(v => [v.word, v.pinyin || '', v.pos || '', v.en || '', v.context || ''].map(s => '"' + String(s).replace(/"/g, '""') + '"').join(','));
+          const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'Mandarin_Vocab.csv';
+          a.click();
+        });
+
+        const listEl = document.getElementById('vocab-items-list');
+        if (filtered.length === 0) {
+          listEl.innerHTML = '<div class="text-center p-6 text-slate-400 text-xs">No saved vocabulary yet. Click any Chinese word while reading and click "+ Save to Vocab"!</div>';
+        } else {
+          filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'p-3 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 transition-all';
+            card.innerHTML = `
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-baseline gap-2 flex-wrap">
+                  <span class="font-bold text-base text-indigo-700">${item.word}</span>
+                  <span class="text-xs text-rose-600 font-mono font-medium">${item.pinyin || ''}</span>
+                  ${item.pos ? '<span class="text-[11px] italic px-1.5 rounded bg-slate-100 text-slate-600">' + item.pos + '</span>' : ''}
+                </div>
+                <div class="flex items-center gap-1">
+                  <button class="v-speak p-1 rounded hover:bg-slate-100 text-slate-500 cursor-pointer" title="Pronounce">🔊</button>
+                  <button class="v-del p-1 rounded hover:bg-rose-50 text-slate-400 hover:text-rose-600 cursor-pointer" title="Remove">🗑</button>
+                </div>
+              </div>
+              <p class="text-xs font-medium text-slate-800 mt-1">${item.en}</p>
+              ${item.context ? '<p class="text-[11px] text-slate-500 mt-1.5 border-l-2 border-indigo-300 pl-2">例: "' + item.context + '"</p>' : ''}
+            `;
+            card.querySelector('.v-speak').addEventListener('click', () => speakMandarinText(item.word, speechRate));
+            card.querySelector('.v-del').addEventListener('click', () => {
+              savedVocab = savedVocab.filter(v => v.word !== item.word);
+              renderArticle();
+              renderSidebar();
+            });
+            listEl.appendChild(card);
+          });
+        }
+      } else if (activeTab === 'structure') {
+        const list = art.structureAnnotations || [];
+        box.innerHTML = '<h3 class="text-sm font-bold mb-1">Text Type &amp; Conceptual Understanding</h3><p class="text-xs text-slate-500 mb-3">Key structural conventions of a Chinese Informal Letter (中文私人书信格式):</p><div class="space-y-3">' +
+          (list.length > 0
+            ? list.map((it, i) => '<div class="p-3 rounded-xl bg-white border border-slate-200 space-y-1"><div class="text-xs font-bold text-indigo-600">' + (i + 1) + '. ' + it.part + '</div><div class="text-xs font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">' + it.lines + '</div><p class="text-xs text-slate-600 leading-relaxed">' + it.note + '</p></div>').join('')
+            : '<div class="p-4 rounded-xl bg-slate-50 text-xs text-slate-500">Select Text 5.1 to view the Chinese Informal Letter structure breakdown.</div>') +
+          '</div>';
+      } else if (activeTab === 'questions') {
+        box.innerHTML = '<h3 class="text-sm font-bold mb-1">Reading Comprehension (阅读理解问题)</h3><p class="text-xs text-slate-500 mb-3">Answer the following questions based on the Mandarin reading passage:</p><div class="space-y-3">' +
+          (art.questions || []).map((q, i) => '<div class="p-3.5 rounded-xl bg-white border border-slate-200"><div class="text-xs sm:text-sm font-medium text-slate-800 mb-2">' + (i + 1) + '. ' + q + '</div><textarea rows="2" placeholder="Type your answer in Chinese or English..." class="w-full text-xs p-2 rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea></div>').join('') +
+          '</div>';
+      } else if (activeTab === 'library') {
+        box.innerHTML = '<div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Mandarin Reading Passages</div><div id="lib-list" class="space-y-2.5"></div>';
+        const libList = document.getElementById('lib-list');
+        ARTICLES.forEach(a => {
+          const item = document.createElement('div');
+          item.className = 'p-3 rounded-xl border transition-all cursor-pointer ' + (a.id === activeArticleId ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-200 bg-white hover:border-indigo-300');
+          item.innerHTML = '<div class="flex items-center justify-between"><span class="text-[11px] font-semibold text-indigo-600">' + a.level + '</span><span class="text-[11px] text-slate-400">' + a.readTime + '</span></div><h4 class="font-bold text-sm mt-0.5 text-slate-900">' + a.title + '</h4>';
+          item.addEventListener('click', () => {
+            activeArticleId = a.id;
+            document.getElementById('article-select').value = a.id;
+            renderArticle();
+            renderSidebar();
+          });
+          libList.appendChild(item);
+        });
+      }
+    }
+
+    // =========================================================================
+    // INITIALIZE EVENT LISTENERS
+    // =========================================================================
+    const selEl = document.getElementById('article-select');
+    ARTICLES.forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = a.id;
+      opt.textContent = a.title;
+      selEl.appendChild(opt);
+    });
+    selEl.addEventListener('change', (e) => {
+      activeArticleId = e.target.value;
+      document.getElementById('popup-dict').classList.add('hidden');
+      renderArticle();
+      renderSidebar();
+    });
+
+    document.getElementById('read-all-btn').addEventListener('click', () => {
+      speakMandarinText(getActiveArticle().content, speechRate);
+    });
+    document.getElementById('pause-resume-btn').addEventListener('click', togglePauseResume);
+    document.getElementById('stop-audio-btn').addEventListener('click', stopAllAudio);
+
+    document.getElementById('speed-select').addEventListener('change', (e) => {
+      speechRate = parseFloat(e.target.value);
+      if (audioState !== 'idle' && speechQueue.length > 0) {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        isCancelled = false;
+        audioState = 'playing';
+        syncAudioUI();
+        setTimeout(() => { if (!isCancelled) playNextChunk(queueIndex, speechRate); }, 60);
+      }
+    });
+
+    // Theme switching
+    function setThemeMode(mode) {
+      document.body.className = 'theme-' + mode + ' min-h-screen flex flex-col transition-colors duration-200';
+      ['light', 'paper', 'dark'].forEach(m => {
+        const b = document.getElementById('theme-' + m + '-btn');
+        b.className = 'px-2 py-1 rounded-md cursor-pointer ' + (m === mode ? 'bg-white shadow-xs' : '');
+      });
+    }
+    document.getElementById('theme-light-btn').addEventListener('click', () => setThemeMode('light'));
+    document.getElementById('theme-paper-btn').addEventListener('click', () => setThemeMode('paper'));
+    document.getElementById('theme-dark-btn').addEventListener('click', () => setThemeMode('dark'));
+
+    // Font size switching
+    ['base', 'lg', 'xl'].forEach(sz => {
+      document.getElementById('font-' + sz + '-btn').addEventListener('click', () => {
+        fontSize = sz;
+        ['base', 'lg', 'xl'].forEach(s => {
+          document.getElementById('font-' + s + '-btn').className = 'px-2 py-1 rounded-md cursor-pointer ' + (s === sz ? 'bg-white shadow-xs' : 'opacity-60');
+        });
+        renderArticle();
+      });
+    });
+
+    document.getElementById('toggle-structure').addEventListener('change', (e) => {
+      showStructure = e.target.checked;
+      renderArticle();
+    });
+    document.getElementById('toggle-notes').addEventListener('change', (e) => {
+      highlightNotes = e.target.checked;
+      renderArticle();
+    });
+
+    ['vocab', 'structure', 'questions', 'library'].forEach(t => {
+      document.getElementById('tab-btn-' + t).addEventListener('click', () => {
+        activeTab = t;
+        renderSidebar();
+      });
+    });
+
+    // Highlight phrase lookup
+    document.getElementById('reader-container').addEventListener('mouseup', () => {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed) return;
+      const txt = sel.toString().trim();
+      if (txt.length >= 2) {
+        const rect = sel.getRangeAt(0).getBoundingClientRect();
+        if (rect.width > 0) openPopupForText(txt, rect, txt);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      const pop = document.getElementById('popup-dict');
+      if (!pop.contains(e.target)) pop.classList.add('hidden');
+    });
+
+    renderArticle();
+    renderSidebar();
+  </script>
+</body>
+</html>

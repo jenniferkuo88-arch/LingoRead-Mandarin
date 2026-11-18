@@ -8,6 +8,7 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      margin: 0;
     }
     .theme-paper { background-color: #f4f1ea; color: #1c1917; }
     .theme-paper .reader-card { background-color: #fbf9f5; border-color: #e7e5e4; color: #292524; }
@@ -57,25 +58,24 @@
       <div class="sidebar-card rounded-xl border p-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 flex-1 min-w-[220px]">
           <span class="text-indigo-600 font-bold">📖</span>
-          <select id="article-select" class="w-full text-sm font-medium bg-transparent border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+          <select id="article-select" class="w-full text-sm font-medium bg-transparent border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="text-5-1">Text 5.1: 给杰森的一封信 (An Informal Letter to Jason)</option>
+          </select>
         </div>
 
         <div class="flex items-center gap-2 flex-wrap">
-          <!-- Theme Buttons -->
           <div class="flex items-center bg-slate-200/70 rounded-lg p-0.5 text-xs">
-            <button id="theme-light-btn" class="px-2 py-1 rounded-md cursor-pointer" title="Light Theme">☀️</button>
-            <button id="theme-paper-btn" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer" title="Warm Paper Theme">☕</button>
-            <button id="theme-dark-btn" class="px-2 py-1 rounded-md cursor-pointer" title="Dark Theme">🌙</button>
+            <button id="theme-light-btn" type="button" class="px-2 py-1 rounded-md cursor-pointer" title="Light Theme">☀️</button>
+            <button id="theme-paper-btn" type="button" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer" title="Warm Paper Theme">☕</button>
+            <button id="theme-dark-btn" type="button" class="px-2 py-1 rounded-md cursor-pointer" title="Dark Theme">🌙</button>
           </div>
 
-          <!-- Font Size Buttons -->
           <div class="flex items-center bg-slate-200/70 rounded-lg p-0.5 text-xs font-semibold text-slate-800">
-            <button id="font-base-btn" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字-</button>
-            <button id="font-lg-btn" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字</button>
-            <button id="font-xl-btn" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer">字+</button>
+            <button id="font-base-btn" type="button" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字-</button>
+            <button id="font-lg-btn" type="button" class="px-2 py-1 rounded-md opacity-60 cursor-pointer">字</button>
+            <button id="font-xl-btn" type="button" class="px-2 py-1 rounded-md bg-white shadow-xs cursor-pointer">字+</button>
           </div>
 
-          <!-- Speed Selector -->
           <div class="flex items-center gap-1 bg-slate-200/70 rounded-lg px-2 py-1 text-xs text-slate-800">
             <span class="text-slate-500 font-medium">Speed:</span>
             <select id="speed-select" class="bg-transparent font-bold text-indigo-700 focus:outline-none cursor-pointer">
@@ -88,13 +88,12 @@
             </select>
           </div>
 
-          <!-- Read Aloud / Pause / Stop Buttons -->
-          <button id="read-all-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-colors cursor-pointer">
+          <button id="read-all-btn" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-colors cursor-pointer">
             <span>🔊 朗读全文 (Read Aloud)</span>
           </button>
           <div id="audio-active-controls" class="hidden items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded-lg">
-            <button id="pause-resume-btn" class="px-2 py-1 rounded-md text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer">⏸ Pause</button>
-            <button id="stop-audio-btn" class="px-2 py-1 rounded-md text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white cursor-pointer">⏹ Stop</button>
+            <button id="pause-resume-btn" type="button" class="px-2 py-1 rounded-md text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer">⏸ Pause</button>
+            <button id="stop-audio-btn" type="button" class="px-2 py-1 rounded-md text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white cursor-pointer">⏹ Stop</button>
           </div>
         </div>
       </div>
@@ -103,11 +102,11 @@
       <article id="reader-container" class="reader-card rounded-2xl border p-6 sm:p-10 shadow-sm transition-colors relative">
         <div class="border-b border-slate-200/80 pb-5 mb-6">
           <div class="flex flex-wrap items-center gap-2 mb-2.5">
-            <span id="art-level" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800"></span>
-            <span id="art-category" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700"></span>
-            <span id="art-meta" class="text-xs text-slate-500 ml-auto"></span>
+            <span id="art-level" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">IB / Intermediate Mandarin</span>
+            <span id="art-category" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">书信格式 · Informal Letter</span>
+            <span id="art-meta" class="text-xs text-slate-500 ml-auto">⏱ 4 min read</span>
           </div>
-          <h2 id="art-title" class="text-2xl sm:text-3xl font-bold tracking-tight leading-snug"></h2>
+          <h2 id="art-title" class="text-2xl sm:text-3xl font-bold tracking-tight leading-snug">Text 5.1: 给杰森的一封信 (An Informal Letter to Jason)</h2>
 
           <div class="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 bg-slate-100/80 px-3.5 py-2.5 rounded-xl">
             <div class="flex items-center gap-2">
@@ -116,7 +115,7 @@
             <div class="flex items-center gap-4 flex-wrap">
               <label id="letter-structure-toggle-wrap" class="flex items-center gap-1.5 cursor-pointer select-none">
                 <input type="checkbox" id="toggle-structure" checked class="rounded text-indigo-600" />
-                <span class="text-indigo-700 font-semibold">Show Letter Structure (书信格式��析)</span>
+                <span class="text-indigo-700 font-semibold">Show Letter Structure (书信格式解析)</span>
               </label>
               <label class="flex items-center gap-1.5 cursor-pointer select-none">
                 <input type="checkbox" id="toggle-notes" checked class="rounded text-indigo-600" />
@@ -127,7 +126,17 @@
         </div>
 
         <!-- Paragraphs -->
-        <div id="reader-paragraphs" class="tracking-wide"></div>
+        <div id="reader-paragraphs" class="tracking-wide"><p class="mb-5 indent-8 text-2xl leading-[2.2]">亲爱的杰森：</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">你好！</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">最近怎么样？忙不忙？对不起，一直都没跟你联系，因为我每天上很多课，还要参加课外活动，从早忙到晚。我的新学校叫北京国际学校。我非常喜欢这个学校，也交了不少新朋友。</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">因为我的家离学校很远，所以我每天早上六点起床。起床以后我先刷牙、洗脸，然后出去遛小龙。七点我坐校车去学校，从我家到学校要一个小时。我们上午有三节课，每节课八十分钟。第一节课以后有二十分钟的课间休息，我休息的时候经常去学校的咖啡厅吃早饭。在咖啡厅我可以看到那个我喜欢的日本女孩，她每天都在那儿喝咖啡。中午我跟朋友们一起在学校餐厅吃午饭。下午我只有一节课，三点放学。</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">放学以后，我有很多课外活动，比如拉小提琴、打羽毛球等等。我的社区服务是去医院照顾病人。我每天晚上差不多六点到家，七点和爸爸妈妈一起吃晚饭。晚饭以后，我写作业。我们的作业很多，所以我现在没时间看电视、玩电脑游戏。</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">我在北京的电话号码是13911677999，新的电子邮件是david0214@bjis.edu.cn。对了，我也开始用微信了，真的很好用！</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">你的新学年怎么样？写信告诉我吧！</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">祝</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">好！</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">大卫</p>
+<p class="mb-5 indent-8 text-2xl leading-[2.2]">2020年10月23日</p></div>
 
         <!-- Teacher Notes Footer -->
         <div id="teacher-notes-footer" class="mt-8 pt-6 border-t border-slate-200/80"></div>
@@ -137,23 +146,20 @@
     <!-- RIGHT COLUMN: 4-TAB SIDEBAR (4 cols) -->
     <div class="lg:col-span-4 flex flex-col gap-4">
       <div class="sidebar-card rounded-2xl border overflow-hidden flex flex-col h-full min-h-[540px]">
-        <!-- Tabs -->
         <div class="grid grid-cols-4 border-b border-slate-200 bg-slate-100/60 p-1 gap-0.5 text-slate-700">
-          <button id="tab-btn-vocab" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer">
-            🔖 Vocab (<span id="vocab-count">0</span>)
+          <button id="tab-btn-vocab" type="button" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer">
+            🔖 Vocab (<span id="vocab-count">3</span>)
           </button>
-          <button id="tab-btn-structure" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+          <button id="tab-btn-structure" type="button" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
             📐 Text Type
           </button>
-          <button id="tab-btn-questions" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+          <button id="tab-btn-questions" type="button" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
             ❓ Questions
           </button>
-          <button id="tab-btn-library" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
+          <button id="tab-btn-library" type="button" class="py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer">
             📚 Texts
           </button>
         </div>
-
-        <!-- Tab Content Container -->
         <div id="sidebar-tab-content" class="p-4 flex-1 flex flex-col overflow-y-auto"></div>
       </div>
     </div>
@@ -163,68 +169,77 @@
   <div id="popup-dict" class="hidden fixed z-50 w-[325px] sm:w-[345px] rounded-2xl bg-white text-slate-900 shadow-2xl border border-slate-200 p-4"></div>
 
   <script>
-    const DICT = {"亲爱的":{"pinyin":"qīn'ài de","pos":"adj.","en":"dear; beloved (used in salutations)","ex":"亲爱的杰森 (Dear Jason) — Used in informal letters to address someone close."},"亲爱":{"pinyin":"qīn'ài","pos":"adj.","en":"dear; beloved","ex":"亲爱的朋友 (Dear friend)"},"杰森":{"pinyin":"Jiésēn","pos":"proper n.","en":"Jason (person's name)","ex":"亲爱的杰森： (Dear Jason:)"},"你好":{"pinyin":"nǐ hǎo","pos":"phrase","en":"hello; how do you do","ex":"你好！很高兴认识你。 (Hello! Nice to meet you.)"},"最近":{"pinyin":"zuìjìn","pos":"adv./n.","en":"recently; lately; these days","ex":"你最近怎么样？ (How have you been lately?)"},"怎么样":{"pinyin":"zěnmeyàng","pos":"pron.","en":"how; how about; how are things","ex":"你的新学校怎么样？ (How is your new school?)"},"忙不忙":{"pinyin":"máng bu máng","pos":"phrase","en":"busy or not? Are you busy?","ex":"你最近忙不忙？ (Have you been busy lately?)"},"忙":{"pinyin":"máng","pos":"adj./v.","en":"busy; hurriedly","ex":"我每天都很忙。 (I am very busy every day.)"},"对不起":{"pinyin":"duìbuqǐ","pos":"phrase","en":"I'm sorry; excuse me; pardon me","ex":"对不起，我来晚了。 (I'm sorry, I'm late.)"},"一直":{"pinyin":"yīzhí","pos":"adv.","en":"always; all along; continuously","ex":"一直都没跟你联系 (haven't contacted you all this time)"},"都":{"pinyin":"dōu","pos":"adv.","en":"all; both; even; already","ex":"她每天都在那儿喝咖啡。"},"没":{"pinyin":"méi","pos":"adv.","en":"not; have not (negates past actions or possession)","ex":"我现在没时间看电视。"},"跟":{"pinyin":"gēn","pos":"prep./conj.","en":"with; to; and","ex":"我跟朋友们一起吃午饭。 (I eat lunch with my friends.)"},"你":{"pinyin":"nǐ","pos":"pron.","en":"you","ex":"写信告诉我吧！"},"联系":{"pinyin":"liánxì","pos":"v./n.","en":"to contact; to get in touch; connection","ex":"一直都没跟你联系 (haven't been in touch with you)"},"因为":{"pinyin":"yīnwèi","pos":"conj.","en":"because; since","ex":"因为……所以…… (because... therefore...)"},"我":{"pinyin":"wǒ","pos":"pron.","en":"I; me","ex":"我是北京国际学校的学生。"},"每天":{"pinyin":"měitiān","pos":"n./adv.","en":"every day; daily","ex":"我每天早上六点起床。 (I get up at 6 AM every day.)"},"上":{"pinyin":"shàng","pos":"v./prep.","en":"to attend (class/work); to go up; on","ex":"每天上很多课 (take/attend many classes every day)"},"很多":{"pinyin":"hěn duō","pos":"adj.","en":"many; a lot of; much","ex":"我有很多课外活动。 (I have many extracurricular activities.)"},"课":{"pinyin":"kè","pos":"n.","en":"class; lesson; course; subject","ex":"我们上午有三节课。 (We have three classes in the morning.)"},"还要":{"pinyin":"hái yào","pos":"adv.+v.","en":"also need to; still have to; in addition","ex":"还要参加课外活动 (also have to participate in extracurricular activities)"},"参加":{"pinyin":"cānjiā","pos":"v.","en":"to participate in; to join; to attend","ex":"参加课外活动 (participate in extracurricular activities)"},"课外活动":{"pinyin":"kèwài huódòng","pos":"n.","en":"extracurricular activities; after-school activities","ex":"放学以后，我有很多课外活动。"},"课外":{"pinyin":"kèwài","pos":"adj./n.","en":"extracurricular; outside class; after school","ex":"课外阅读 (extracurricular reading)"},"活动":{"pinyin":"huódòng","pos":"n./v.","en":"activity; event; to exercise","ex":"学校有很多体育活动。"},"从早忙到晚":{"pinyin":"cóng zǎo máng dào wǎn","pos":"phrase","en":"busy from morning till night","ex":"我每天从早忙到晚。 (I'm busy from morning till night every day.)"},"从":{"pinyin":"cóng","pos":"prep.","en":"from; since","ex":"从我家到学校要一个小时。 (From my home to school takes one hour.)"},"早":{"pinyin":"zǎo","pos":"n./adj.","en":"morning; early","ex":"从早到晚 (from morning to night)"},"到":{"pinyin":"dào","pos":"v./prep.","en":"to arrive; to reach; until; to","ex":"差不多六点到家 (arrive home at almost 6 o'clock)"},"晚":{"pinyin":"wǎn","pos":"n./adj.","en":"evening; night; late","ex":"从早忙到晚"},"我的":{"pinyin":"wǒ de","pos":"pron.","en":"my; mine","ex":"我的新学校 (my new school)"},"的":{"pinyin":"de","pos":"part.","en":"possessive or modifying particle ('s / of)","ex":"学校的咖啡厅 (the school's cafe)"},"新":{"pinyin":"xīn","pos":"adj.","en":"new; fresh","ex":"新学校 (new school) / 新朋友 (new friends)"},"学校":{"pinyin":"xuéxiào","pos":"n.","en":"school; campus","ex":"我非常喜欢这个学校。"},"叫":{"pinyin":"jiào","pos":"v.","en":"to be called; to call; to name","ex":"我的新学校叫北京国际学校。"},"北京国际学校":{"pinyin":"Běijīng Guójì Xuéxiào","pos":"proper n.","en":"Beijing International School","ex":"我的新学校叫北京国际学校。"},"北京":{"pinyin":"Běijīng","pos":"proper n.","en":"Beijing (capital of China)","ex":"我在北京的电话号码 (my phone number in Beijing)"},"国际":{"pinyin":"guójì","pos":"n./adj.","en":"international","ex":"国际学校 (international school)"},"非常":{"pinyin":"fēicháng","pos":"adv.","en":"very; extremely; extraordinarily","ex":"我非常喜欢这个学校。 (I like this school very much.)"},"喜欢":{"pinyin":"xǐhuan","pos":"v.","en":"to like; to be fond of","ex":"我喜欢的日本女孩 (the Japanese girl I like)"},"这个":{"pinyin":"zhège","pos":"pron.","en":"this; this one","ex":"这个学校 (this school)"},"也":{"pinyin":"yě","pos":"adv.","en":"also; too; as well","ex":"也交了不少新朋友 (also made quite a few new friends)"},"交朋友":{"pinyin":"jiāo péngyou","pos":"v.+o.","en":"to make friends","ex":"交了不少新朋友 (made quite a few new friends)"},"交":{"pinyin":"jiāo","pos":"v.","en":"to make (friends); to hand in; to交","ex":"交朋友 (make friends)"},"了":{"pinyin":"le","pos":"part.","en":"completed action marker / change of state particle","ex":"交了不少新朋友 / 我也开始用微信了"},"不少":{"pinyin":"bù shǎo","pos":"adj.","en":"quite a few; many; not a few","ex":"交了不少新朋友 (made quite a few new friends)"},"朋友":{"pinyin":"péngyou","pos":"n.","en":"friend","ex":"新朋友 (new friend)"},"朋友们":{"pinyin":"péngyoumen","pos":"n.","en":"friends (plural)","ex":"跟朋友们一起吃午饭 (eat lunch together with friends)"},"家":{"pinyin":"jiā","pos":"n.","en":"home; family; house","ex":"我的家离学校很远。 (My home is very far from school.)"},"离":{"pinyin":"lí","pos":"prep.","en":"away from; from (indicating distance or time)","ex":"我家离学校很远。 (A 离 B + adj. = A is [distance] from B)"},"很":{"pinyin":"hěn","pos":"adv.","en":"very; quite","ex":"离学校很远 (very far from school)"},"远":{"pinyin":"yuǎn","pos":"adj.","en":"far; distant","ex":"我家离学校很远。"},"所以":{"pinyin":"suǒyǐ","pos":"conj.","en":"so; therefore; as a result","ex":"因为我的家离学校很远，所以我每天早上六点起床。"},"早上":{"pinyin":"zǎoshang","pos":"n.","en":"early morning","ex":"每天早上六点起床 (get up at 6 o'clock every morning)"},"六点":{"pinyin":"liù diǎn","pos":"n.","en":"6 o'clock","ex":"早上六点起床 / 晚上六点到家"},"点":{"pinyin":"diǎn","pos":"m.","en":"o'clock; hour; point","ex":"七点 (7 o'clock) / 三点 (3 o'clock)"},"起床":{"pinyin":"qǐchuáng","pos":"v.+o.","en":"to get up; to get out of bed","ex":"我每天早上六点起床。"},"以后":{"pinyin":"yǐhòu","pos":"n./prep.","en":"after; afterwards; later","ex":"起床以后 (after getting up) / 放学以后 (after school)"},"先":{"pinyin":"xiān","pos":"adv.","en":"first; in advance; before","ex":"先……，然后…… (first..., and then...)"},"刷牙":{"pinyin":"shuāyá","pos":"v.+o.","en":"to brush one's teeth","ex":"起床以后我先刷牙、洗脸。"},"洗脸":{"pinyin":"xǐliǎn","pos":"v.+o.","en":"to wash one's face","ex":"先刷牙、洗脸 (first brush teeth and wash face)"},"然后":{"pinyin":"ránhòu","pos":"conj.","en":"then; after that; afterwards","ex":"我先刷牙、洗脸，然后出去遛小龙。"},"出去":{"pinyin":"chūqù","pos":"v.","en":"to go out","ex":"出去遛小龙 (go out to walk Xiaolong)"},"遛":{"pinyin":"liù","pos":"v.","en":"to walk (a pet/dog); to stroll","ex":"遛狗 (walk a dog) / 遛小龙 (walk Xiaolong)"},"小龙":{"pinyin":"Xiǎolóng","pos":"proper n.","en":"Xiaolong ('Little Dragon', name of David's pet dog)","ex":"然后出去遛小龙"},"七点":{"pinyin":"qī diǎn","pos":"n.","en":"7 o'clock","ex":"七点我坐校车去学校。"},"坐":{"pinyin":"zuò","pos":"v.","en":"to take / ride (a vehicle); to sit","ex":"坐校车 (take the school bus)"},"校车":{"pinyin":"xiàochē","pos":"n.","en":"school bus","ex":"坐校车去学校 (take the school bus to school)"},"去":{"pinyin":"qù","pos":"v.","en":"to go; to go to","ex":"去学校 (go to school) / 去医院 (go to the hospital)"},"要":{"pinyin":"yào","pos":"v.","en":"to take (time); to need; to want; will","ex":"从我家到学校要一个小时。 (It takes one hour from my home to school.)"},"一个":{"pinyin":"yī gè","pos":"num.+m.","en":"one; a/an","ex":"一个小时 (one hour)"},"小时":{"pinyin":"xiǎoshí","pos":"n.","en":"hour","ex":"一个小时 (one hour)"},"我们":{"pinyin":"wǒmen","pos":"pron.","en":"we; us; our","ex":"我们上午有三节课。"},"上午":{"pinyin":"shàngwǔ","pos":"n.","en":"morning; forenoon (before noon)","ex":"我们上午有三节课。"},"有":{"pinyin":"yǒu","pos":"v.","en":"to have; there is/are","ex":"上午有三节课 (have three classes in the morning)"},"三节":{"pinyin":"sān jié","pos":"num.+m.","en":"three periods (of class)","ex":"三节课 (three classes)"},"节":{"pinyin":"jié","pos":"m.","en":"measure word for class periods or sections","ex":"一节课 (one class period)"},"每":{"pinyin":"měi","pos":"pron.","en":"every; each","ex":"每节课八十分钟 (each class is 80 minutes)"},"八十":{"pinyin":"bāshí","pos":"num.","en":"eighty (80)","ex":"八十分钟 (80 minutes)"},"分钟":{"pinyin":"fēnzhōng","pos":"n.","en":"minute","ex":"二十分钟 (20 minutes)"},"第一":{"pinyin":"dì-yī","pos":"num.","en":"first (1st)","ex":"第一节课以后 (after the first class)"},"二十":{"pinyin":"èrshí","pos":"num.","en":"twenty (20)","ex":"二十分钟的课间休息 (a 20-minute break between classes)"},"课间休息":{"pinyin":"kèjiān xiūxi","pos":"n.","en":"break between classes; recess","ex":"有二十分钟的课间休息"},"课间":{"pinyin":"kèjiān","pos":"n.","en":"interval between classes; recess","ex":"课间休息 (recess / break)"},"休息":{"pinyin":"xiūxi","pos":"v./n.","en":"to rest; to take a break","ex":"我休息的时候 (when I take a break)"},"的时候":{"pinyin":"de shíhou","pos":"phrase","en":"when...; at the time of...","ex":"我休息的时候 (when I am on break)"},"时候":{"pinyin":"shíhou","pos":"n.","en":"time; moment; period","ex":"休息的时候"},"经常":{"pinyin":"jīngcháng","pos":"adv.","en":"often; frequently; regularly","ex":"我经常去学校的咖啡厅吃早饭。"},"咖啡厅":{"pinyin":"kāfēitīng","pos":"n.","en":"cafe; coffee shop","ex":"学校的咖啡厅 (the school cafe)"},"咖啡":{"pinyin":"kāfēi","pos":"n.","en":"coffee","ex":"喝咖啡 (drink coffee)"},"吃早饭":{"pinyin":"chī zǎofàn","pos":"v.+o.","en":"to eat breakfast","ex":"去学校的咖啡厅吃早饭"},"吃":{"pinyin":"chī","pos":"v.","en":"to eat","ex":"吃早饭 / 吃午饭 / 吃晚饭"},"早饭":{"pinyin":"zǎofàn","pos":"n.","en":"breakfast","ex":"吃早饭 (eat breakfast)"},"在":{"pinyin":"zài","pos":"prep./v.","en":"at; in; on; to be at","ex":"在咖啡厅 (at the cafe) / 在学校餐厅 (in the school cafeteria)"},"可以":{"pinyin":"kěyǐ","pos":"aux.","en":"can; may; be able to","ex":"我可以看到那个我喜欢的日本女孩"},"看到":{"pinyin":"kàndào","pos":"v.","en":"to see; to catch sight of","ex":"看到那个女孩 (see that girl)"},"那个":{"pinyin":"nàge","pos":"pron.","en":"that; that one","ex":"那个我喜欢的日本女孩"},"日本":{"pinyin":"Rìběn","pos":"proper n.","en":"Japan; Japanese","ex":"日本女孩 (Japanese girl)"},"女孩":{"pinyin":"nǚhái","pos":"n.","en":"girl","ex":"日本女孩 (Japanese girl)"},"她":{"pinyin":"tā","pos":"pron.","en":"she; her","ex":"她每天都在那儿喝咖啡。"},"那儿":{"pinyin":"nàr","pos":"pron.","en":"there; that place","ex":"在那儿喝咖啡 (drink coffee there)"},"喝":{"pinyin":"hē","pos":"v.","en":"to drink","ex":"喝咖啡 (drink coffee)"},"中午":{"pinyin":"zhōngwǔ","pos":"n.","en":"noon; midday","ex":"中午我跟朋友们一起吃午饭。"},"一起":{"pinyin":"yīqǐ","pos":"adv.","en":"together; in the same place","ex":"跟朋友们一起 (together with friends)"},"餐厅":{"pinyin":"cāntīng","pos":"n.","en":"cafeteria; dining hall; restaurant","ex":"学校餐厅 (school cafeteria / dining hall)"},"吃午饭":{"pinyin":"chī wǔfàn","pos":"v.+o.","en":"to eat lunch","ex":"在学校餐厅吃午饭"},"午饭":{"pinyin":"wǔfàn","pos":"n.","en":"lunch","ex":"吃午饭 (eat lunch)"},"下午":{"pinyin":"xiàwǔ","pos":"n.","en":"afternoon","ex":"下午我只有一节课。"},"只有":{"pinyin":"zhǐyǒu","pos":"adv.+v.","en":"only have; there is only","ex":"下午我只有一节课。 (In the afternoon I only have one class.)"},"一节":{"pinyin":"yī jié","pos":"num.+m.","en":"one period (of class)","ex":"一节课 (one class)"},"三点":{"pinyin":"sān diǎn","pos":"n.","en":"3 o'clock","ex":"三点放学 (finish school at 3 o'clock)"},"放学":{"pinyin":"fàngxué","pos":"v.+o.","en":"to finish school; school is over (for the day)","ex":"下午三点放学 / 放学以后 (after school)"},"比如":{"pinyin":"bǐrú","pos":"v./prep.","en":"for example; such as; for instance","ex":"比如拉小提琴、打羽毛球等等。"},"拉小提琴":{"pinyin":"lā xiǎotíqín","pos":"v.+o.","en":"to play the violin","ex":"我喜欢拉小提琴。"},"拉":{"pinyin":"lā","pos":"v.","en":"to play (bowed string instruments); to pull","ex":"拉小提琴 (play the violin)"},"小提琴":{"pinyin":"xiǎotíqín","pos":"n.","en":"violin","ex":"拉小提琴"},"打羽毛球":{"pinyin":"dǎ yǔmáoqiú","pos":"v.+o.","en":"to play badminton","ex":"放学以后打羽毛球。"},"打":{"pinyin":"dǎ","pos":"v.","en":"to play (ball games with hands/rackets); to hit","ex":"打羽毛球 (play badminton) / 打篮球 (play basketball)"},"羽毛球":{"pinyin":"yǔmáoqiú","pos":"n.","en":"badminton; shuttlecock","ex":"打羽毛球"},"等等":{"pinyin":"děngděng","pos":"part.","en":"et cetera (etc.); and so on","ex":"拉小提琴、打羽毛球等等"},"社区服务":{"pinyin":"shèqū fúwù","pos":"n.","en":"community service","ex":"我的社区服务是去医院照顾病人。"},"社区":{"pinyin":"shèqū","pos":"n.","en":"community; neighborhood","ex":"社区服务 (community service)"},"服务":{"pinyin":"fúwù","pos":"n./v.","en":"service; to serve","ex":"社区服务"},"是":{"pinyin":"shì","pos":"v.","en":"to be (am, is, are, was, were)","ex":"我的社区服务是去医院照顾病人。"},"医院":{"pinyin":"yīyuàn","pos":"n.","en":"hospital","ex":"去医院照顾病人 (go to the hospital to take care of patients)"},"照顾":{"pinyin":"zhàogù","pos":"v.","en":"to take care of; to look after; to care for","ex":"照顾病人 (take care of patients)"},"病人":{"pinyin":"bìngrén","pos":"n.","en":"patient; sick person","ex":"去医院照顾病人"},"晚上":{"pinyin":"wǎnshang","pos":"n.","en":"evening; night","ex":"我每天晚上差不多六点到家。"},"差不多":{"pinyin":"chàbuduō","pos":"adv./adj.","en":"almost; nearly; about; roughly","ex":"差不多六点到家 (get home at almost/about 6 o'clock)"},"到家":{"pinyin":"dào jiā","pos":"v.+o.","en":"to arrive home; to get home","ex":"差不多六点到家"},"和":{"pinyin":"hé","pos":"conj./prep.","en":"and; with","ex":"和爸爸妈妈一起吃晚饭 (eat dinner with dad and mom)"},"爸爸":{"pinyin":"bàba","pos":"n.","en":"dad; father","ex":"爸爸妈妈 (dad and mom / parents)"},"妈妈":{"pinyin":"māma","pos":"n.","en":"mom; mother","ex":"和爸爸妈妈一起吃晚饭"},"吃晚饭":{"pinyin":"chī wǎnfàn","pos":"v.+o.","en":"to eat dinner / supper","ex":"七点和爸爸妈妈一起吃晚饭。"},"晚饭":{"pinyin":"wǎnfàn","pos":"n.","en":"dinner; supper","ex":"晚饭以后 (after dinner)"},"写作业":{"pinyin":"xiě zuòyè","pos":"v.+o.","en":"to do homework","ex":"晚饭以后，我写作业。"},"写":{"pinyin":"xiě","pos":"v.","en":"to write; to compose","ex":"写作业 (do homework) / 写信 (write a letter)"},"作业":{"pinyin":"zuòyè","pos":"n.","en":"homework; school assignment","ex":"我们的作业很多。 (We have a lot of homework.)"},"现在":{"pinyin":"xiànzài","pos":"n.","en":"now; at present; right now","ex":"所以我现在没时间看电视。"},"没时间":{"pinyin":"méi shíjiān","pos":"v.+o.","en":"to have no time; not have time","ex":"我现在没时间看电视。"},"时间":{"pinyin":"shíjiān","pos":"n.","en":"time","ex":"没时间 (no time)"},"看电视":{"pinyin":"kàn diànshì","pos":"v.+o.","en":"to watch TV","ex":"没时间看电视"},"看":{"pinyin":"kàn","pos":"v.","en":"to watch; to look at; to read","ex":"看电视 (watch TV) / 看书 (read a book)"},"电视":{"pinyin":"diànshì","pos":"n.","en":"television; TV","ex":"看电视"},"玩电脑游戏":{"pinyin":"wán diànnǎo yóuxì","pos":"v.+o.","en":"to play computer games","ex":"没时间看电视、玩电脑游戏。"},"玩":{"pinyin":"wán","pos":"v.","en":"to play; to have fun","ex":"玩电脑游戏"},"电脑游戏":{"pinyin":"diànnǎo yóuxì","pos":"n.","en":"computer game","ex":"玩电脑游戏"},"电脑":{"pinyin":"diànnǎo","pos":"n.","en":"computer","ex":"用电脑 (use a computer)"},"游戏":{"pinyin":"yóuxì","pos":"n.","en":"game","ex":"电脑游戏"},"电话号码":{"pinyin":"diànhuà hàomǎ","pos":"n.","en":"telephone number; phone number","ex":"我在北京的电话号码是13911677999。"},"电话":{"pinyin":"diànhuà","pos":"n.","en":"telephone; phone call","ex":"打电话 (make a phone call)"},"号码":{"pinyin":"hàomǎ","pos":"n.","en":"number (phone, room, etc.)","ex":"电话号码"},"电子邮件":{"pinyin":"diànzǐ yóujiàn","pos":"n.","en":"email (electronic mail)","ex":"新的电子邮件是 david0214@bjis.edu.cn。"},"对了":{"pinyin":"duì le","pos":"phrase","en":"by the way; oh, that's right!","ex":"对了，我也开始用微信了！ (By the way, I also started using WeChat!)"},"开始":{"pinyin":"kāishǐ","pos":"v./n.","en":"to start; to begin; beginning","ex":"我也开始用微信了。"},"用":{"pinyin":"yòng","pos":"v.","en":"to use","ex":"用微信 (use WeChat)"},"微信":{"pinyin":"Wēixìn","pos":"proper n.","en":"WeChat (popular Chinese messaging & social app)","ex":"我也开始用微信了，真的很好用！"},"真的":{"pinyin":"zhēnde","pos":"adv.","en":"really; truly; indeed","ex":"真的很好用！ (It's really easy/great to use!)"},"好用":{"pinyin":"hǎoyòng","pos":"adj.","en":"easy to use; convenient; useful","ex":"微信真的很好用！"},"新学年":{"pinyin":"xīn xuénián","pos":"n.","en":"new school year; new academic year","ex":"你的新学年怎么样？ (How is your new school year?)"},"学年":{"pinyin":"xuénián","pos":"n.","en":"school year; academic year","ex":"新学年"},"写信":{"pinyin":"xiěxìn","pos":"v.+o.","en":"to write a letter","ex":"写信告诉我吧！ (Write a letter and tell me!)"},"信":{"pinyin":"xìn","pos":"n.","en":"letter; mail; message","ex":"写信 (write a letter)"},"告诉":{"pinyin":"gàosu","pos":"v.","en":"to tell; to let know; to inform","ex":"写信告诉我吧！"},"吧":{"pinyin":"ba","pos":"part.","en":"modal particle indicating suggestion or polite request","ex":"写信告诉我吧！ (Write to tell me!)"},"祝好":{"pinyin":"zhù hǎo","pos":"phrase","en":"Best wishes! / Wish you well! (letter closing)","ex":"In Chinese letters, '祝' is written at the end of a line and '好！' starts on the next line."},"祝":{"pinyin":"zhù","pos":"v.","en":"to wish; to express good wishes","ex":"祝好！ (Best wishes!)"},"好":{"pinyin":"hǎo","pos":"adj./adv.","en":"good; well; fine","ex":"你好！ / 祝好！"},"大卫":{"pinyin":"Dàwèi","pos":"proper n.","en":"David (sender's name)","ex":"Signed at the bottom right above the date."},"年":{"pinyin":"nián","pos":"n.","en":"year","ex":"2020年10月23日 (Chinese dates follow Year-Month-Day order)"},"月":{"pinyin":"yuè","pos":"n.","en":"month; moon","ex":"10月 (October)"},"日":{"pinyin":"rì","pos":"n.","en":"day; date (formal/written)","ex":"23日 (the 23rd)"},"周末":{"pinyin":"zhōumò","pos":"n.","en":"weekend","ex":"这个周末你有什么打算？ (What are your plans for this weekend?)"},"打算":{"pinyin":"dǎsuàn","pos":"v./n.","en":"to plan; to intend; plan","ex":"我打算去图书馆看书。"},"图书馆":{"pinyin":"túshūguǎn","pos":"n.","en":"library","ex":"学校的图书馆很大。"},"复习":{"pinyin":"fùxí","pos":"v.","en":"to review; to revise","ex":"复习中文生词 (review Mandarin vocabulary)"},"考试":{"pinyin":"kǎoshì","pos":"n./v.","en":"exam; test; to take an exam","ex":"下个星期有中文考试。"},"准备":{"pinyin":"zhǔnbèi","pos":"v./n.","en":"to prepare; preparation","ex":"准备考试 (prepare for the exam)"},"运动":{"pinyin":"yùndòng","pos":"n./v.","en":"sports; exercise; to work out","ex":"我每天都做运动。"},"身体":{"pinyin":"shēntǐ","pos":"n.","en":"body; health","ex":"对身体很好 (very good for one's health)"},"健康":{"pinyin":"jiànkāng","pos":"adj./n.","en":"healthy; health","ex":"保持身体健康 (stay healthy)"}};
-    const ARTICLES = [{"id":"text-5-1","title":"Text 5.1: 给杰森的一封信 (An Informal Letter to Jason)","level":"IB / Intermediate Mandarin","category":"书信格式 · Informal Letter","readTime":"4 min read","content":"亲爱的杰森：\n你好！\n最近怎么样？忙不忙？对不起，一直都没跟你联系，因为我每天上很多课，还要参加课外活动，从早忙到晚。我的新学校叫北京国际学校。我非常喜欢这个学校，也交了不少新朋友。\n因为我的家离学校很远，所以我每天早上六点起床。起床以后我先刷牙、洗脸，然后出去遛小龙。七点我坐校车去学校，从我家到学校要一个小时。我们上午有三节课，每节课八十分钟。第一节课以后有二十分钟的课间休息，我休息的时候经常去学校的咖啡厅吃早饭。在咖啡厅我可以看到那个我喜欢的日本女孩，她每天都在那儿喝咖啡。中午我跟朋友们一起在学校餐厅吃午饭。下午我只有一节课，三点放学。\n放学以后，我有很多课外活动，比如拉小提琴、打羽毛球等等。我的社区服务是去医院照顾病人。我每天晚上差不多六点到家，七点和爸爸妈妈一起吃晚饭。晚饭以后，我写作业。我们的作业很多，所以我现在没时间看电视、玩电脑游戏。\n我在北京的电话号码是13911677999，新的电子邮件是david0214@bjis.edu.cn。对了，我也开始用微信了，真的很好用！\n你的新学年怎么样？写信告诉我吧！\n祝\n好！\n大卫\n2020年10月23日","teacherNotes":{"亲爱的":"Salutation (称呼): In an informal letter, use 亲爱的 (qīn'ài de, dear) to address your audience. Note the COLON (：) after the name, not a comma!","从早忙到晚":"Idiom/Pattern (从…到…): Busy from morning till night.","离":"Distance Structure (A 离 B + 远/近): '我的家离学校很远' means 'My home is very far from school.'","先":"Sequence Pattern (先…，然后…): 'First..., then...' — 起床以后我先刷牙、洗脸，然后出去遛小龙。","课外活动":"Extracurricular activities (kèwài huódòng) — e.g., 拉小提琴 (playing violin), 打羽毛球 (playing badminton).","社区服务":"Community service (shèqū fúwù) — 去医院照顾病人 (going to the hospital to care for patients).","祝":"Closing Wishes (祝语): The wishes may vary depending on when and who you are writing to. '祝' and '好！' are written on two lines.","2020年10月23日":"Date Format (日期): Signature and date are written in two lines at the bottom right. Date MUST be written in the order of Year (年), Month (月), and Day (日)."},"structureAnnotations":[{"part":"Salutation (称呼与问候)","lines":"亲爱的杰森： / 你好！","note":"Use 亲爱的 (qīn'ài de, dear) in an informal letter. Pay attention to the punctuation: use a COLON (：) after the recipient's name, not a comma!"},{"part":"Opening (开头)","lines":"最近怎么样？忙不忙？对不起……也交了不少新朋友。","note":"Greet the recipient, ask how they have been, explain why you haven't been in touch, and briefly introduce your new school."},{"part":"Body (正文)","lines":"因为我的家离学校很远……没时间看电视、玩电脑游戏。","note":"Describe daily schedule in chronological order (早上 → 上午 → 中午 → 下午 → 放学以后 → 晚上), including classes, extracurriculars (课外活动), and community service (社区服务)."},{"part":"Ending (结尾)","lines":"我在北京的电话号码是……写信告诉我吧！","note":"Share contact information (phone, email, WeChat) and invite the recipient to reply."},{"part":"Closing Wishes & Signature (祝语、署名与日期)","lines":"祝 / 好！ — 大卫 / 2020年10月23日","note":"Signature and date are written in two lines at the bottom right. Date must follow Year-Month-Day order (YYYY年MM月DD日)."}],"questions":["为什么大卫一直都没跟杰森联系？ (Why hasn't David contacted Jason for a long time?)","大卫每天早上几点起床？他怎么去学校？从家到学校要多长时间？ (What time does David get up, how does he go to school, and how long does it take?)","大卫放学以后有哪些课外活动？他的社区服务是什么？ (What extracurricular activities and community service does David do after school?)","中文书信的称呼标点符号和最后的日期格式跟英文信有什么不同？ (How do the punctuation after the salutation and the date format at the end differ between a Chinese letter and an English one?)"]},{"id":"sample-2","title":"Text 5.2: 我的周末安排 (My Weekend Plans)","level":"Beginner-Intermediate","category":"日常叙事 · Daily Life","readTime":"2 min read","content":"每个星期一到星期五，我都要去学校上课，从早忙到晚。到了周末，我终于可以休息一下了。\n星期六早上，我一般八点起床。吃早饭以后，我先写作业、复习中文，为下个星期的考试做准备。下午我经常跟朋友们一起去打羽毛球，因为做运动对身体健康很好。\n星期天上午，我喜欢去图书馆看书，或者在咖啡厅喝咖啡。晚上我和爸爸妈妈一起吃晚饭，看看电视，准备开始新的一个星期。","teacherNotes":{"周末":"Weekend (zhōumò)","复习":"To review / revise (fùxí)","身体健康":"Physical health / healthy body (shēntǐ jiànkāng)"},"structureAnnotations":[],"questions":["作者星期六上午一般做什么？ (What does the author usually do on Saturday morning?)","作者为什么喜欢跟朋友一起打羽毛球？ (Why does the author like playing badminton with friends?)"]}];
-    let savedVocab = [{"word":"亲爱的","pinyin":"qīn'ài de","pos":"adj.","en":"dear; beloved (used in salutations)","context":"亲爱的杰森：","addedAt":"Text 5.1"},{"word":"课外活动","pinyin":"kèwài huódòng","pos":"n.","en":"extracurricular activities","context":"还要参加课外活动，从早忙到晚。","addedAt":"Text 5.1"},{"word":"社区服务","pinyin":"shèqū fúwù","pos":"n.","en":"community service","context":"我的社区服务是去医院照顾病人。","addedAt":"Text 5.1"}];
-    let activeArticleId = ARTICLES[0].id;
-    let activeTab = 'vocab';
-    let vocabSearch = '';
-    let fontSize = 'xl';
-    let showStructure = true;
-    let highlightNotes = true;
-    let speechRate = 0.9;
-    let currentPopupWord = null;
+    function decodePayload(b64) {
+      return JSON.parse(decodeURIComponent(atob(b64)));
+    }
+    var DICT = decodePayload("JTdCJTIyJUU0JUJBJUIyJUU3JTg4JUIxJUU3JTlBJTg0JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIycSVDNCVBQm4nJUMzJUEwaSUyMGRlJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIyZGVhciUzQiUyMGJlbG92ZWQlMjAodXNlZCUyMGluJTIwc2FsdXRhdGlvbnMpJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkElQjIlRTclODglQjElRTclOUElODQlRTYlOUQlQjAlRTYlQTMlQUUlMjAoRGVhciUyMEphc29uKSUyMCVFMiU4MCU5NCUyMFVzZWQlMjBpbiUyMGluZm9ybWFsJTIwbGV0dGVycyUyMHRvJTIwYWRkcmVzcyUyMHNvbWVvbmUlMjBjbG9zZS4lMjIlN0QlMkMlMjIlRTQlQkElQjIlRTclODglQjElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJxJUM0JUFCbiclQzMlQTBpJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIyZGVhciUzQiUyMGJlbG92ZWQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCQSVCMiVFNyU4OCVCMSVFNyU5QSU4NCVFNiU5QyU4QiVFNSU4RiU4QiUyMChEZWFyJTIwZnJpZW5kKSUyMiU3RCUyQyUyMiVFNiU5RCVCMCVFNiVBMyVBRSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMkppJUMzJUE5cyVDNCU5M24lMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9wZXIlMjBuLiUyMiUyQyUyMmVuJTIyJTNBJTIySmFzb24lMjAocGVyc29uJ3MlMjBuYW1lKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJBJUIyJUU3JTg4JUIxJUU3JTlBJTg0JUU2JTlEJUIwJUU2JUEzJUFFJUVGJUJDJTlBJTIwKERlYXIlMjBKYXNvbiUzQSklMjIlN0QlMkMlMjIlRTQlQkQlQTAlRTUlQTUlQkQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJuJUM3JTkwJTIwaCVDNyU4RW8lMjIlMkMlMjJwb3MlMjIlM0ElMjJwaHJhc2UlMjIlMkMlMjJlbiUyMiUzQSUyMmhlbGxvJTNCJTIwaG93JTIwZG8lMjB5b3UlMjBkbyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJEJUEwJUU1JUE1JUJEJUVGJUJDJTgxJUU1JUJFJTg4JUU5JUFCJTk4JUU1JTg1JUI0JUU4JUFFJUE0JUU4JUFGJTg2JUU0JUJEJUEwJUUzJTgwJTgyJTIwKEhlbGxvISUyME5pY2UlMjB0byUyMG1lZXQlMjB5b3UuKSUyMiU3RCUyQyUyMiVFNiU5QyU4MCVFOCVCRiU5MSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnp1JUMzJUFDaiVDMyVBQ24lMjIlMkMlMjJwb3MlMjIlM0ElMjJhZHYuJTJGbi4lMjIlMkMlMjJlbiUyMiUzQSUyMnJlY2VudGx5JTNCJTIwbGF0ZWx5JTNCJTIwdGhlc2UlMjBkYXlzJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkQlQTAlRTYlOUMlODAlRTglQkYlOTElRTYlODAlOEUlRTQlQjklODglRTYlQTAlQjclRUYlQkMlOUYlMjAoSG93JTIwaGF2ZSUyMHlvdSUyMGJlZW4lMjBsYXRlbHklM0YpJTIyJTdEJTJDJTIyJUU2JTgwJThFJUU0JUI5JTg4JUU2JUEwJUI3JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeiVDNCU5Qm5tZXklQzMlQTBuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb24uJTIyJTJDJTIyZW4lMjIlM0ElMjJob3clM0IlMjBob3clMjBhYm91dCUzQiUyMGhvdyUyMGFyZSUyMHRoaW5ncyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJEJUEwJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU2JUEwJUExJUU2JTgwJThFJUU0JUI5JTg4JUU2JUEwJUI3JUVGJUJDJTlGJTIwKEhvdyUyMGlzJTIweW91ciUyMG5ldyUyMHNjaG9vbCUzRiklMjIlN0QlMkMlMjIlRTUlQkYlOTklRTQlQjglOEQlRTUlQkYlOTklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJtJUMzJUExbmclMjBidSUyMG0lQzMlQTFuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMnBocmFzZSUyMiUyQyUyMmVuJTIyJTNBJTIyYnVzeSUyMG9yJTIwbm90JTNGJTIwQXJlJTIweW91JTIwYnVzeSUzRiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJEJUEwJUU2JTlDJTgwJUU4JUJGJTkxJUU1JUJGJTk5JUU0JUI4JThEJUU1JUJGJTk5JUVGJUJDJTlGJTIwKEhhdmUlMjB5b3UlMjBiZWVuJTIwYnVzeSUyMGxhdGVseSUzRiklMjIlN0QlMkMlMjIlRTUlQkYlOTklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJtJUMzJUExbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJhZGouJTJGdi4lMjIlMkMlMjJlbiUyMiUzQSUyMmJ1c3klM0IlMjBodXJyaWVkbHklMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFOSU4MyVCRCVFNSVCRSU4OCVFNSVCRiU5OSVFMyU4MCU4MiUyMChJJTIwYW0lMjB2ZXJ5JTIwYnVzeSUyMGV2ZXJ5JTIwZGF5LiklMjIlN0QlMkMlMjIlRTUlQUYlQjklRTQlQjglOEQlRTglQjUlQjclMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkdSVDMyVBQ2J1cSVDNyU5MCUyMiUyQyUyMnBvcyUyMiUzQSUyMnBocmFzZSUyMiUyQyUyMmVuJTIyJTNBJTIySSdtJTIwc29ycnklM0IlMjBleGN1c2UlMjBtZSUzQiUyMHBhcmRvbiUyMG1lJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQUYlQjklRTQlQjglOEQlRTglQjUlQjclRUYlQkMlOEMlRTYlODglOTElRTYlOUQlQTUlRTYlOTklOUElRTQlQkElODYlRTMlODAlODIlMjAoSSdtJTIwc29ycnklMkMlMjBJJ20lMjBsYXRlLiklMjIlN0QlMkMlMjIlRTQlQjglODAlRTclOUIlQjQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUM0JUFCemglQzMlQUQlMjIlMkMlMjJwb3MlMjIlM0ElMjJhZHYuJTIyJTJDJTIyZW4lMjIlM0ElMjJhbHdheXMlM0IlMjBhbGwlMjBhbG9uZyUzQiUyMGNvbnRpbnVvdXNseSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JTgwJUU3JTlCJUI0JUU5JTgzJUJEJUU2JUIyJUExJUU4JUI3JTlGJUU0JUJEJUEwJUU4JTgxJTk0JUU3JUIzJUJCJTIwKGhhdmVuJ3QlMjBjb250YWN0ZWQlMjB5b3UlMjBhbGwlMjB0aGlzJTIwdGltZSklMjIlN0QlMkMlMjIlRTklODMlQkQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkJUM1JThEdSUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMjIlMkMlMjJlbiUyMiUzQSUyMmFsbCUzQiUyMGJvdGglM0IlMjBldmVuJTNCJTIwYWxyZWFkeSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JUE1JUI5JUU2JUFGJThGJUU1JUE0JUE5JUU5JTgzJUJEJUU1JTlDJUE4JUU5JTgyJUEzJUU1JTg0JUJGJUU1JTk2JTlEJUU1JTkyJTk2JUU1JTk1JUExJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU2JUIyJUExJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybSVDMyVBOWklMjIlMkMlMjJwb3MlMjIlM0ElMjJhZHYuJTIyJTJDJTIyZW4lMjIlM0ElMjJub3QlM0IlMjBoYXZlJTIwbm90JTIwKG5lZ2F0ZXMlMjBwYXN0JTIwYWN0aW9ucyUyMG9yJTIwcG9zc2Vzc2lvbiklMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNyU4RSVCMCVFNSU5QyVBOCVFNiVCMiVBMSVFNiU5NyVCNiVFOSU5NyVCNCVFNyU5QyU4QiVFNyU5NCVCNSVFOCVBNyU4NiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFOCVCNyU5RiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmclQzQlOTNuJTIyJTJDJTIycG9zJTIyJTNBJTIycHJlcC4lMkZjb25qLiUyMiUyQyUyMmVuJTIyJTNBJTIyd2l0aCUzQiUyMHRvJTNCJTIwYW5kJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTglQjclOUYlRTYlOUMlOEIlRTUlOEYlOEIlRTQlQkIlQUMlRTQlQjglODAlRTglQjUlQjclRTUlOTAlODMlRTUlOEQlODglRTklQTUlQUQlRTMlODAlODIlMjAoSSUyMGVhdCUyMGx1bmNoJTIwd2l0aCUyMG15JTIwZnJpZW5kcy4pJTIyJTdEJTJDJTIyJUU0JUJEJUEwJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybiVDNyU5MCUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb24uJTIyJTJDJTIyZW4lMjIlM0ElMjJ5b3UlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4NiU5OSVFNCVCRiVBMSVFNSU5MSU4QSVFOCVBRiU4OSVFNiU4OCU5MSVFNSU5MCVBNyVFRiVCQyU4MSUyMiU3RCUyQyUyMiVFOCU4MSU5NCVFNyVCMyVCQiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmxpJUMzJUExbnglQzMlQUMlMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGNvbnRhY3QlM0IlMjB0byUyMGdldCUyMGluJTIwdG91Y2glM0IlMjBjb25uZWN0aW9uJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQjglODAlRTclOUIlQjQlRTklODMlQkQlRTYlQjIlQTElRTglQjclOUYlRTQlQkQlQTAlRTglODElOTQlRTclQjMlQkIlMjAoaGF2ZW4ndCUyMGJlZW4lMjBpbiUyMHRvdWNoJTIwd2l0aCUyMHlvdSklMjIlN0QlMkMlMjIlRTUlOUIlQTAlRTQlQjglQkElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUM0JUFCbnclQzMlQThpJTIyJTJDJTIycG9zJTIyJTNBJTIyY29uai4lMjIlMkMlMjJlbiUyMiUzQSUyMmJlY2F1c2UlM0IlMjBzaW5jZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTlCJUEwJUU0JUI4JUJBJUUyJTgwJUE2JUUyJTgwJUE2JUU2JTg5JTgwJUU0JUJCJUE1JUUyJTgwJUE2JUUyJTgwJUE2JTIwKGJlY2F1c2UuLi4lMjB0aGVyZWZvcmUuLi4pJTIyJTdEJTJDJTIyJUU2JTg4JTkxJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDNyU5MiUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb24uJTIyJTJDJTIyZW4lMjIlM0ElMjJJJTNCJTIwbWUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiU5OCVBRiVFNSU4QyU5NyVFNCVCQSVBQyVFNSU5QiVCRCVFOSU5OSU4NSVFNSVBRCVBNiVFNiVBMCVBMSVFNyU5QSU4NCVFNSVBRCVBNiVFNyU5NCU5RiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNiVBRiU4RiVFNSVBNCVBOSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMm0lQzQlOUJpdGklQzQlODFuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMkZhZHYuJTIyJTJDJTIyZW4lMjIlM0ElMjJldmVyeSUyMGRheSUzQiUyMGRhaWx5JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTYlQUYlOEYlRTUlQTQlQTklRTYlOTclQTklRTQlQjglOEElRTUlODUlQUQlRTclODIlQjklRTglQjUlQjclRTUlQkElOEElRTMlODAlODIlMjAoSSUyMGdldCUyMHVwJTIwYXQlMjA2JTIwQU0lMjBldmVyeSUyMGRheS4pJTIyJTdEJTJDJTIyJUU0JUI4JThBJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyc2glQzMlQTBuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJGcHJlcC4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwYXR0ZW5kJTIwKGNsYXNzJTJGd29yayklM0IlMjB0byUyMGdvJTIwdXAlM0IlMjBvbiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JUFGJThGJUU1JUE0JUE5JUU0JUI4JThBJUU1JUJFJTg4JUU1JUE0JTlBJUU4JUFGJUJFJTIwKHRha2UlMkZhdHRlbmQlMjBtYW55JTIwY2xhc3NlcyUyMGV2ZXJ5JTIwZGF5KSUyMiU3RCUyQyUyMiVFNSVCRSU4OCVFNSVBNCU5QSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmglQzQlOUJuJTIwZHUlQzUlOEQlMjIlMkMlMjJwb3MlMjIlM0ElMjJhZGouJTIyJTJDJTIyZW4lMjIlM0ElMjJtYW55JTNCJTIwYSUyMGxvdCUyMG9mJTNCJTIwbXVjaCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU2JTlDJTg5JUU1JUJFJTg4JUU1JUE0JTlBJUU4JUFGJUJFJUU1JUE0JTk2JUU2JUI0JUJCJUU1JThBJUE4JUUzJTgwJTgyJTIwKEklMjBoYXZlJTIwbWFueSUyMGV4dHJhY3VycmljdWxhciUyMGFjdGl2aXRpZXMuKSUyMiU3RCUyQyUyMiVFOCVBRiVCRSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmslQzMlQTglMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyY2xhc3MlM0IlMjBsZXNzb24lM0IlMjBjb3Vyc2UlM0IlMjBzdWJqZWN0JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQkIlQUMlRTQlQjglOEElRTUlOEQlODglRTYlOUMlODklRTQlQjglODklRTglOEElODIlRTglQUYlQkUlRTMlODAlODIlMjAoV2UlMjBoYXZlJTIwdGhyZWUlMjBjbGFzc2VzJTIwaW4lMjB0aGUlMjBtb3JuaW5nLiklMjIlN0QlMkMlMjIlRTglQkYlOTglRTglQTYlODElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJoJUMzJUExaSUyMHklQzMlQTBvJTIyJTJDJTIycG9zJTIyJTNBJTIyYWR2LiUyQnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJhbHNvJTIwbmVlZCUyMHRvJTNCJTIwc3RpbGwlMjBoYXZlJTIwdG8lM0IlMjBpbiUyMGFkZGl0aW9uJTIyJTJDJTIyZXglMjIlM0ElMjIlRTglQkYlOTglRTglQTYlODElRTUlOEYlODIlRTUlOEElQTAlRTglQUYlQkUlRTUlQTQlOTYlRTYlQjQlQkIlRTUlOEElQTglMjAoYWxzbyUyMGhhdmUlMjB0byUyMHBhcnRpY2lwYXRlJTIwaW4lMjBleHRyYWN1cnJpY3VsYXIlMjBhY3Rpdml0aWVzKSUyMiU3RCUyQyUyMiVFNSU4RiU4MiVFNSU4QSVBMCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmMlQzQlODFuamklQzQlODElMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBwYXJ0aWNpcGF0ZSUyMGluJTNCJTIwdG8lMjBqb2luJTNCJTIwdG8lMjBhdHRlbmQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4RiU4MiVFNSU4QSVBMCVFOCVBRiVCRSVFNSVBNCU5NiVFNiVCNCVCQiVFNSU4QSVBOCUyMChwYXJ0aWNpcGF0ZSUyMGluJTIwZXh0cmFjdXJyaWN1bGFyJTIwYWN0aXZpdGllcyklMjIlN0QlMkMlMjIlRTglQUYlQkUlRTUlQTQlOTYlRTYlQjQlQkIlRTUlOEElQTglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJrJUMzJUE4dyVDMyVBMGklMjBodSVDMyVCM2QlQzMlQjJuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJleHRyYWN1cnJpY3VsYXIlMjBhY3Rpdml0aWVzJTNCJTIwYWZ0ZXItc2Nob29sJTIwYWN0aXZpdGllcyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk0JUJFJUU1JUFEJUE2JUU0JUJCJUE1JUU1JTkwJThFJUVGJUJDJThDJUU2JTg4JTkxJUU2JTlDJTg5JUU1JUJFJTg4JUU1JUE0JTlBJUU4JUFGJUJFJUU1JUE0JTk2JUU2JUI0JUJCJUU1JThBJUE4JUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU4JUFGJUJFJUU1JUE0JTk2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDMyVBOHclQzMlQTBpJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJleHRyYWN1cnJpY3VsYXIlM0IlMjBvdXRzaWRlJTIwY2xhc3MlM0IlMjBhZnRlciUyMHNjaG9vbCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU4JUFGJUJFJUU1JUE0JTk2JUU5JTk4JTg1JUU4JUFGJUJCJTIwKGV4dHJhY3VycmljdWxhciUyMHJlYWRpbmcpJTIyJTdEJTJDJTIyJUU2JUI0JUJCJUU1JThBJUE4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyaHUlQzMlQjNkJUMzJUIybmclMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyRnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJhY3Rpdml0eSUzQiUyMGV2ZW50JTNCJTIwdG8lMjBleGVyY2lzZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JUFEJUE2JUU2JUEwJUExJUU2JTlDJTg5JUU1JUJFJTg4JUU1JUE0JTlBJUU0JUJEJTkzJUU4JTgyJUIyJUU2JUI0JUJCJUU1JThBJUE4JUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU0JUJCJThFJUU2JTk3JUE5JUU1JUJGJTk5JUU1JTg4JUIwJUU2JTk5JTlBJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyYyVDMyVCM25nJTIweiVDNyU4RW8lMjBtJUMzJUExbmclMjBkJUMzJUEwbyUyMHclQzclOEVuJTIyJTJDJTIycG9zJTIyJTNBJTIycGhyYXNlJTIyJTJDJTIyZW4lMjIlM0ElMjJidXN5JTIwZnJvbSUyMG1vcm5pbmclMjB0aWxsJTIwbmlnaHQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFNCVCQiU4RSVFNiU5NyVBOSVFNSVCRiU5OSVFNSU4OCVCMCVFNiU5OSU5QSVFMyU4MCU4MiUyMChJJ20lMjBidXN5JTIwZnJvbSUyMG1vcm5pbmclMjB0aWxsJTIwbmlnaHQlMjBldmVyeSUyMGRheS4pJTIyJTdEJTJDJTIyJUU0JUJCJThFJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyYyVDMyVCM25nJTIyJTJDJTIycG9zJTIyJTNBJTIycHJlcC4lMjIlMkMlMjJlbiUyMiUzQSUyMmZyb20lM0IlMjBzaW5jZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJCJThFJUU2JTg4JTkxJUU1JUFFJUI2JUU1JTg4JUIwJUU1JUFEJUE2JUU2JUEwJUExJUU4JUE2JTgxJUU0JUI4JTgwJUU0JUI4JUFBJUU1JUIwJThGJUU2JTk3JUI2JUUzJTgwJTgyJTIwKEZyb20lMjBteSUyMGhvbWUlMjB0byUyMHNjaG9vbCUyMHRha2VzJTIwb25lJTIwaG91ci4pJTIyJTdEJTJDJTIyJUU2JTk3JUE5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeiVDNyU4RW8lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyRmFkai4lMjIlMkMlMjJlbiUyMiUzQSUyMm1vcm5pbmclM0IlMjBlYXJseSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJCJThFJUU2JTk3JUE5JUU1JTg4JUIwJUU2JTk5JTlBJTIwKGZyb20lMjBtb3JuaW5nJTIwdG8lMjBuaWdodCklMjIlN0QlMkMlMjIlRTUlODglQjAlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkJUMzJUEwbyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJGcHJlcC4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwYXJyaXZlJTNCJTIwdG8lMjByZWFjaCUzQiUyMHVudGlsJTNCJTIwdG8lMjIlMkMlMjJleCUyMiUzQSUyMiVFNSVCNyVBRSVFNCVCOCU4RCVFNSVBNCU5QSVFNSU4NSVBRCVFNyU4MiVCOSVFNSU4OCVCMCVFNSVBRSVCNiUyMChhcnJpdmUlMjBob21lJTIwYXQlMjBhbG1vc3QlMjA2JTIwbydjbG9jayklMjIlN0QlMkMlMjIlRTYlOTklOUElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ3JUM3JThFbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTJGYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIyZXZlbmluZyUzQiUyMG5pZ2h0JTNCJTIwbGF0ZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJCJThFJUU2JTk3JUE5JUU1JUJGJTk5JUU1JTg4JUIwJUU2JTk5JTlBJTIyJTdEJTJDJTIyJUU2JTg4JTkxJUU3JTlBJTg0JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDNyU5MiUyMGRlJTIyJTJDJTIycG9zJTIyJTNBJTIycHJvbi4lMjIlMkMlMjJlbiUyMiUzQSUyMm15JTNCJTIwbWluZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU2JUEwJUExJTIwKG15JTIwbmV3JTIwc2Nob29sKSUyMiU3RCUyQyUyMiVFNyU5QSU4NCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmRlJTIyJTJDJTIycG9zJTIyJTNBJTIycGFydC4lMjIlMkMlMjJlbiUyMiUzQSUyMnBvc3Nlc3NpdmUlMjBvciUyMG1vZGlmeWluZyUyMHBhcnRpY2xlJTIwKCdzJTIwJTJGJTIwb2YpJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQUQlQTYlRTYlQTAlQTElRTclOUElODQlRTUlOTIlOTYlRTUlOTUlQTElRTUlOEUlODUlMjAodGhlJTIwc2Nob29sJ3MlMjBjYWZlKSUyMiU3RCUyQyUyMiVFNiU5NiVCMCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnglQzQlQUJuJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIybmV3JTNCJTIwZnJlc2glMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU5NiVCMCVFNSVBRCVBNiVFNiVBMCVBMSUyMChuZXclMjBzY2hvb2wpJTIwJTJGJTIwJUU2JTk2JUIwJUU2JTlDJThCJUU1JThGJThCJTIwKG5ldyUyMGZyaWVuZHMpJTIyJTdEJTJDJTIyJUU1JUFEJUE2JUU2JUEwJUExJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeHUlQzMlQTl4aSVDMyVBMG8lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyc2Nob29sJTNCJTIwY2FtcHVzJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTklOUQlOUUlRTUlQjglQjglRTUlOTYlOUMlRTYlQUMlQTIlRTglQkYlOTklRTQlQjglQUElRTUlQUQlQTYlRTYlQTAlQTElRTMlODAlODIlMjIlN0QlMkMlMjIlRTUlOEYlQUIlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJqaSVDMyVBMG8lMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBiZSUyMGNhbGxlZCUzQiUyMHRvJTIwY2FsbCUzQiUyMHRvJTIwbmFtZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU2JUEwJUExJUU1JThGJUFCJUU1JThDJTk3JUU0JUJBJUFDJUU1JTlCJUJEJUU5JTk5JTg1JUU1JUFEJUE2JUU2JUEwJUExJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JThDJTk3JUU0JUJBJUFDJUU1JTlCJUJEJUU5JTk5JTg1JUU1JUFEJUE2JUU2JUEwJUExJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyQiVDNCU5QmlqJUM0JUFCbmclMjBHdSVDMyVCM2olQzMlQUMlMjBYdSVDMyVBOXhpJUMzJUEwbyUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb3BlciUyMG4uJTIyJTJDJTIyZW4lMjIlM0ElMjJCZWlqaW5nJTIwSW50ZXJuYXRpb25hbCUyMFNjaG9vbCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU2JUEwJUExJUU1JThGJUFCJUU1JThDJTk3JUU0JUJBJUFDJUU1JTlCJUJEJUU5JTk5JTg1JUU1JUFEJUE2JUU2JUEwJUExJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JThDJTk3JUU0JUJBJUFDJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyQiVDNCU5QmlqJUM0JUFCbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9wZXIlMjBuLiUyMiUyQyUyMmVuJTIyJTNBJTIyQmVpamluZyUyMChjYXBpdGFsJTIwb2YlMjBDaGluYSklMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNSU5QyVBOCVFNSU4QyU5NyVFNCVCQSVBQyVFNyU5QSU4NCVFNyU5NCVCNSVFOCVBRiU5RCVFNSU4RiVCNyVFNyVBMCU4MSUyMChteSUyMHBob25lJTIwbnVtYmVyJTIwaW4lMjBCZWlqaW5nKSUyMiU3RCUyQyUyMiVFNSU5QiVCRCVFOSU5OSU4NSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmd1JUMzJUIzaiVDMyVBQyUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTJGYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIyaW50ZXJuYXRpb25hbCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTlCJUJEJUU5JTk5JTg1JUU1JUFEJUE2JUU2JUEwJUExJTIwKGludGVybmF0aW9uYWwlMjBzY2hvb2wpJTIyJTdEJTJDJTIyJUU5JTlEJTlFJUU1JUI4JUI4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZiVDNCU5M2ljaCVDMyVBMW5nJTIyJTJDJTIycG9zJTIyJTNBJTIyYWR2LiUyMiUyQyUyMmVuJTIyJTNBJTIydmVyeSUzQiUyMGV4dHJlbWVseSUzQiUyMGV4dHJhb3JkaW5hcmlseSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU5JTlEJTlFJUU1JUI4JUI4JUU1JTk2JTlDJUU2JUFDJUEyJUU4JUJGJTk5JUU0JUI4JUFBJUU1JUFEJUE2JUU2JUEwJUExJUUzJTgwJTgyJTIwKEklMjBsaWtlJTIwdGhpcyUyMHNjaG9vbCUyMHZlcnklMjBtdWNoLiklMjIlN0QlMkMlMjIlRTUlOTYlOUMlRTYlQUMlQTIlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ4JUM3JTkwaHVhbiUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGxpa2UlM0IlMjB0byUyMGJlJTIwZm9uZCUyMG9mJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTUlOTYlOUMlRTYlQUMlQTIlRTclOUElODQlRTYlOTclQTUlRTYlOUMlQUMlRTUlQTUlQjMlRTUlQUQlQTklMjAodGhlJTIwSmFwYW5lc2UlMjBnaXJsJTIwSSUyMGxpa2UpJTIyJTdEJTJDJTIyJUU4JUJGJTk5JUU0JUI4JUFBJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyemglQzMlQThnZSUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb24uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0aGlzJTNCJTIwdGhpcyUyMG9uZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU4JUJGJTk5JUU0JUI4JUFBJUU1JUFEJUE2JUU2JUEwJUExJTIwKHRoaXMlMjBzY2hvb2wpJTIyJTdEJTJDJTIyJUU0JUI5JTlGJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeSVDNCU5QiUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMjIlMkMlMjJlbiUyMiUzQSUyMmFsc28lM0IlMjB0b28lM0IlMjBhcyUyMHdlbGwlMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOSU5RiVFNCVCQSVBNCVFNCVCQSU4NiVFNCVCOCU4RCVFNSVCMCU5MSVFNiU5NiVCMCVFNiU5QyU4QiVFNSU4RiU4QiUyMChhbHNvJTIwbWFkZSUyMHF1aXRlJTIwYSUyMGZldyUyMG5ldyUyMGZyaWVuZHMpJTIyJTdEJTJDJTIyJUU0JUJBJUE0JUU2JTlDJThCJUU1JThGJThCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyamklQzQlODFvJTIwcCVDMyVBOW5neW91JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBtYWtlJTIwZnJpZW5kcyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJBJUE0JUU0JUJBJTg2JUU0JUI4JThEJUU1JUIwJTkxJUU2JTk2JUIwJUU2JTlDJThCJUU1JThGJThCJTIwKG1hZGUlMjBxdWl0ZSUyMGElMjBmZXclMjBuZXclMjBmcmllbmRzKSUyMiU3RCUyQyUyMiVFNCVCQSVBNCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmppJUM0JTgxbyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMG1ha2UlMjAoZnJpZW5kcyklM0IlMjB0byUyMGhhbmQlMjBpbiUzQiUyMHRvJUU0JUJBJUE0JTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkElQTQlRTYlOUMlOEIlRTUlOEYlOEIlMjAobWFrZSUyMGZyaWVuZHMpJTIyJTdEJTJDJTIyJUU0JUJBJTg2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybGUlMjIlMkMlMjJwb3MlMjIlM0ElMjJwYXJ0LiUyMiUyQyUyMmVuJTIyJTNBJTIyY29tcGxldGVkJTIwYWN0aW9uJTIwbWFya2VyJTIwJTJGJTIwY2hhbmdlJTIwb2YlMjBzdGF0ZSUyMHBhcnRpY2xlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkElQTQlRTQlQkElODYlRTQlQjglOEQlRTUlQjAlOTElRTYlOTYlQjAlRTYlOUMlOEIlRTUlOEYlOEIlMjAlMkYlMjAlRTYlODglOTElRTQlQjklOUYlRTUlQkMlODAlRTUlQTclOEIlRTclOTQlQTglRTUlQkUlQUUlRTQlQkYlQTElRTQlQkElODYlMjIlN0QlMkMlMjIlRTQlQjglOEQlRTUlQjAlOTElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJiJUMzJUI5JTIwc2glQzclOEVvJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyMiUyQyUyMmVuJTIyJTNBJTIycXVpdGUlMjBhJTIwZmV3JTNCJTIwbWFueSUzQiUyMG5vdCUyMGElMjBmZXclMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCQSVBNCVFNCVCQSU4NiVFNCVCOCU4RCVFNSVCMCU5MSVFNiU5NiVCMCVFNiU5QyU4QiVFNSU4RiU4QiUyMChtYWRlJTIwcXVpdGUlMjBhJTIwZmV3JTIwbmV3JTIwZnJpZW5kcyklMjIlN0QlMkMlMjIlRTYlOUMlOEIlRTUlOEYlOEIlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJwJUMzJUE5bmd5b3UlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyZnJpZW5kJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlOTYlQjAlRTYlOUMlOEIlRTUlOEYlOEIlMjAobmV3JTIwZnJpZW5kKSUyMiU3RCUyQyUyMiVFNiU5QyU4QiVFNSU4RiU4QiVFNCVCQiVBQyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnAlQzMlQTluZ3lvdW1lbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJmcmllbmRzJTIwKHBsdXJhbCklMjIlMkMlMjJleCUyMiUzQSUyMiVFOCVCNyU5RiVFNiU5QyU4QiVFNSU4RiU4QiVFNCVCQiVBQyVFNCVCOCU4MCVFOCVCNSVCNyVFNSU5MCU4MyVFNSU4RCU4OCVFOSVBNSVBRCUyMChlYXQlMjBsdW5jaCUyMHRvZ2V0aGVyJTIwd2l0aCUyMGZyaWVuZHMpJTIyJTdEJTJDJTIyJUU1JUFFJUI2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyamklQzQlODElMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyaG9tZSUzQiUyMGZhbWlseSUzQiUyMGhvdXNlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTclOUElODQlRTUlQUUlQjYlRTclQTYlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTUlQkUlODglRTglQkYlOUMlRTMlODAlODIlMjAoTXklMjBob21lJTIwaXMlMjB2ZXJ5JTIwZmFyJTIwZnJvbSUyMHNjaG9vbC4pJTIyJTdEJTJDJTIyJUU3JUE2JUJCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybCVDMyVBRCUyMiUyQyUyMnBvcyUyMiUzQSUyMnByZXAuJTIyJTJDJTIyZW4lMjIlM0ElMjJhd2F5JTIwZnJvbSUzQiUyMGZyb20lMjAoaW5kaWNhdGluZyUyMGRpc3RhbmNlJTIwb3IlMjB0aW1lKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU1JUFFJUI2JUU3JUE2JUJCJUU1JUFEJUE2JUU2JUEwJUExJUU1JUJFJTg4JUU4JUJGJTlDJUUzJTgwJTgyJTIwKEElMjAlRTclQTYlQkIlMjBCJTIwJTJCJTIwYWRqLiUyMCUzRCUyMEElMjBpcyUyMCU1QmRpc3RhbmNlJTVEJTIwZnJvbSUyMEIpJTIyJTdEJTJDJTIyJUU1JUJFJTg4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyaCVDNCU5Qm4lMjIlMkMlMjJwb3MlMjIlM0ElMjJhZHYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ2ZXJ5JTNCJTIwcXVpdGUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNyVBNiVCQiVFNSVBRCVBNiVFNiVBMCVBMSVFNSVCRSU4OCVFOCVCRiU5QyUyMCh2ZXJ5JTIwZmFyJTIwZnJvbSUyMHNjaG9vbCklMjIlN0QlMkMlMjIlRTglQkYlOUMlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5dSVDNyU4RW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJhZGouJTIyJTJDJTIyZW4lMjIlM0ElMjJmYXIlM0IlMjBkaXN0YW50JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTUlQUUlQjYlRTclQTYlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTUlQkUlODglRTglQkYlOUMlRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlODklODAlRTQlQkIlQTUlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJzdSVDNyU5MnklQzclOTAlMjIlMkMlMjJwb3MlMjIlM0ElMjJjb25qLiUyMiUyQyUyMmVuJTIyJTNBJTIyc28lM0IlMjB0aGVyZWZvcmUlM0IlMjBhcyUyMGElMjByZXN1bHQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU5QiVBMCVFNCVCOCVCQSVFNiU4OCU5MSVFNyU5QSU4NCVFNSVBRSVCNiVFNyVBNiVCQiVFNSVBRCVBNiVFNiVBMCVBMSVFNSVCRSU4OCVFOCVCRiU5QyVFRiVCQyU4QyVFNiU4OSU4MCVFNCVCQiVBNSVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFNiU5NyVBOSVFNCVCOCU4QSVFNSU4NSVBRCVFNyU4MiVCOSVFOCVCNSVCNyVFNSVCQSU4QSVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNiU5NyVBOSVFNCVCOCU4QSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnolQzclOEVvc2hhbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyZWFybHklMjBtb3JuaW5nJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlQUYlOEYlRTUlQTQlQTklRTYlOTclQTklRTQlQjglOEElRTUlODUlQUQlRTclODIlQjklRTglQjUlQjclRTUlQkElOEElMjAoZ2V0JTIwdXAlMjBhdCUyMDYlMjBvJ2Nsb2NrJTIwZXZlcnklMjBtb3JuaW5nKSUyMiU3RCUyQyUyMiVFNSU4NSVBRCVFNyU4MiVCOSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmxpJUMzJUI5JTIwZGklQzclOEVuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMjYlMjBvJ2Nsb2NrJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlOTclQTklRTQlQjglOEElRTUlODUlQUQlRTclODIlQjklRTglQjUlQjclRTUlQkElOEElMjAlMkYlMjAlRTYlOTklOUElRTQlQjglOEElRTUlODUlQUQlRTclODIlQjklRTUlODglQjAlRTUlQUUlQjYlMjIlN0QlMkMlMjIlRTclODIlQjklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkaSVDNyU4RW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJtLiUyMiUyQyUyMmVuJTIyJTNBJTIybydjbG9jayUzQiUyMGhvdXIlM0IlMjBwb2ludCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JTgzJUU3JTgyJUI5JTIwKDclMjBvJ2Nsb2NrKSUyMCUyRiUyMCVFNCVCOCU4OSVFNyU4MiVCOSUyMCgzJTIwbydjbG9jayklMjIlN0QlMkMlMjIlRTglQjUlQjclRTUlQkElOEElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJxJUM3JTkwY2h1JUMzJUExbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyQm8uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGdldCUyMHVwJTNCJTIwdG8lMjBnZXQlMjBvdXQlMjBvZiUyMGJlZCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU2JUFGJThGJUU1JUE0JUE5JUU2JTk3JUE5JUU0JUI4JThBJUU1JTg1JUFEJUU3JTgyJUI5JUU4JUI1JUI3JUU1JUJBJThBJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU0JUJCJUE1JUU1JTkwJThFJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeSVDNyU5MGglQzMlQjJ1JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMkZwcmVwLiUyMiUyQyUyMmVuJTIyJTNBJTIyYWZ0ZXIlM0IlMjBhZnRlcndhcmRzJTNCJTIwbGF0ZXIlMjIlMkMlMjJleCUyMiUzQSUyMiVFOCVCNSVCNyVFNSVCQSU4QSVFNCVCQiVBNSVFNSU5MCU4RSUyMChhZnRlciUyMGdldHRpbmclMjB1cCklMjAlMkYlMjAlRTYlOTQlQkUlRTUlQUQlQTYlRTQlQkIlQTUlRTUlOTAlOEUlMjAoYWZ0ZXIlMjBzY2hvb2wpJTIyJTdEJTJDJTIyJUU1JTg1JTg4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzQlODFuJTIyJTJDJTIycG9zJTIyJTNBJTIyYWR2LiUyMiUyQyUyMmVuJTIyJTNBJTIyZmlyc3QlM0IlMjBpbiUyMGFkdmFuY2UlM0IlMjBiZWZvcmUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4NSU4OCVFMiU4MCVBNiVFMiU4MCVBNiVFRiVCQyU4QyVFNyU4NCVCNiVFNSU5MCU4RSVFMiU4MCVBNiVFMiU4MCVBNiUyMChmaXJzdC4uLiUyQyUyMGFuZCUyMHRoZW4uLi4pJTIyJTdEJTJDJTIyJUU1JTg4JUI3JUU3JTg5JTk5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyc2h1JUM0JTgxeSVDMyVBMSUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJCby4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwYnJ1c2glMjBvbmUncyUyMHRlZXRoJTIyJTJDJTIyZXglMjIlM0ElMjIlRTglQjUlQjclRTUlQkElOEElRTQlQkIlQTUlRTUlOTAlOEUlRTYlODglOTElRTUlODUlODglRTUlODglQjclRTclODklOTklRTMlODAlODElRTYlQjQlOTclRTglODQlQjglRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlQjQlOTclRTglODQlQjglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ4JUM3JTkwbGklQzclOEVuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjB3YXNoJTIwb25lJ3MlMjBmYWNlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlODUlODglRTUlODglQjclRTclODklOTklRTMlODAlODElRTYlQjQlOTclRTglODQlQjglMjAoZmlyc3QlMjBicnVzaCUyMHRlZXRoJTIwYW5kJTIwd2FzaCUyMGZhY2UpJTIyJTdEJTJDJTIyJUU3JTg0JUI2JUU1JTkwJThFJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyciVDMyVBMW5oJUMzJUIydSUyMiUyQyUyMnBvcyUyMiUzQSUyMmNvbmouJTIyJTJDJTIyZW4lMjIlM0ElMjJ0aGVuJTNCJTIwYWZ0ZXIlMjB0aGF0JTNCJTIwYWZ0ZXJ3YXJkcyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU1JTg1JTg4JUU1JTg4JUI3JUU3JTg5JTk5JUUzJTgwJTgxJUU2JUI0JTk3JUU4JTg0JUI4JUVGJUJDJThDJUU3JTg0JUI2JUU1JTkwJThFJUU1JTg3JUJBJUU1JThFJUJCJUU5JTgxJTlCJUU1JUIwJThGJUU5JUJFJTk5JUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JTg3JUJBJUU1JThFJUJCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyY2glQzUlQUJxJUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwZ28lMjBvdXQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4NyVCQSVFNSU4RSVCQiVFOSU4MSU5QiVFNSVCMCU4RiVFOSVCRSU5OSUyMChnbyUyMG91dCUyMHRvJTIwd2FsayUyMFhpYW9sb25nKSUyMiU3RCUyQyUyMiVFOSU4MSU5QiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmxpJUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwd2FsayUyMChhJTIwcGV0JTJGZG9nKSUzQiUyMHRvJTIwc3Ryb2xsJTIyJTJDJTIyZXglMjIlM0ElMjIlRTklODElOUIlRTclOEIlOTclMjAod2FsayUyMGElMjBkb2cpJTIwJTJGJTIwJUU5JTgxJTlCJUU1JUIwJThGJUU5JUJFJTk5JTIwKHdhbGslMjBYaWFvbG9uZyklMjIlN0QlMkMlMjIlRTUlQjAlOEYlRTklQkUlOTklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJYaSVDNyU4RW9sJUMzJUIzbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9wZXIlMjBuLiUyMiUyQyUyMmVuJTIyJTNBJTIyWGlhb2xvbmclMjAoJ0xpdHRsZSUyMERyYWdvbiclMkMlMjBuYW1lJTIwb2YlMjBEYXZpZCdzJTIwcGV0JTIwZG9nKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTg0JUI2JUU1JTkwJThFJUU1JTg3JUJBJUU1JThFJUJCJUU5JTgxJTlCJUU1JUIwJThGJUU5JUJFJTk5JTIyJTdEJTJDJTIyJUU0JUI4JTgzJUU3JTgyJUI5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIycSVDNCVBQiUyMGRpJUM3JThFbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjI3JTIwbydjbG9jayUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JTgzJUU3JTgyJUI5JUU2JTg4JTkxJUU1JTlEJTkwJUU2JUEwJUExJUU4JUJEJUE2JUU1JThFJUJCJUU1JUFEJUE2JUU2JUEwJUExJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JTlEJTkwJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyenUlQzMlQjIlMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjB0YWtlJTIwJTJGJTIwcmlkZSUyMChhJTIwdmVoaWNsZSklM0IlMjB0byUyMHNpdCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTlEJTkwJUU2JUEwJUExJUU4JUJEJUE2JTIwKHRha2UlMjB0aGUlMjBzY2hvb2wlMjBidXMpJTIyJTdEJTJDJTIyJUU2JUEwJUExJUU4JUJEJUE2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzMlQTBvY2glQzQlOTMlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyc2Nob29sJTIwYnVzJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOUQlOTAlRTYlQTAlQTElRTglQkQlQTYlRTUlOEUlQkIlRTUlQUQlQTYlRTYlQTAlQTElMjAodGFrZSUyMHRoZSUyMHNjaG9vbCUyMGJ1cyUyMHRvJTIwc2Nob29sKSUyMiU3RCUyQyUyMiVFNSU4RSVCQiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnElQzMlQjklMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBnbyUzQiUyMHRvJTIwZ28lMjB0byUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JThFJUJCJUU1JUFEJUE2JUU2JUEwJUExJTIwKGdvJTIwdG8lMjBzY2hvb2wpJTIwJTJGJTIwJUU1JThFJUJCJUU1JThDJUJCJUU5JTk5JUEyJTIwKGdvJTIwdG8lMjB0aGUlMjBob3NwaXRhbCklMjIlN0QlMkMlMjIlRTglQTYlODElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUMzJUEwbyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHRha2UlMjAodGltZSklM0IlMjB0byUyMG5lZWQlM0IlMjB0byUyMHdhbnQlM0IlMjB3aWxsJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkIlOEUlRTYlODglOTElRTUlQUUlQjYlRTUlODglQjAlRTUlQUQlQTYlRTYlQTAlQTElRTglQTYlODElRTQlQjglODAlRTQlQjglQUElRTUlQjAlOEYlRTYlOTclQjYlRTMlODAlODIlMjAoSXQlMjB0YWtlcyUyMG9uZSUyMGhvdXIlMjBmcm9tJTIwbXklMjBob21lJTIwdG8lMjBzY2hvb2wuKSUyMiU3RCUyQyUyMiVFNCVCOCU4MCVFNCVCOCVBQSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnklQzQlQUIlMjBnJUMzJUE4JTIyJTJDJTIycG9zJTIyJTNBJTIybnVtLiUyQm0uJTIyJTJDJTIyZW4lMjIlM0ElMjJvbmUlM0IlMjBhJTJGYW4lMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOCU4MCVFNCVCOCVBQSVFNSVCMCU4RiVFNiU5NyVCNiUyMChvbmUlMjBob3VyKSUyMiU3RCUyQyUyMiVFNSVCMCU4RiVFNiU5NyVCNiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnhpJUM3JThFb3NoJUMzJUFEJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmhvdXIlMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOCU4MCVFNCVCOCVBQSVFNSVCMCU4RiVFNiU5NyVCNiUyMChvbmUlMjBob3VyKSUyMiU3RCUyQyUyMiVFNiU4OCU5MSVFNCVCQiVBQyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnclQzclOTJtZW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9uLiUyMiUyQyUyMmVuJTIyJTNBJTIyd2UlM0IlMjB1cyUzQiUyMG91ciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU0JUJCJUFDJUU0JUI4JThBJUU1JThEJTg4JUU2JTlDJTg5JUU0JUI4JTg5JUU4JThBJTgyJUU4JUFGJUJFJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU0JUI4JThBJUU1JThEJTg4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyc2glQzMlQTBuZ3clQzclOTQlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIybW9ybmluZyUzQiUyMGZvcmVub29uJTIwKGJlZm9yZSUyMG5vb24pJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQkIlQUMlRTQlQjglOEElRTUlOEQlODglRTYlOUMlODklRTQlQjglODklRTglOEElODIlRTglQUYlQkUlRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlOUMlODklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUM3JTkydSUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGhhdmUlM0IlMjB0aGVyZSUyMGlzJTJGYXJlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQjglOEElRTUlOEQlODglRTYlOUMlODklRTQlQjglODklRTglOEElODIlRTglQUYlQkUlMjAoaGF2ZSUyMHRocmVlJTIwY2xhc3NlcyUyMGluJTIwdGhlJTIwbW9ybmluZyklMjIlN0QlMkMlMjIlRTQlQjglODklRTglOEElODIlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJzJUM0JTgxbiUyMGppJUMzJUE5JTIyJTJDJTIycG9zJTIyJTNBJTIybnVtLiUyQm0uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0aHJlZSUyMHBlcmlvZHMlMjAob2YlMjBjbGFzcyklMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOCU4OSVFOCU4QSU4MiVFOCVBRiVCRSUyMCh0aHJlZSUyMGNsYXNzZXMpJTIyJTdEJTJDJTIyJUU4JThBJTgyJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyamklQzMlQTklMjIlMkMlMjJwb3MlMjIlM0ElMjJtLiUyMiUyQyUyMmVuJTIyJTNBJTIybWVhc3VyZSUyMHdvcmQlMjBmb3IlMjBjbGFzcyUyMHBlcmlvZHMlMjBvciUyMHNlY3Rpb25zJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQjglODAlRTglOEElODIlRTglQUYlQkUlMjAob25lJTIwY2xhc3MlMjBwZXJpb2QpJTIyJTdEJTJDJTIyJUU2JUFGJThGJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybSVDNCU5QmklMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9uLiUyMiUyQyUyMmVuJTIyJTNBJTIyZXZlcnklM0IlMjBlYWNoJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlQUYlOEYlRTglOEElODIlRTglQUYlQkUlRTUlODUlQUIlRTUlOEQlODElRTUlODglODYlRTklOTIlOUYlMjAoZWFjaCUyMGNsYXNzJTIwaXMlMjA4MCUyMG1pbnV0ZXMpJTIyJTdEJTJDJTIyJUU1JTg1JUFCJUU1JThEJTgxJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyYiVDNCU4MXNoJUMzJUFEJTIyJTJDJTIycG9zJTIyJTNBJTIybnVtLiUyMiUyQyUyMmVuJTIyJTNBJTIyZWlnaHR5JTIwKDgwKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTg1JUFCJUU1JThEJTgxJUU1JTg4JTg2JUU5JTkyJTlGJTIwKDgwJTIwbWludXRlcyklMjIlN0QlMkMlMjIlRTUlODglODYlRTklOTIlOUYlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJmJUM0JTkzbnpoJUM1JThEbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIybWludXRlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkElOEMlRTUlOEQlODElRTUlODglODYlRTklOTIlOUYlMjAoMjAlMjBtaW51dGVzKSUyMiU3RCUyQyUyMiVFNyVBQyVBQyVFNCVCOCU4MCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmQlQzMlQUMteSVDNCVBQiUyMiUyQyUyMnBvcyUyMiUzQSUyMm51bS4lMjIlMkMlMjJlbiUyMiUzQSUyMmZpcnN0JTIwKDFzdCklMjIlMkMlMjJleCUyMiUzQSUyMiVFNyVBQyVBQyVFNCVCOCU4MCVFOCU4QSU4MiVFOCVBRiVCRSVFNCVCQiVBNSVFNSU5MCU4RSUyMChhZnRlciUyMHRoZSUyMGZpcnN0JTIwY2xhc3MpJTIyJTdEJTJDJTIyJUU0JUJBJThDJUU1JThEJTgxJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyJUMzJUE4cnNoJUMzJUFEJTIyJTJDJTIycG9zJTIyJTNBJTIybnVtLiUyMiUyQyUyMmVuJTIyJTNBJTIydHdlbnR5JTIwKDIwKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJBJThDJUU1JThEJTgxJUU1JTg4JTg2JUU5JTkyJTlGJUU3JTlBJTg0JUU4JUFGJUJFJUU5JTk3JUI0JUU0JUJDJTkxJUU2JTgxJUFGJTIwKGElMjAyMC1taW51dGUlMjBicmVhayUyMGJldHdlZW4lMjBjbGFzc2VzKSUyMiU3RCUyQyUyMiVFOCVBRiVCRSVFOSU5NyVCNCVFNCVCQyU5MSVFNiU4MSVBRiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmslQzMlQThqaSVDNCU4MW4lMjB4aSVDNSVBQnhpJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmJyZWFrJTIwYmV0d2VlbiUyMGNsYXNzZXMlM0IlMjByZWNlc3MlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU5QyU4OSVFNCVCQSU4QyVFNSU4RCU4MSVFNSU4OCU4NiVFOSU5MiU5RiVFNyU5QSU4NCVFOCVBRiVCRSVFOSU5NyVCNCVFNCVCQyU5MSVFNiU4MSVBRiUyMiU3RCUyQyUyMiVFOCVBRiVCRSVFOSU5NyVCNCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmslQzMlQThqaSVDNCU4MW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyaW50ZXJ2YWwlMjBiZXR3ZWVuJTIwY2xhc3NlcyUzQiUyMHJlY2VzcyUyMiUyQyUyMmV4JTIyJTNBJTIyJUU4JUFGJUJFJUU5JTk3JUI0JUU0JUJDJTkxJUU2JTgxJUFGJTIwKHJlY2VzcyUyMCUyRiUyMGJyZWFrKSUyMiU3RCUyQyUyMiVFNCVCQyU5MSVFNiU4MSVBRiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnhpJUM1JUFCeGklMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHJlc3QlM0IlMjB0byUyMHRha2UlMjBhJTIwYnJlYWslMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNCVCQyU5MSVFNiU4MSVBRiVFNyU5QSU4NCVFNiU5NyVCNiVFNSU4MCU5OSUyMCh3aGVuJTIwSSUyMHRha2UlMjBhJTIwYnJlYWspJTIyJTdEJTJDJTIyJUU3JTlBJTg0JUU2JTk3JUI2JUU1JTgwJTk5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZGUlMjBzaCVDMyVBRGhvdSUyMiUyQyUyMnBvcyUyMiUzQSUyMnBocmFzZSUyMiUyQyUyMmVuJTIyJTNBJTIyd2hlbi4uLiUzQiUyMGF0JTIwdGhlJTIwdGltZSUyMG9mLi4uJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQkMlOTElRTYlODElQUYlRTclOUElODQlRTYlOTclQjYlRTUlODAlOTklMjAod2hlbiUyMEklMjBhbSUyMG9uJTIwYnJlYWspJTIyJTdEJTJDJTIyJUU2JTk3JUI2JUU1JTgwJTk5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyc2glQzMlQURob3UlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIydGltZSUzQiUyMG1vbWVudCUzQiUyMHBlcmlvZCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJDJTkxJUU2JTgxJUFGJUU3JTlBJTg0JUU2JTk3JUI2JUU1JTgwJTk5JTIyJTdEJTJDJTIyJUU3JUJCJThGJUU1JUI4JUI4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyaiVDNCVBQm5nY2glQzMlQTFuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMjIlMkMlMjJlbiUyMiUzQSUyMm9mdGVuJTNCJTIwZnJlcXVlbnRseSUzQiUyMHJlZ3VsYXJseSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU3JUJCJThGJUU1JUI4JUI4JUU1JThFJUJCJUU1JUFEJUE2JUU2JUEwJUExJUU3JTlBJTg0JUU1JTkyJTk2JUU1JTk1JUExJUU1JThFJTg1JUU1JTkwJTgzJUU2JTk3JUE5JUU5JUE1JUFEJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JTkyJTk2JUU1JTk1JUExJUU1JThFJTg1JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDNCU4MWYlQzQlOTNpdCVDNCVBQm5nJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmNhZmUlM0IlMjBjb2ZmZWUlMjBzaG9wJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQUQlQTYlRTYlQTAlQTElRTclOUElODQlRTUlOTIlOTYlRTUlOTUlQTElRTUlOEUlODUlMjAodGhlJTIwc2Nob29sJTIwY2FmZSklMjIlN0QlMkMlMjIlRTUlOTIlOTYlRTUlOTUlQTElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJrJUM0JTgxZiVDNCU5M2klMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyY29mZmVlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOTYlOUQlRTUlOTIlOTYlRTUlOTUlQTElMjAoZHJpbmslMjBjb2ZmZWUpJTIyJTdEJTJDJTIyJUU1JTkwJTgzJUU2JTk3JUE5JUU5JUE1JUFEJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyY2glQzQlQUIlMjB6JUM3JThFb2YlQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBlYXQlMjBicmVha2Zhc3QlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4RSVCQiVFNSVBRCVBNiVFNiVBMCVBMSVFNyU5QSU4NCVFNSU5MiU5NiVFNSU5NSVBMSVFNSU4RSU4NSVFNSU5MCU4MyVFNiU5NyVBOSVFOSVBNSVBRCUyMiU3RCUyQyUyMiVFNSU5MCU4MyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmNoJUM0JUFCJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwZWF0JTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOTAlODMlRTYlOTclQTklRTklQTUlQUQlMjAlMkYlMjAlRTUlOTAlODMlRTUlOEQlODglRTklQTUlQUQlMjAlMkYlMjAlRTUlOTAlODMlRTYlOTklOUElRTklQTUlQUQlMjIlN0QlMkMlMjIlRTYlOTclQTklRTklQTUlQUQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ6JUM3JThFb2YlQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmJyZWFrZmFzdCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTkwJTgzJUU2JTk3JUE5JUU5JUE1JUFEJTIwKGVhdCUyMGJyZWFrZmFzdCklMjIlN0QlMkMlMjIlRTUlOUMlQTglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ6JUMzJUEwaSUyMiUyQyUyMnBvcyUyMiUzQSUyMnByZXAuJTJGdi4lMjIlMkMlMjJlbiUyMiUzQSUyMmF0JTNCJTIwaW4lM0IlMjBvbiUzQiUyMHRvJTIwYmUlMjBhdCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTlDJUE4JUU1JTkyJTk2JUU1JTk1JUExJUU1JThFJTg1JTIwKGF0JTIwdGhlJTIwY2FmZSklMjAlMkYlMjAlRTUlOUMlQTglRTUlQUQlQTYlRTYlQTAlQTElRTklQTQlOTAlRTUlOEUlODUlMjAoaW4lMjB0aGUlMjBzY2hvb2wlMjBjYWZldGVyaWEpJTIyJTdEJTJDJTIyJUU1JThGJUFGJUU0JUJCJUE1JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDNCU5QnklQzclOTAlMjIlMkMlMjJwb3MlMjIlM0ElMjJhdXguJTIyJTJDJTIyZW4lMjIlM0ElMjJjYW4lM0IlMjBtYXklM0IlMjBiZSUyMGFibGUlMjB0byUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTg4JTkxJUU1JThGJUFGJUU0JUJCJUE1JUU3JTlDJThCJUU1JTg4JUIwJUU5JTgyJUEzJUU0JUI4JUFBJUU2JTg4JTkxJUU1JTk2JTlDJUU2JUFDJUEyJUU3JTlBJTg0JUU2JTk3JUE1JUU2JTlDJUFDJUU1JUE1JUIzJUU1JUFEJUE5JTIyJTdEJTJDJTIyJUU3JTlDJThCJUU1JTg4JUIwJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDMyVBMG5kJUMzJUEwbyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHNlZSUzQiUyMHRvJTIwY2F0Y2glMjBzaWdodCUyMG9mJTIyJTJDJTIyZXglMjIlM0ElMjIlRTclOUMlOEIlRTUlODglQjAlRTklODIlQTMlRTQlQjglQUElRTUlQTUlQjMlRTUlQUQlQTklMjAoc2VlJTIwdGhhdCUyMGdpcmwpJTIyJTdEJTJDJTIyJUU5JTgyJUEzJUU0JUI4JUFBJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybiVDMyVBMGdlJTIyJTJDJTIycG9zJTIyJTNBJTIycHJvbi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRoYXQlM0IlMjB0aGF0JTIwb25lJTIyJTJDJTIyZXglMjIlM0ElMjIlRTklODIlQTMlRTQlQjglQUElRTYlODglOTElRTUlOTYlOUMlRTYlQUMlQTIlRTclOUElODQlRTYlOTclQTUlRTYlOUMlQUMlRTUlQTUlQjMlRTUlQUQlQTklMjIlN0QlMkMlMjIlRTYlOTclQTUlRTYlOUMlQUMlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJSJUMzJUFDYiVDNCU5Qm4lMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9wZXIlMjBuLiUyMiUyQyUyMmVuJTIyJTNBJTIySmFwYW4lM0IlMjBKYXBhbmVzZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk3JUE1JUU2JTlDJUFDJUU1JUE1JUIzJUU1JUFEJUE5JTIwKEphcGFuZXNlJTIwZ2lybCklMjIlN0QlMkMlMjIlRTUlQTUlQjMlRTUlQUQlQTklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJuJUM3JTlBaCVDMyVBMWklMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyZ2lybCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk3JUE1JUU2JTlDJUFDJUU1JUE1JUIzJUU1JUFEJUE5JTIwKEphcGFuZXNlJTIwZ2lybCklMjIlN0QlMkMlMjIlRTUlQTUlQjklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ0JUM0JTgxJTIyJTJDJTIycG9zJTIyJTNBJTIycHJvbi4lMjIlMkMlMjJlbiUyMiUzQSUyMnNoZSUzQiUyMGhlciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JUE1JUI5JUU2JUFGJThGJUU1JUE0JUE5JUU5JTgzJUJEJUU1JTlDJUE4JUU5JTgyJUEzJUU1JTg0JUJGJUU1JTk2JTlEJUU1JTkyJTk2JUU1JTk1JUExJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU5JTgyJUEzJUU1JTg0JUJGJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIybiVDMyVBMHIlMjIlMkMlMjJwb3MlMjIlM0ElMjJwcm9uLiUyMiUyQyUyMmVuJTIyJTNBJTIydGhlcmUlM0IlMjB0aGF0JTIwcGxhY2UlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU5QyVBOCVFOSU4MiVBMyVFNSU4NCVCRiVFNSU5NiU5RCVFNSU5MiU5NiVFNSU5NSVBMSUyMChkcmluayUyMGNvZmZlZSUyMHRoZXJlKSUyMiU3RCUyQyUyMiVFNSU5NiU5RCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmglQzQlOTMlMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBkcmluayUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTk2JTlEJUU1JTkyJTk2JUU1JTk1JUExJTIwKGRyaW5rJTIwY29mZmVlKSUyMiU3RCUyQyUyMiVFNCVCOCVBRCVFNSU4RCU4OCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnpoJUM1JThEbmd3JUM3JTk0JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMm5vb24lM0IlMjBtaWRkYXklMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOCVBRCVFNSU4RCU4OCVFNiU4OCU5MSVFOCVCNyU5RiVFNiU5QyU4QiVFNSU4RiU4QiVFNCVCQiVBQyVFNCVCOCU4MCVFOCVCNSVCNyVFNSU5MCU4MyVFNSU4RCU4OCVFOSVBNSVBRCVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNCVCOCU4MCVFOCVCNSVCNyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnklQzQlQUJxJUM3JTkwJTIyJTJDJTIycG9zJTIyJTNBJTIyYWR2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG9nZXRoZXIlM0IlMjBpbiUyMHRoZSUyMHNhbWUlMjBwbGFjZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU4JUI3JTlGJUU2JTlDJThCJUU1JThGJThCJUU0JUJCJUFDJUU0JUI4JTgwJUU4JUI1JUI3JTIwKHRvZ2V0aGVyJTIwd2l0aCUyMGZyaWVuZHMpJTIyJTdEJTJDJTIyJUU5JUE0JTkwJUU1JThFJTg1JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyYyVDNCU4MW50JUM0JUFCbmclMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyY2FmZXRlcmlhJTNCJTIwZGluaW5nJTIwaGFsbCUzQiUyMHJlc3RhdXJhbnQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSVBRCVBNiVFNiVBMCVBMSVFOSVBNCU5MCVFNSU4RSU4NSUyMChzY2hvb2wlMjBjYWZldGVyaWElMjAlMkYlMjBkaW5pbmclMjBoYWxsKSUyMiU3RCUyQyUyMiVFNSU5MCU4MyVFNSU4RCU4OCVFOSVBNSVBRCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmNoJUM0JUFCJTIwdyVDNyU5NGYlQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBlYXQlMjBsdW5jaCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTlDJUE4JUU1JUFEJUE2JUU2JUEwJUExJUU5JUE0JTkwJUU1JThFJTg1JUU1JTkwJTgzJUU1JThEJTg4JUU5JUE1JUFEJTIyJTdEJTJDJTIyJUU1JThEJTg4JUU5JUE1JUFEJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDNyU5NGYlQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmx1bmNoJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOTAlODMlRTUlOEQlODglRTklQTUlQUQlMjAoZWF0JTIwbHVuY2gpJTIyJTdEJTJDJTIyJUU0JUI4JThCJUU1JThEJTg4JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzMlQTB3JUM3JTk0JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmFmdGVybm9vbiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JThCJUU1JThEJTg4JUU2JTg4JTkxJUU1JThGJUFBJUU2JTlDJTg5JUU0JUI4JTgwJUU4JThBJTgyJUU4JUFGJUJFJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JThGJUFBJUU2JTlDJTg5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyemglQzclOTB5JUM3JTkydSUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMkJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIyb25seSUyMGhhdmUlM0IlMjB0aGVyZSUyMGlzJTIwb25seSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JThCJUU1JThEJTg4JUU2JTg4JTkxJUU1JThGJUFBJUU2JTlDJTg5JUU0JUI4JTgwJUU4JThBJTgyJUU4JUFGJUJFJUUzJTgwJTgyJTIwKEluJTIwdGhlJTIwYWZ0ZXJub29uJTIwSSUyMG9ubHklMjBoYXZlJTIwb25lJTIwY2xhc3MuKSUyMiU3RCUyQyUyMiVFNCVCOCU4MCVFOCU4QSU4MiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnklQzQlQUIlMjBqaSVDMyVBOSUyMiUyQyUyMnBvcyUyMiUzQSUyMm51bS4lMkJtLiUyMiUyQyUyMmVuJTIyJTNBJTIyb25lJTIwcGVyaW9kJTIwKG9mJTIwY2xhc3MpJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQjglODAlRTglOEElODIlRTglQUYlQkUlMjAob25lJTIwY2xhc3MpJTIyJTdEJTJDJTIyJUU0JUI4JTg5JUU3JTgyJUI5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIycyVDNCU4MW4lMjBkaSVDNyU4RW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyMyUyMG8nY2xvY2slMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCOCU4OSVFNyU4MiVCOSVFNiU5NCVCRSVFNSVBRCVBNiUyMChmaW5pc2glMjBzY2hvb2wlMjBhdCUyMDMlMjBvJ2Nsb2NrKSUyMiU3RCUyQyUyMiVFNiU5NCVCRSVFNSVBRCVBNiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmYlQzMlQTBuZ3h1JUMzJUE5JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBmaW5pc2glMjBzY2hvb2wlM0IlMjBzY2hvb2wlMjBpcyUyMG92ZXIlMjAoZm9yJTIwdGhlJTIwZGF5KSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JThCJUU1JThEJTg4JUU0JUI4JTg5JUU3JTgyJUI5JUU2JTk0JUJFJUU1JUFEJUE2JTIwJTJGJTIwJUU2JTk0JUJFJUU1JUFEJUE2JUU0JUJCJUE1JUU1JTkwJThFJTIwKGFmdGVyJTIwc2Nob29sKSUyMiU3RCUyQyUyMiVFNiVBRiU5NCVFNSVBNiU4MiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmIlQzclOTByJUMzJUJBJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkZwcmVwLiUyMiUyQyUyMmVuJTIyJTNBJTIyZm9yJTIwZXhhbXBsZSUzQiUyMHN1Y2glMjBhcyUzQiUyMGZvciUyMGluc3RhbmNlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlQUYlOTQlRTUlQTYlODIlRTYlOEIlODklRTUlQjAlOEYlRTYlOEYlOTAlRTclOTAlQjQlRTMlODAlODElRTYlODklOTMlRTclQkUlQkQlRTYlQUYlOUIlRTclOTAlODMlRTclQUQlODklRTclQUQlODklRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlOEIlODklRTUlQjAlOEYlRTYlOEYlOTAlRTclOTAlQjQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJsJUM0JTgxJTIweGklQzclOEVvdCVDMyVBRHElQzMlQURuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBwbGF5JTIwdGhlJTIwdmlvbGluJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTUlOTYlOUMlRTYlQUMlQTIlRTYlOEIlODklRTUlQjAlOEYlRTYlOEYlOTAlRTclOTAlQjQlRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlOEIlODklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJsJUM0JTgxJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwcGxheSUyMChib3dlZCUyMHN0cmluZyUyMGluc3RydW1lbnRzKSUzQiUyMHRvJTIwcHVsbCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JThCJTg5JUU1JUIwJThGJUU2JThGJTkwJUU3JTkwJUI0JTIwKHBsYXklMjB0aGUlMjB2aW9saW4pJTIyJTdEJTJDJTIyJUU1JUIwJThGJUU2JThGJTkwJUU3JTkwJUI0JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzclOEVvdCVDMyVBRHElQzMlQURuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMnZpb2xpbiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JThCJTg5JUU1JUIwJThGJUU2JThGJTkwJUU3JTkwJUI0JTIyJTdEJTJDJTIyJUU2JTg5JTkzJUU3JUJFJUJEJUU2JUFGJTlCJUU3JTkwJTgzJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZCVDNyU4RSUyMHklQzclOTRtJUMzJUExb3FpJUMzJUJBJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBwbGF5JTIwYmFkbWludG9uJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlOTQlQkUlRTUlQUQlQTYlRTQlQkIlQTUlRTUlOTAlOEUlRTYlODklOTMlRTclQkUlQkQlRTYlQUYlOUIlRTclOTAlODMlRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlODklOTMlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkJUM3JThFJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwcGxheSUyMChiYWxsJTIwZ2FtZXMlMjB3aXRoJTIwaGFuZHMlMkZyYWNrZXRzKSUzQiUyMHRvJTIwaGl0JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODklOTMlRTclQkUlQkQlRTYlQUYlOUIlRTclOTAlODMlMjAocGxheSUyMGJhZG1pbnRvbiklMjAlMkYlMjAlRTYlODklOTMlRTclQUYlQUUlRTclOTAlODMlMjAocGxheSUyMGJhc2tldGJhbGwpJTIyJTdEJTJDJTIyJUU3JUJFJUJEJUU2JUFGJTlCJUU3JTkwJTgzJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeSVDNyU5NG0lQzMlQTFvcWklQzMlQkElMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyYmFkbWludG9uJTNCJTIwc2h1dHRsZWNvY2slMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OSU5MyVFNyVCRSVCRCVFNiVBRiU5QiVFNyU5MCU4MyUyMiU3RCUyQyUyMiVFNyVBRCU4OSVFNyVBRCU4OSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmQlQzQlOUJuZ2QlQzQlOUJuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMnBhcnQuJTIyJTJDJTIyZW4lMjIlM0ElMjJldCUyMGNldGVyYSUyMChldGMuKSUzQiUyMGFuZCUyMHNvJTIwb24lMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4QiU4OSVFNSVCMCU4RiVFNiU4RiU5MCVFNyU5MCVCNCVFMyU4MCU4MSVFNiU4OSU5MyVFNyVCRSVCRCVFNiVBRiU5QiVFNyU5MCU4MyVFNyVBRCU4OSVFNyVBRCU4OSUyMiU3RCUyQyUyMiVFNyVBNCVCRSVFNSU4QyVCQSVFNiU5QyU4RCVFNSU4QSVBMSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnNoJUMzJUE4cSVDNSVBQiUyMGYlQzMlQkF3JUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmNvbW11bml0eSUyMHNlcnZpY2UlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNyU5QSU4NCVFNyVBNCVCRSVFNSU4QyVCQSVFNiU5QyU4RCVFNSU4QSVBMSVFNiU5OCVBRiVFNSU4RSVCQiVFNSU4QyVCQiVFOSU5OSVBMiVFNyU4NSVBNyVFOSVBMSVCRSVFNyU5NyU4NSVFNCVCQSVCQSVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNyVBNCVCRSVFNSU4QyVCQSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnNoJUMzJUE4cSVDNSVBQiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJjb21tdW5pdHklM0IlMjBuZWlnaGJvcmhvb2QlMjIlMkMlMjJleCUyMiUzQSUyMiVFNyVBNCVCRSVFNSU4QyVCQSVFNiU5QyU4RCVFNSU4QSVBMSUyMChjb21tdW5pdHklMjBzZXJ2aWNlKSUyMiU3RCUyQyUyMiVFNiU5QyU4RCVFNSU4QSVBMSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmYlQzMlQkF3JUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMkZ2LiUyMiUyQyUyMmVuJTIyJTNBJTIyc2VydmljZSUzQiUyMHRvJTIwc2VydmUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNyVBNCVCRSVFNSU4QyVCQSVFNiU5QyU4RCVFNSU4QSVBMSUyMiU3RCUyQyUyMiVFNiU5OCVBRiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnNoJUMzJUFDJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwYmUlMjAoYW0lMkMlMjBpcyUyQyUyMGFyZSUyQyUyMHdhcyUyQyUyMHdlcmUpJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTclOUElODQlRTclQTQlQkUlRTUlOEMlQkElRTYlOUMlOEQlRTUlOEElQTElRTYlOTglQUYlRTUlOEUlQkIlRTUlOEMlQkIlRTklOTklQTIlRTclODUlQTclRTklQTElQkUlRTclOTclODUlRTQlQkElQkElRTMlODAlODIlMjIlN0QlMkMlMjIlRTUlOEMlQkIlRTklOTklQTIlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUM0JUFCeXUlQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmhvc3BpdGFsJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOEUlQkIlRTUlOEMlQkIlRTklOTklQTIlRTclODUlQTclRTklQTElQkUlRTclOTclODUlRTQlQkElQkElMjAoZ28lMjB0byUyMHRoZSUyMGhvc3BpdGFsJTIwdG8lMjB0YWtlJTIwY2FyZSUyMG9mJTIwcGF0aWVudHMpJTIyJTdEJTJDJTIyJUU3JTg1JUE3JUU5JUExJUJFJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyemglQzMlQTBvZyVDMyVCOSUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHRha2UlMjBjYXJlJTIwb2YlM0IlMjB0byUyMGxvb2slMjBhZnRlciUzQiUyMHRvJTIwY2FyZSUyMGZvciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTg1JUE3JUU5JUExJUJFJUU3JTk3JTg1JUU0JUJBJUJBJTIwKHRha2UlMjBjYXJlJTIwb2YlMjBwYXRpZW50cyklMjIlN0QlMkMlMjIlRTclOTclODUlRTQlQkElQkElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJiJUMzJUFDbmdyJUMzJUE5biUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJwYXRpZW50JTNCJTIwc2ljayUyMHBlcnNvbiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JThFJUJCJUU1JThDJUJCJUU5JTk5JUEyJUU3JTg1JUE3JUU5JUExJUJFJUU3JTk3JTg1JUU0JUJBJUJBJTIyJTdEJTJDJTIyJUU2JTk5JTlBJUU0JUI4JThBJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDNyU4RW5zaGFuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJldmVuaW5nJTNCJTIwbmlnaHQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFNiU5OSU5QSVFNCVCOCU4QSVFNSVCNyVBRSVFNCVCOCU4RCVFNSVBNCU5QSVFNSU4NSVBRCVFNyU4MiVCOSVFNSU4OCVCMCVFNSVBRSVCNiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNSVCNyVBRSVFNCVCOCU4RCVFNSVBNCU5QSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmNoJUMzJUEwYnVkdSVDNSU4RCUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMkZhZGouJTIyJTJDJTIyZW4lMjIlM0ElMjJhbG1vc3QlM0IlMjBuZWFybHklM0IlMjBhYm91dCUzQiUyMHJvdWdobHklMjIlMkMlMjJleCUyMiUzQSUyMiVFNSVCNyVBRSVFNCVCOCU4RCVFNSVBNCU5QSVFNSU4NSVBRCVFNyU4MiVCOSVFNSU4OCVCMCVFNSVBRSVCNiUyMChnZXQlMjBob21lJTIwYXQlMjBhbG1vc3QlMkZhYm91dCUyMDYlMjBvJ2Nsb2NrKSUyMiU3RCUyQyUyMiVFNSU4OCVCMCVFNSVBRSVCNiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmQlQzMlQTBvJTIwamklQzQlODElMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyQm8uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGFycml2ZSUyMGhvbWUlM0IlMjB0byUyMGdldCUyMGhvbWUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSVCNyVBRSVFNCVCOCU4RCVFNSVBNCU5QSVFNSU4NSVBRCVFNyU4MiVCOSVFNSU4OCVCMCVFNSVBRSVCNiUyMiU3RCUyQyUyMiVFNSU5MiU4QyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmglQzMlQTklMjIlMkMlMjJwb3MlMjIlM0ElMjJjb25qLiUyRnByZXAuJTIyJTJDJTIyZW4lMjIlM0ElMjJhbmQlM0IlMjB3aXRoJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOTIlOEMlRTclODglQjglRTclODglQjglRTUlQTYlODglRTUlQTYlODglRTQlQjglODAlRTglQjUlQjclRTUlOTAlODMlRTYlOTklOUElRTklQTUlQUQlMjAoZWF0JTIwZGlubmVyJTIwd2l0aCUyMGRhZCUyMGFuZCUyMG1vbSklMjIlN0QlMkMlMjIlRTclODglQjglRTclODglQjglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJiJUMzJUEwYmElMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyZGFkJTNCJTIwZmF0aGVyJTIyJTJDJTIyZXglMjIlM0ElMjIlRTclODglQjglRTclODglQjglRTUlQTYlODglRTUlQTYlODglMjAoZGFkJTIwYW5kJTIwbW9tJTIwJTJGJTIwcGFyZW50cyklMjIlN0QlMkMlMjIlRTUlQTYlODglRTUlQTYlODglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJtJUM0JTgxbWElMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIybW9tJTNCJTIwbW90aGVyJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlOTIlOEMlRTclODglQjglRTclODglQjglRTUlQTYlODglRTUlQTYlODglRTQlQjglODAlRTglQjUlQjclRTUlOTAlODMlRTYlOTklOUElRTklQTUlQUQlMjIlN0QlMkMlMjIlRTUlOTAlODMlRTYlOTklOUElRTklQTUlQUQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJjaCVDNCVBQiUyMHclQzclOEVuZiVDMyVBMG4lMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyQm8uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMGVhdCUyMGRpbm5lciUyMCUyRiUyMHN1cHBlciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JTgzJUU3JTgyJUI5JUU1JTkyJThDJUU3JTg4JUI4JUU3JTg4JUI4JUU1JUE2JTg4JUU1JUE2JTg4JUU0JUI4JTgwJUU4JUI1JUI3JUU1JTkwJTgzJUU2JTk5JTlBJUU5JUE1JUFEJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU2JTk5JTlBJUU5JUE1JUFEJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDNyU4RW5mJUMzJUEwbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJkaW5uZXIlM0IlMjBzdXBwZXIlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU5OSU5QSVFOSVBNSVBRCVFNCVCQiVBNSVFNSU5MCU4RSUyMChhZnRlciUyMGRpbm5lciklMjIlN0QlMkMlMjIlRTUlODYlOTklRTQlQkQlOUMlRTQlQjglOUElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ4aSVDNCU5QiUyMHp1JUMzJUIyeSVDMyVBOCUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJCby4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwZG8lMjBob21ld29yayUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk5JTlBJUU5JUE1JUFEJUU0JUJCJUE1JUU1JTkwJThFJUVGJUJDJThDJUU2JTg4JTkxJUU1JTg2JTk5JUU0JUJEJTlDJUU0JUI4JTlBJUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JTg2JTk5JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzQlOUIlMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjB3cml0ZSUzQiUyMHRvJTIwY29tcG9zZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTg2JTk5JUU0JUJEJTlDJUU0JUI4JTlBJTIwKGRvJTIwaG9tZXdvcmspJTIwJTJGJTIwJUU1JTg2JTk5JUU0JUJGJUExJTIwKHdyaXRlJTIwYSUyMGxldHRlciklMjIlN0QlMkMlMjIlRTQlQkQlOUMlRTQlQjglOUElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ6dSVDMyVCMnklQzMlQTglMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyaG9tZXdvcmslM0IlMjBzY2hvb2wlMjBhc3NpZ25tZW50JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQkIlQUMlRTclOUElODQlRTQlQkQlOUMlRTQlQjglOUElRTUlQkUlODglRTUlQTQlOUElRTMlODAlODIlMjAoV2UlMjBoYXZlJTIwYSUyMGxvdCUyMG9mJTIwaG9tZXdvcmsuKSUyMiU3RCUyQyUyMiVFNyU4RSVCMCVFNSU5QyVBOCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnhpJUMzJUEwbnolQzMlQTBpJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMm5vdyUzQiUyMGF0JTIwcHJlc2VudCUzQiUyMHJpZ2h0JTIwbm93JTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODklODAlRTQlQkIlQTUlRTYlODglOTElRTclOEUlQjAlRTUlOUMlQTglRTYlQjIlQTElRTYlOTclQjYlRTklOTclQjQlRTclOUMlOEIlRTclOTQlQjUlRTglQTclODYlRTMlODAlODIlMjIlN0QlMkMlMjIlRTYlQjIlQTElRTYlOTclQjYlRTklOTclQjQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJtJUMzJUE5aSUyMHNoJUMzJUFEamklQzQlODFuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMkJvLiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjBoYXZlJTIwbm8lMjB0aW1lJTNCJTIwbm90JTIwaGF2ZSUyMHRpbWUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNyU4RSVCMCVFNSU5QyVBOCVFNiVCMiVBMSVFNiU5NyVCNiVFOSU5NyVCNCVFNyU5QyU4QiVFNyU5NCVCNSVFOCVBNyU4NiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNiU5NyVCNiVFOSU5NyVCNCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnNoJUMzJUFEamklQzQlODFuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRpbWUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiVCMiVBMSVFNiU5NyVCNiVFOSU5NyVCNCUyMChubyUyMHRpbWUpJTIyJTdEJTJDJTIyJUU3JTlDJThCJUU3JTk0JUI1JUU4JUE3JTg2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDMyVBMG4lMjBkaSVDMyVBMG5zaCVDMyVBQyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJCby4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwd2F0Y2glMjBUViUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JUIyJUExJUU2JTk3JUI2JUU5JTk3JUI0JUU3JTlDJThCJUU3JTk0JUI1JUU4JUE3JTg2JTIyJTdEJTJDJTIyJUU3JTlDJThCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDMyVBMG4lMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjB3YXRjaCUzQiUyMHRvJTIwbG9vayUyMGF0JTNCJTIwdG8lMjByZWFkJTIyJTJDJTIyZXglMjIlM0ElMjIlRTclOUMlOEIlRTclOTQlQjUlRTglQTclODYlMjAod2F0Y2glMjBUViklMjAlMkYlMjAlRTclOUMlOEIlRTQlQjklQTYlMjAocmVhZCUyMGElMjBib29rKSUyMiU3RCUyQyUyMiVFNyU5NCVCNSVFOCVBNyU4NiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmRpJUMzJUEwbnNoJUMzJUFDJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRlbGV2aXNpb24lM0IlMjBUViUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTlDJThCJUU3JTk0JUI1JUU4JUE3JTg2JTIyJTdEJTJDJTIyJUU3JThFJUE5JUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIydyVDMyVBMW4lMjBkaSVDMyVBMG5uJUM3JThFbyUyMHklQzMlQjN1eCVDMyVBQyUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJCby4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwcGxheSUyMGNvbXB1dGVyJTIwZ2FtZXMlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiVCMiVBMSVFNiU5NyVCNiVFOSU5NyVCNCVFNyU5QyU4QiVFNyU5NCVCNSVFOCVBNyU4NiVFMyU4MCU4MSVFNyU4RSVBOSVFNyU5NCVCNSVFOCU4NCU5MSVFNiVCOCVCOCVFNiU4OCU4RiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNyU4RSVBOSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnclQzMlQTFuJTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwcGxheSUzQiUyMHRvJTIwaGF2ZSUyMGZ1biUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JThFJUE5JUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJTIyJTdEJTJDJTIyJUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZGklQzMlQTBubiVDNyU4RW8lMjB5JUMzJUIzdXglQzMlQUMlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyY29tcHV0ZXIlMjBnYW1lJTIyJTJDJTIyZXglMjIlM0ElMjIlRTclOEUlQTklRTclOTQlQjUlRTglODQlOTElRTYlQjglQjglRTYlODglOEYlMjIlN0QlMkMlMjIlRTclOTQlQjUlRTglODQlOTElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkaSVDMyVBMG5uJUM3JThFbyUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJjb21wdXRlciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTk0JUE4JUU3JTk0JUI1JUU4JTg0JTkxJTIwKHVzZSUyMGElMjBjb21wdXRlciklMjIlN0QlMkMlMjIlRTYlQjglQjglRTYlODglOEYlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUMzJUIzdXglQzMlQUMlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyZ2FtZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJTIyJTdEJTJDJTIyJUU3JTk0JUI1JUU4JUFGJTlEJUU1JThGJUI3JUU3JUEwJTgxJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZGklQzMlQTBuaHUlQzMlQTAlMjBoJUMzJUEwb20lQzclOEUlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIydGVsZXBob25lJTIwbnVtYmVyJTNCJTIwcGhvbmUlMjBudW1iZXIlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNSU5QyVBOCVFNSU4QyU5NyVFNCVCQSVBQyVFNyU5QSU4NCVFNyU5NCVCNSVFOCVBRiU5RCVFNSU4RiVCNyVFNyVBMCU4MSVFNiU5OCVBRjEzOTExNjc3OTk5JUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU3JTk0JUI1JUU4JUFGJTlEJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZGklQzMlQTBuaHUlQzMlQTAlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIydGVsZXBob25lJTNCJTIwcGhvbmUlMjBjYWxsJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODklOTMlRTclOTQlQjUlRTglQUYlOUQlMjAobWFrZSUyMGElMjBwaG9uZSUyMGNhbGwpJTIyJTdEJTJDJTIyJUU1JThGJUI3JUU3JUEwJTgxJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyaCVDMyVBMG9tJUM3JThFJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMm51bWJlciUyMChwaG9uZSUyQyUyMHJvb20lMkMlMjBldGMuKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU3JTk0JUI1JUU4JUFGJTlEJUU1JThGJUI3JUU3JUEwJTgxJTIyJTdEJTJDJTIyJUU3JTk0JUI1JUU1JUFEJTkwJUU5JTgyJUFFJUU0JUJCJUI2JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyZGklQzMlQTBueiVDNyU5MCUyMHklQzMlQjN1amklQzMlQTBuJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmVtYWlsJTIwKGVsZWN0cm9uaWMlMjBtYWlsKSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk2JUIwJUU3JTlBJTg0JUU3JTk0JUI1JUU1JUFEJTkwJUU5JTgyJUFFJUU0JUJCJUI2JUU2JTk4JUFGJTIwZGF2aWQwMjE0JTQwYmppcy5lZHUuY24lRTMlODAlODIlMjIlN0QlMkMlMjIlRTUlQUYlQjklRTQlQkElODYlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJkdSVDMyVBQyUyMGxlJTIyJTJDJTIycG9zJTIyJTNBJTIycGhyYXNlJTIyJTJDJTIyZW4lMjIlM0ElMjJieSUyMHRoZSUyMHdheSUzQiUyMG9oJTJDJTIwdGhhdCdzJTIwcmlnaHQhJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQUYlQjklRTQlQkElODYlRUYlQkMlOEMlRTYlODglOTElRTQlQjklOUYlRTUlQkMlODAlRTUlQTclOEIlRTclOTQlQTglRTUlQkUlQUUlRTQlQkYlQTElRTQlQkElODYlRUYlQkMlODElMjAoQnklMjB0aGUlMjB3YXklMkMlMjBJJTIwYWxzbyUyMHN0YXJ0ZWQlMjB1c2luZyUyMFdlQ2hhdCEpJTIyJTdEJTJDJTIyJUU1JUJDJTgwJUU1JUE3JThCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyayVDNCU4MWlzaCVDNyU5MCUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJGbi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwc3RhcnQlM0IlMjB0byUyMGJlZ2luJTNCJTIwYmVnaW5uaW5nJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQjklOUYlRTUlQkMlODAlRTUlQTclOEIlRTclOTQlQTglRTUlQkUlQUUlRTQlQkYlQTElRTQlQkElODYlRTMlODAlODIlMjIlN0QlMkMlMjIlRTclOTQlQTglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ5JUMzJUIybmclMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyMiUyQyUyMmVuJTIyJTNBJTIydG8lMjB1c2UlMjIlMkMlMjJleCUyMiUzQSUyMiVFNyU5NCVBOCVFNSVCRSVBRSVFNCVCRiVBMSUyMCh1c2UlMjBXZUNoYXQpJTIyJTdEJTJDJTIyJUU1JUJFJUFFJUU0JUJGJUExJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyVyVDNCU5M2l4JUMzJUFDbiUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb3BlciUyMG4uJTIyJTJDJTIyZW4lMjIlM0ElMjJXZUNoYXQlMjAocG9wdWxhciUyMENoaW5lc2UlMjBtZXNzYWdpbmclMjAlMjYlMjBzb2NpYWwlMjBhcHApJTIyJTJDJTIyZXglMjIlM0ElMjIlRTYlODglOTElRTQlQjklOUYlRTUlQkMlODAlRTUlQTclOEIlRTclOTQlQTglRTUlQkUlQUUlRTQlQkYlQTElRTQlQkElODYlRUYlQkMlOEMlRTclOUMlOUYlRTclOUElODQlRTUlQkUlODglRTUlQTUlQkQlRTclOTQlQTglRUYlQkMlODElMjIlN0QlMkMlMjIlRTclOUMlOUYlRTclOUElODQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ6aCVDNCU5M25kZSUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkdi4lMjIlMkMlMjJlbiUyMiUzQSUyMnJlYWxseSUzQiUyMHRydWx5JTNCJTIwaW5kZWVkJTIyJTJDJTIyZXglMjIlM0ElMjIlRTclOUMlOUYlRTclOUElODQlRTUlQkUlODglRTUlQTUlQkQlRTclOTQlQTglRUYlQkMlODElMjAoSXQncyUyMHJlYWxseSUyMGVhc3klMkZncmVhdCUyMHRvJTIwdXNlISklMjIlN0QlMkMlMjIlRTUlQTUlQkQlRTclOTQlQTglMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJoJUM3JThFb3klQzMlQjJuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkai4lMjIlMkMlMjJlbiUyMiUzQSUyMmVhc3klMjB0byUyMHVzZSUzQiUyMGNvbnZlbmllbnQlM0IlMjB1c2VmdWwlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSVCRSVBRSVFNCVCRiVBMSVFNyU5QyU5RiVFNyU5QSU4NCVFNSVCRSU4OCVFNSVBNSVCRCVFNyU5NCVBOCVFRiVCQyU4MSUyMiU3RCUyQyUyMiVFNiU5NiVCMCVFNSVBRCVBNiVFNSVCOSVCNCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnglQzQlQUJuJTIweHUlQzMlQTluaSVDMyVBMW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIybmV3JTIwc2Nob29sJTIweWVhciUzQiUyMG5ldyUyMGFjYWRlbWljJTIweWVhciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUJEJUEwJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU1JUI5JUI0JUU2JTgwJThFJUU0JUI5JTg4JUU2JUEwJUI3JUVGJUJDJTlGJTIwKEhvdyUyMGlzJTIweW91ciUyMG5ldyUyMHNjaG9vbCUyMHllYXIlM0YpJTIyJTdEJTJDJTIyJUU1JUFEJUE2JUU1JUI5JUI0JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeHUlQzMlQTluaSVDMyVBMW4lMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyc2Nob29sJTIweWVhciUzQiUyMGFjYWRlbWljJTIweWVhciUyMiUyQyUyMmV4JTIyJTNBJTIyJUU2JTk2JUIwJUU1JUFEJUE2JUU1JUI5JUI0JTIyJTdEJTJDJTIyJUU1JTg2JTk5JUU0JUJGJUExJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyeGklQzQlOUJ4JUMzJUFDbiUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTJCby4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwd3JpdGUlMjBhJTIwbGV0dGVyJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlODYlOTklRTQlQkYlQTElRTUlOTElOEElRTglQUYlODklRTYlODglOTElRTUlOTAlQTclRUYlQkMlODElMjAoV3JpdGUlMjBhJTIwbGV0dGVyJTIwYW5kJTIwdGVsbCUyMG1lISklMjIlN0QlMkMlMjIlRTQlQkYlQTElMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ4JUMzJUFDbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJsZXR0ZXIlM0IlMjBtYWlsJTNCJTIwbWVzc2FnZSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTg2JTk5JUU0JUJGJUExJTIwKHdyaXRlJTIwYSUyMGxldHRlciklMjIlN0QlMkMlMjIlRTUlOTElOEElRTglQUYlODklMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJnJUMzJUEwb3N1JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwdGVsbCUzQiUyMHRvJTIwbGV0JTIwa25vdyUzQiUyMHRvJTIwaW5mb3JtJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlODYlOTklRTQlQkYlQTElRTUlOTElOEElRTglQUYlODklRTYlODglOTElRTUlOTAlQTclRUYlQkMlODElMjIlN0QlMkMlMjIlRTUlOTAlQTclMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJiYSUyMiUyQyUyMnBvcyUyMiUzQSUyMnBhcnQuJTIyJTJDJTIyZW4lMjIlM0ElMjJtb2RhbCUyMHBhcnRpY2xlJTIwaW5kaWNhdGluZyUyMHN1Z2dlc3Rpb24lMjBvciUyMHBvbGl0ZSUyMHJlcXVlc3QlMjIlMkMlMjJleCUyMiUzQSUyMiVFNSU4NiU5OSVFNCVCRiVBMSVFNSU5MSU4QSVFOCVBRiU4OSVFNiU4OCU5MSVFNSU5MCVBNyVFRiVCQyU4MSUyMChXcml0ZSUyMHRvJTIwdGVsbCUyMG1lISklMjIlN0QlMkMlMjIlRTclQTUlOUQlRTUlQTUlQkQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJ6aCVDMyVCOSUyMGglQzclOEVvJTIyJTJDJTIycG9zJTIyJTNBJTIycGhyYXNlJTIyJTJDJTIyZW4lMjIlM0ElMjJCZXN0JTIwd2lzaGVzISUyMCUyRiUyMFdpc2glMjB5b3UlMjB3ZWxsISUyMChsZXR0ZXIlMjBjbG9zaW5nKSUyMiUyQyUyMmV4JTIyJTNBJTIySW4lMjBDaGluZXNlJTIwbGV0dGVycyUyQyUyMCclRTclQTUlOUQnJTIwaXMlMjB3cml0dGVuJTIwYXQlMjB0aGUlMjBlbmQlMjBvZiUyMGElMjBsaW5lJTIwYW5kJTIwJyVFNSVBNSVCRCVFRiVCQyU4MSclMjBzdGFydHMlMjBvbiUyMHRoZSUyMG5leHQlMjBsaW5lLiUyMiU3RCUyQyUyMiVFNyVBNSU5RCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnpoJUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIydi4lMjIlMkMlMjJlbiUyMiUzQSUyMnRvJTIwd2lzaCUzQiUyMHRvJTIwZXhwcmVzcyUyMGdvb2QlMjB3aXNoZXMlMjIlMkMlMjJleCUyMiUzQSUyMiVFNyVBNSU5RCVFNSVBNSVCRCVFRiVCQyU4MSUyMChCZXN0JTIwd2lzaGVzISklMjIlN0QlMkMlMjIlRTUlQTUlQkQlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJoJUM3JThFbyUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkai4lMkZhZHYuJTIyJTJDJTIyZW4lMjIlM0ElMjJnb29kJTNCJTIwd2VsbCUzQiUyMGZpbmUlMjIlMkMlMjJleCUyMiUzQSUyMiVFNCVCRCVBMCVFNSVBNSVCRCVFRiVCQyU4MSUyMCUyRiUyMCVFNyVBNSU5RCVFNSVBNSVCRCVFRiVCQyU4MSUyMiU3RCUyQyUyMiVFNSVBNCVBNyVFNSU4RCVBQiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMkQlQzMlQTB3JUMzJUE4aSUyMiUyQyUyMnBvcyUyMiUzQSUyMnByb3BlciUyMG4uJTIyJTJDJTIyZW4lMjIlM0ElMjJEYXZpZCUyMChzZW5kZXIncyUyMG5hbWUpJTIyJTJDJTIyZXglMjIlM0ElMjJTaWduZWQlMjBhdCUyMHRoZSUyMGJvdHRvbSUyMHJpZ2h0JTIwYWJvdmUlMjB0aGUlMjBkYXRlLiUyMiU3RCUyQyUyMiVFNSVCOSVCNCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMm5pJUMzJUExbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ5ZWFyJTIyJTJDJTIyZXglMjIlM0ElMjIyMDIwJUU1JUI5JUI0MTAlRTYlOUMlODgyMyVFNiU5NyVBNSUyMChDaGluZXNlJTIwZGF0ZXMlMjBmb2xsb3clMjBZZWFyLU1vbnRoLURheSUyMG9yZGVyKSUyMiU3RCUyQyUyMiVFNiU5QyU4OCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnl1JUMzJUE4JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMm1vbnRoJTNCJTIwbW9vbiUyMiUyQyUyMmV4JTIyJTNBJTIyMTAlRTYlOUMlODglMjAoT2N0b2JlciklMjIlN0QlMkMlMjIlRTYlOTclQTUlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJyJUMzJUFDJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmRheSUzQiUyMGRhdGUlMjAoZm9ybWFsJTJGd3JpdHRlbiklMjIlMkMlMjJleCUyMiUzQSUyMjIzJUU2JTk3JUE1JTIwKHRoZSUyMDIzcmQpJTIyJTdEJTJDJTIyJUU1JTkxJUE4JUU2JTlDJUFCJTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyemglQzUlOER1bSVDMyVCMiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ3ZWVrZW5kJTIyJTJDJTIyZXglMjIlM0ElMjIlRTglQkYlOTklRTQlQjglQUElRTUlOTElQTglRTYlOUMlQUIlRTQlQkQlQTAlRTYlOUMlODklRTQlQkIlODAlRTQlQjklODglRTYlODklOTMlRTclQUUlOTclRUYlQkMlOUYlMjAoV2hhdCUyMGFyZSUyMHlvdXIlMjBwbGFucyUyMGZvciUyMHRoaXMlMjB3ZWVrZW5kJTNGKSUyMiU3RCUyQyUyMiVFNiU4OSU5MyVFNyVBRSU5NyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmQlQzclOEVzdSVDMyVBMG4lMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHBsYW4lM0IlMjB0byUyMGludGVuZCUzQiUyMHBsYW4lMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiU4OSU5MyVFNyVBRSU5NyVFNSU4RSVCQiVFNSU5QiVCRSVFNCVCOSVBNiVFOSVBNiU4NiVFNyU5QyU4QiVFNCVCOSVBNiVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFNSU5QiVCRSVFNCVCOSVBNiVFOSVBNiU4NiUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnQlQzMlQkFzaCVDNSVBQmd1JUM3JThFbiUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJsaWJyYXJ5JTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQUQlQTYlRTYlQTAlQTElRTclOUElODQlRTUlOUIlQkUlRTQlQjklQTYlRTklQTYlODYlRTUlQkUlODglRTUlQTQlQTclRTMlODAlODIlMjIlN0QlMkMlMjIlRTUlQTQlOEQlRTQlQjklQTAlMjIlM0ElN0IlMjJwaW55aW4lMjIlM0ElMjJmJUMzJUI5eCVDMyVBRCUyMiUyQyUyMnBvcyUyMiUzQSUyMnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHJldmlldyUzQiUyMHRvJTIwcmV2aXNlJTIyJTJDJTIyZXglMjIlM0ElMjIlRTUlQTQlOEQlRTQlQjklQTAlRTQlQjglQUQlRTYlOTYlODclRTclOTQlOUYlRTglQUYlOEQlMjAocmV2aWV3JTIwTWFuZGFyaW4lMjB2b2NhYnVsYXJ5KSUyMiU3RCUyQyUyMiVFOCU4MCU4MyVFOCVBRiU5NSUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMmslQzclOEVvc2glQzMlQUMlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyRnYuJTIyJTJDJTIyZW4lMjIlM0ElMjJleGFtJTNCJTIwdGVzdCUzQiUyMHRvJTIwdGFrZSUyMGFuJTIwZXhhbSUyMiUyQyUyMmV4JTIyJTNBJTIyJUU0JUI4JThCJUU0JUI4JUFBJUU2JTk4JTlGJUU2JTlDJTlGJUU2JTlDJTg5JUU0JUI4JUFEJUU2JTk2JTg3JUU4JTgwJTgzJUU4JUFGJTk1JUUzJTgwJTgyJTIyJTdEJTJDJTIyJUU1JTg3JTg2JUU1JUE0JTg3JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyemglQzclOTRuYiVDMyVBOGklMjIlMkMlMjJwb3MlMjIlM0ElMjJ2LiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJ0byUyMHByZXBhcmUlM0IlMjBwcmVwYXJhdGlvbiUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JTg3JTg2JUU1JUE0JTg3JUU4JTgwJTgzJUU4JUFGJTk1JTIwKHByZXBhcmUlMjBmb3IlMjB0aGUlMjBleGFtKSUyMiU3RCUyQyUyMiVFOCVCRiU5MCVFNSU4QSVBOCUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnklQzMlQjluZCVDMyVCMm5nJTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMkZ2LiUyMiUyQyUyMmVuJTIyJTNBJTIyc3BvcnRzJTNCJTIwZXhlcmNpc2UlM0IlMjB0byUyMHdvcmslMjBvdXQlMjIlMkMlMjJleCUyMiUzQSUyMiVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFOSU4MyVCRCVFNSU4MSU5QSVFOCVCRiU5MCVFNSU4QSVBOCVFMyU4MCU4MiUyMiU3RCUyQyUyMiVFOCVCQSVBQiVFNCVCRCU5MyUyMiUzQSU3QiUyMnBpbnlpbiUyMiUzQSUyMnNoJUM0JTkzbnQlQzclOTAlMjIlMkMlMjJwb3MlMjIlM0ElMjJuLiUyMiUyQyUyMmVuJTIyJTNBJTIyYm9keSUzQiUyMGhlYWx0aCUyMiUyQyUyMmV4JTIyJTNBJTIyJUU1JUFGJUI5JUU4JUJBJUFCJUU0JUJEJTkzJUU1JUJFJTg4JUU1JUE1JUJEJTIwKHZlcnklMjBnb29kJTIwZm9yJTIwb25lJ3MlMjBoZWFsdGgpJTIyJTdEJTJDJTIyJUU1JTgxJUE1JUU1JUJBJUI3JTIyJTNBJTdCJTIycGlueWluJTIyJTNBJTIyamklQzMlQTBuayVDNCU4MW5nJTIyJTJDJTIycG9zJTIyJTNBJTIyYWRqLiUyRm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJoZWFsdGh5JTNCJTIwaGVhbHRoJTIyJTJDJTIyZXglMjIlM0ElMjIlRTQlQkYlOUQlRTYlOEMlODElRTglQkElQUIlRTQlQkQlOTMlRTUlODElQTUlRTUlQkElQjclMjAoc3RheSUyMGhlYWx0aHkpJTIyJTdEJTdE");
+    var ARTICLES = decodePayload("JTVCJTdCJTIyaWQlMjIlM0ElMjJ0ZXh0LTUtMSUyMiUyQyUyMnRpdGxlJTIyJTNBJTIyVGV4dCUyMDUuMSUzQSUyMCVFNyVCQiU5OSVFNiU5RCVCMCVFNiVBMyVBRSVFNyU5QSU4NCVFNCVCOCU4MCVFNSVCMCU4MSVFNCVCRiVBMSUyMChBbiUyMEluZm9ybWFsJTIwTGV0dGVyJTIwdG8lMjBKYXNvbiklMjIlMkMlMjJsZXZlbCUyMiUzQSUyMklCJTIwJTJGJTIwSW50ZXJtZWRpYXRlJTIwTWFuZGFyaW4lMjIlMkMlMjJjYXRlZ29yeSUyMiUzQSUyMiVFNCVCOSVBNiVFNCVCRiVBMSVFNiVBMCVCQyVFNSVCQyU4RiUyMCVDMiVCNyUyMEluZm9ybWFsJTIwTGV0dGVyJTIyJTJDJTIycmVhZFRpbWUlMjIlM0ElMjI0JTIwbWluJTIwcmVhZCUyMiUyQyUyMmNvbnRlbnQlMjIlM0ElMjIlRTQlQkElQjIlRTclODglQjElRTclOUElODQlRTYlOUQlQjAlRTYlQTMlQUUlRUYlQkMlOUElNUNuJUU0JUJEJUEwJUU1JUE1JUJEJUVGJUJDJTgxJTVDbiVFNiU5QyU4MCVFOCVCRiU5MSVFNiU4MCU4RSVFNCVCOSU4OCVFNiVBMCVCNyVFRiVCQyU5RiVFNSVCRiU5OSVFNCVCOCU4RCVFNSVCRiU5OSVFRiVCQyU5RiVFNSVBRiVCOSVFNCVCOCU4RCVFOCVCNSVCNyVFRiVCQyU4QyVFNCVCOCU4MCVFNyU5QiVCNCVFOSU4MyVCRCVFNiVCMiVBMSVFOCVCNyU5RiVFNCVCRCVBMCVFOCU4MSU5NCVFNyVCMyVCQiVFRiVCQyU4QyVFNSU5QiVBMCVFNCVCOCVCQSVFNiU4OCU5MSVFNiVBRiU4RiVFNSVBNCVBOSVFNCVCOCU4QSVFNSVCRSU4OCVFNSVBNCU5QSVFOCVBRiVCRSVFRiVCQyU4QyVFOCVCRiU5OCVFOCVBNiU4MSVFNSU4RiU4MiVFNSU4QSVBMCVFOCVBRiVCRSVFNSVBNCU5NiVFNiVCNCVCQiVFNSU4QSVBOCVFRiVCQyU4QyVFNCVCQiU4RSVFNiU5NyVBOSVFNSVCRiU5OSVFNSU4OCVCMCVFNiU5OSU5QSVFMyU4MCU4MiVFNiU4OCU5MSVFNyU5QSU4NCVFNiU5NiVCMCVFNSVBRCVBNiVFNiVBMCVBMSVFNSU4RiVBQiVFNSU4QyU5NyVFNCVCQSVBQyVFNSU5QiVCRCVFOSU5OSU4NSVFNSVBRCVBNiVFNiVBMCVBMSVFMyU4MCU4MiVFNiU4OCU5MSVFOSU5RCU5RSVFNSVCOCVCOCVFNSU5NiU5QyVFNiVBQyVBMiVFOCVCRiU5OSVFNCVCOCVBQSVFNSVBRCVBNiVFNiVBMCVBMSVFRiVCQyU4QyVFNCVCOSU5RiVFNCVCQSVBNCVFNCVCQSU4NiVFNCVCOCU4RCVFNSVCMCU5MSVFNiU5NiVCMCVFNiU5QyU4QiVFNSU4RiU4QiVFMyU4MCU4MiU1Q24lRTUlOUIlQTAlRTQlQjglQkElRTYlODglOTElRTclOUElODQlRTUlQUUlQjYlRTclQTYlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTUlQkUlODglRTglQkYlOUMlRUYlQkMlOEMlRTYlODklODAlRTQlQkIlQTUlRTYlODglOTElRTYlQUYlOEYlRTUlQTQlQTklRTYlOTclQTklRTQlQjglOEElRTUlODUlQUQlRTclODIlQjklRTglQjUlQjclRTUlQkElOEElRTMlODAlODIlRTglQjUlQjclRTUlQkElOEElRTQlQkIlQTUlRTUlOTAlOEUlRTYlODglOTElRTUlODUlODglRTUlODglQjclRTclODklOTklRTMlODAlODElRTYlQjQlOTclRTglODQlQjglRUYlQkMlOEMlRTclODQlQjYlRTUlOTAlOEUlRTUlODclQkElRTUlOEUlQkIlRTklODElOUIlRTUlQjAlOEYlRTklQkUlOTklRTMlODAlODIlRTQlQjglODMlRTclODIlQjklRTYlODglOTElRTUlOUQlOTAlRTYlQTAlQTElRTglQkQlQTYlRTUlOEUlQkIlRTUlQUQlQTYlRTYlQTAlQTElRUYlQkMlOEMlRTQlQkIlOEUlRTYlODglOTElRTUlQUUlQjYlRTUlODglQjAlRTUlQUQlQTYlRTYlQTAlQTElRTglQTYlODElRTQlQjglODAlRTQlQjglQUElRTUlQjAlOEYlRTYlOTclQjYlRTMlODAlODIlRTYlODglOTElRTQlQkIlQUMlRTQlQjglOEElRTUlOEQlODglRTYlOUMlODklRTQlQjglODklRTglOEElODIlRTglQUYlQkUlRUYlQkMlOEMlRTYlQUYlOEYlRTglOEElODIlRTglQUYlQkUlRTUlODUlQUIlRTUlOEQlODElRTUlODglODYlRTklOTIlOUYlRTMlODAlODIlRTclQUMlQUMlRTQlQjglODAlRTglOEElODIlRTglQUYlQkUlRTQlQkIlQTUlRTUlOTAlOEUlRTYlOUMlODklRTQlQkElOEMlRTUlOEQlODElRTUlODglODYlRTklOTIlOUYlRTclOUElODQlRTglQUYlQkUlRTklOTclQjQlRTQlQkMlOTElRTYlODElQUYlRUYlQkMlOEMlRTYlODglOTElRTQlQkMlOTElRTYlODElQUYlRTclOUElODQlRTYlOTclQjYlRTUlODAlOTklRTclQkIlOEYlRTUlQjglQjglRTUlOEUlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTclOUElODQlRTUlOTIlOTYlRTUlOTUlQTElRTUlOEUlODUlRTUlOTAlODMlRTYlOTclQTklRTklQTUlQUQlRTMlODAlODIlRTUlOUMlQTglRTUlOTIlOTYlRTUlOTUlQTElRTUlOEUlODUlRTYlODglOTElRTUlOEYlQUYlRTQlQkIlQTUlRTclOUMlOEIlRTUlODglQjAlRTklODIlQTMlRTQlQjglQUElRTYlODglOTElRTUlOTYlOUMlRTYlQUMlQTIlRTclOUElODQlRTYlOTclQTUlRTYlOUMlQUMlRTUlQTUlQjMlRTUlQUQlQTklRUYlQkMlOEMlRTUlQTUlQjklRTYlQUYlOEYlRTUlQTQlQTklRTklODMlQkQlRTUlOUMlQTglRTklODIlQTMlRTUlODQlQkYlRTUlOTYlOUQlRTUlOTIlOTYlRTUlOTUlQTElRTMlODAlODIlRTQlQjglQUQlRTUlOEQlODglRTYlODglOTElRTglQjclOUYlRTYlOUMlOEIlRTUlOEYlOEIlRTQlQkIlQUMlRTQlQjglODAlRTglQjUlQjclRTUlOUMlQTglRTUlQUQlQTYlRTYlQTAlQTElRTklQTQlOTAlRTUlOEUlODUlRTUlOTAlODMlRTUlOEQlODglRTklQTUlQUQlRTMlODAlODIlRTQlQjglOEIlRTUlOEQlODglRTYlODglOTElRTUlOEYlQUElRTYlOUMlODklRTQlQjglODAlRTglOEElODIlRTglQUYlQkUlRUYlQkMlOEMlRTQlQjglODklRTclODIlQjklRTYlOTQlQkUlRTUlQUQlQTYlRTMlODAlODIlNUNuJUU2JTk0JUJFJUU1JUFEJUE2JUU0JUJCJUE1JUU1JTkwJThFJUVGJUJDJThDJUU2JTg4JTkxJUU2JTlDJTg5JUU1JUJFJTg4JUU1JUE0JTlBJUU4JUFGJUJFJUU1JUE0JTk2JUU2JUI0JUJCJUU1JThBJUE4JUVGJUJDJThDJUU2JUFGJTk0JUU1JUE2JTgyJUU2JThCJTg5JUU1JUIwJThGJUU2JThGJTkwJUU3JTkwJUI0JUUzJTgwJTgxJUU2JTg5JTkzJUU3JUJFJUJEJUU2JUFGJTlCJUU3JTkwJTgzJUU3JUFEJTg5JUU3JUFEJTg5JUUzJTgwJTgyJUU2JTg4JTkxJUU3JTlBJTg0JUU3JUE0JUJFJUU1JThDJUJBJUU2JTlDJThEJUU1JThBJUExJUU2JTk4JUFGJUU1JThFJUJCJUU1JThDJUJCJUU5JTk5JUEyJUU3JTg1JUE3JUU5JUExJUJFJUU3JTk3JTg1JUU0JUJBJUJBJUUzJTgwJTgyJUU2JTg4JTkxJUU2JUFGJThGJUU1JUE0JUE5JUU2JTk5JTlBJUU0JUI4JThBJUU1JUI3JUFFJUU0JUI4JThEJUU1JUE0JTlBJUU1JTg1JUFEJUU3JTgyJUI5JUU1JTg4JUIwJUU1JUFFJUI2JUVGJUJDJThDJUU0JUI4JTgzJUU3JTgyJUI5JUU1JTkyJThDJUU3JTg4JUI4JUU3JTg4JUI4JUU1JUE2JTg4JUU1JUE2JTg4JUU0JUI4JTgwJUU4JUI1JUI3JUU1JTkwJTgzJUU2JTk5JTlBJUU5JUE1JUFEJUUzJTgwJTgyJUU2JTk5JTlBJUU5JUE1JUFEJUU0JUJCJUE1JUU1JTkwJThFJUVGJUJDJThDJUU2JTg4JTkxJUU1JTg2JTk5JUU0JUJEJTlDJUU0JUI4JTlBJUUzJTgwJTgyJUU2JTg4JTkxJUU0JUJCJUFDJUU3JTlBJTg0JUU0JUJEJTlDJUU0JUI4JTlBJUU1JUJFJTg4JUU1JUE0JTlBJUVGJUJDJThDJUU2JTg5JTgwJUU0JUJCJUE1JUU2JTg4JTkxJUU3JThFJUIwJUU1JTlDJUE4JUU2JUIyJUExJUU2JTk3JUI2JUU5JTk3JUI0JUU3JTlDJThCJUU3JTk0JUI1JUU4JUE3JTg2JUUzJTgwJTgxJUU3JThFJUE5JUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJUUzJTgwJTgyJTVDbiVFNiU4OCU5MSVFNSU5QyVBOCVFNSU4QyU5NyVFNCVCQSVBQyVFNyU5QSU4NCVFNyU5NCVCNSVFOCVBRiU5RCVFNSU4RiVCNyVFNyVBMCU4MSVFNiU5OCVBRjEzOTExNjc3OTk5JUVGJUJDJThDJUU2JTk2JUIwJUU3JTlBJTg0JUU3JTk0JUI1JUU1JUFEJTkwJUU5JTgyJUFFJUU0JUJCJUI2JUU2JTk4JUFGZGF2aWQwMjE0JTQwYmppcy5lZHUuY24lRTMlODAlODIlRTUlQUYlQjklRTQlQkElODYlRUYlQkMlOEMlRTYlODglOTElRTQlQjklOUYlRTUlQkMlODAlRTUlQTclOEIlRTclOTQlQTglRTUlQkUlQUUlRTQlQkYlQTElRTQlQkElODYlRUYlQkMlOEMlRTclOUMlOUYlRTclOUElODQlRTUlQkUlODglRTUlQTUlQkQlRTclOTQlQTglRUYlQkMlODElNUNuJUU0JUJEJUEwJUU3JTlBJTg0JUU2JTk2JUIwJUU1JUFEJUE2JUU1JUI5JUI0JUU2JTgwJThFJUU0JUI5JTg4JUU2JUEwJUI3JUVGJUJDJTlGJUU1JTg2JTk5JUU0JUJGJUExJUU1JTkxJThBJUU4JUFGJTg5JUU2JTg4JTkxJUU1JTkwJUE3JUVGJUJDJTgxJTVDbiVFNyVBNSU5RCU1Q24lRTUlQTUlQkQlRUYlQkMlODElNUNuJUU1JUE0JUE3JUU1JThEJUFCJTVDbjIwMjAlRTUlQjklQjQxMCVFNiU5QyU4ODIzJUU2JTk3JUE1JTIyJTJDJTIydGVhY2hlck5vdGVzJTIyJTNBJTdCJTIyJUU0JUJBJUIyJUU3JTg4JUIxJUU3JTlBJTg0JTIyJTNBJTIyU2FsdXRhdGlvbiUyMCglRTclQTclQjAlRTUlOTElQkMpJTNBJTIwSW4lMjBhbiUyMGluZm9ybWFsJTIwbGV0dGVyJTJDJTIwdXNlJTIwJUU0JUJBJUIyJUU3JTg4JUIxJUU3JTlBJTg0JTIwKHElQzQlQUJuJyVDMyVBMGklMjBkZSUyQyUyMGRlYXIpJTIwdG8lMjBhZGRyZXNzJTIweW91ciUyMGF1ZGllbmNlLiUyME5vdGUlMjB0aGUlMjBDT0xPTiUyMCglRUYlQkMlOUEpJTIwYWZ0ZXIlMjB0aGUlMjBuYW1lJTJDJTIwbm90JTIwYSUyMGNvbW1hISUyMiUyQyUyMiVFNCVCQiU4RSVFNiU5NyVBOSVFNSVCRiU5OSVFNSU4OCVCMCVFNiU5OSU5QSUyMiUzQSUyMklkaW9tJTJGUGF0dGVybiUyMCglRTQlQkIlOEUlRTIlODAlQTYlRTUlODglQjAlRTIlODAlQTYpJTNBJTIwQnVzeSUyMGZyb20lMjBtb3JuaW5nJTIwdGlsbCUyMG5pZ2h0LiUyMiUyQyUyMiVFNyVBNiVCQiUyMiUzQSUyMkRpc3RhbmNlJTIwU3RydWN0dXJlJTIwKEElMjAlRTclQTYlQkIlMjBCJTIwJTJCJTIwJUU4JUJGJTlDJTJGJUU4JUJGJTkxKSUzQSUyMCclRTYlODglOTElRTclOUElODQlRTUlQUUlQjYlRTclQTYlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTUlQkUlODglRTglQkYlOUMnJTIwbWVhbnMlMjAnTXklMjBob21lJTIwaXMlMjB2ZXJ5JTIwZmFyJTIwZnJvbSUyMHNjaG9vbC4nJTIyJTJDJTIyJUU1JTg1JTg4JTIyJTNBJTIyU2VxdWVuY2UlMjBQYXR0ZXJuJTIwKCVFNSU4NSU4OCVFMiU4MCVBNiVFRiVCQyU4QyVFNyU4NCVCNiVFNSU5MCU4RSVFMiU4MCVBNiklM0ElMjAnRmlyc3QuLi4lMkMlMjB0aGVuLi4uJyUyMCVFMiU4MCU5NCUyMCVFOCVCNSVCNyVFNSVCQSU4QSVFNCVCQiVBNSVFNSU5MCU4RSVFNiU4OCU5MSVFNSU4NSU4OCVFNSU4OCVCNyVFNyU4OSU5OSVFMyU4MCU4MSVFNiVCNCU5NyVFOCU4NCVCOCVFRiVCQyU4QyVFNyU4NCVCNiVFNSU5MCU4RSVFNSU4NyVCQSVFNSU4RSVCQiVFOSU4MSU5QiVFNSVCMCU4RiVFOSVCRSU5OSVFMyU4MCU4MiUyMiUyQyUyMiVFOCVBRiVCRSVFNSVBNCU5NiVFNiVCNCVCQiVFNSU4QSVBOCUyMiUzQSUyMkV4dHJhY3VycmljdWxhciUyMGFjdGl2aXRpZXMlMjAoayVDMyVBOHclQzMlQTBpJTIwaHUlQzMlQjNkJUMzJUIybmcpJTIwJUUyJTgwJTk0JTIwZS5nLiUyQyUyMCVFNiU4QiU4OSVFNSVCMCU4RiVFNiU4RiU5MCVFNyU5MCVCNCUyMChwbGF5aW5nJTIwdmlvbGluKSUyQyUyMCVFNiU4OSU5MyVFNyVCRSVCRCVFNiVBRiU5QiVFNyU5MCU4MyUyMChwbGF5aW5nJTIwYmFkbWludG9uKS4lMjIlMkMlMjIlRTclQTQlQkUlRTUlOEMlQkElRTYlOUMlOEQlRTUlOEElQTElMjIlM0ElMjJDb21tdW5pdHklMjBzZXJ2aWNlJTIwKHNoJUMzJUE4cSVDNSVBQiUyMGYlQzMlQkF3JUMzJUI5KSUyMCVFMiU4MCU5NCUyMCVFNSU4RSVCQiVFNSU4QyVCQiVFOSU5OSVBMiVFNyU4NSVBNyVFOSVBMSVCRSVFNyU5NyU4NSVFNCVCQSVCQSUyMChnb2luZyUyMHRvJTIwdGhlJTIwaG9zcGl0YWwlMjB0byUyMGNhcmUlMjBmb3IlMjBwYXRpZW50cykuJTIyJTJDJTIyJUU3JUE1JTlEJTIyJTNBJTIyQ2xvc2luZyUyMFdpc2hlcyUyMCglRTclQTUlOUQlRTglQUYlQUQpJTNBJTIwVGhlJTIwd2lzaGVzJTIwbWF5JTIwdmFyeSUyMGRlcGVuZGluZyUyMG9uJTIwd2hlbiUyMGFuZCUyMHdobyUyMHlvdSUyMGFyZSUyMHdyaXRpbmclMjB0by4lMjAnJUU3JUE1JTlEJyUyMGFuZCUyMCclRTUlQTUlQkQlRUYlQkMlODEnJTIwYXJlJTIwd3JpdHRlbiUyMG9uJTIwdHdvJTIwbGluZXMuJTIyJTJDJTIyMjAyMCVFNSVCOSVCNDEwJUU2JTlDJTg4MjMlRTYlOTclQTUlMjIlM0ElMjJEYXRlJTIwRm9ybWF0JTIwKCVFNiU5NyVBNSVFNiU5QyU5RiklM0ElMjBTaWduYXR1cmUlMjBhbmQlMjBkYXRlJTIwYXJlJTIwd3JpdHRlbiUyMGluJTIwdHdvJTIwbGluZXMlMjBhdCUyMHRoZSUyMGJvdHRvbSUyMHJpZ2h0LiUyMERhdGUlMjBNVVNUJTIwYmUlMjB3cml0dGVuJTIwaW4lMjB0aGUlMjBvcmRlciUyMG9mJTIwWWVhciUyMCglRTUlQjklQjQpJTJDJTIwTW9udGglMjAoJUU2JTlDJTg4KSUyQyUyMGFuZCUyMERheSUyMCglRTYlOTclQTUpLiUyMiU3RCUyQyUyMnN0cnVjdHVyZUFubm90YXRpb25zJTIyJTNBJTVCJTdCJTIycGFydCUyMiUzQSUyMlNhbHV0YXRpb24lMjAoJUU3JUE3JUIwJUU1JTkxJUJDJUU0JUI4JThFJUU5JTk3JUFFJUU1JTgwJTk5KSUyMiUyQyUyMmxpbmVzJTIyJTNBJTIyJUU0JUJBJUIyJUU3JTg4JUIxJUU3JTlBJTg0JUU2JTlEJUIwJUU2JUEzJUFFJUVGJUJDJTlBJTIwJTJGJTIwJUU0JUJEJUEwJUU1JUE1JUJEJUVGJUJDJTgxJTIyJTJDJTIybm90ZSUyMiUzQSUyMlVzZSUyMCVFNCVCQSVCMiVFNyU4OCVCMSVFNyU5QSU4NCUyMChxJUM0JUFCbiclQzMlQTBpJTIwZGUlMkMlMjBkZWFyKSUyMGluJTIwYW4lMjBpbmZvcm1hbCUyMGxldHRlci4lMjBQYXklMjBhdHRlbnRpb24lMjB0byUyMHRoZSUyMHB1bmN0dWF0aW9uJTNBJTIwdXNlJTIwYSUyMENPTE9OJTIwKCVFRiVCQyU5QSklMjBhZnRlciUyMHRoZSUyMHJlY2lwaWVudCdzJTIwbmFtZSUyQyUyMG5vdCUyMGElMjBjb21tYSElMjIlN0QlMkMlN0IlMjJwYXJ0JTIyJTNBJTIyT3BlbmluZyUyMCglRTUlQkMlODAlRTUlQTQlQjQpJTIyJTJDJTIybGluZXMlMjIlM0ElMjIlRTYlOUMlODAlRTglQkYlOTElRTYlODAlOEUlRTQlQjklODglRTYlQTAlQjclRUYlQkMlOUYlRTUlQkYlOTklRTQlQjglOEQlRTUlQkYlOTklRUYlQkMlOUYlRTUlQUYlQjklRTQlQjglOEQlRTglQjUlQjclRTIlODAlQTYlRTIlODAlQTYlRTQlQjklOUYlRTQlQkElQTQlRTQlQkElODYlRTQlQjglOEQlRTUlQjAlOTElRTYlOTYlQjAlRTYlOUMlOEIlRTUlOEYlOEIlRTMlODAlODIlMjIlMkMlMjJub3RlJTIyJTNBJTIyR3JlZXQlMjB0aGUlMjByZWNpcGllbnQlMkMlMjBhc2slMjBob3clMjB0aGV5JTIwaGF2ZSUyMGJlZW4lMkMlMjBleHBsYWluJTIwd2h5JTIweW91JTIwaGF2ZW4ndCUyMGJlZW4lMjBpbiUyMHRvdWNoJTJDJTIwYW5kJTIwYnJpZWZseSUyMGludHJvZHVjZSUyMHlvdXIlMjBuZXclMjBzY2hvb2wuJTIyJTdEJTJDJTdCJTIycGFydCUyMiUzQSUyMkJvZHklMjAoJUU2JUFEJUEzJUU2JTk2JTg3KSUyMiUyQyUyMmxpbmVzJTIyJTNBJTIyJUU1JTlCJUEwJUU0JUI4JUJBJUU2JTg4JTkxJUU3JTlBJTg0JUU1JUFFJUI2JUU3JUE2JUJCJUU1JUFEJUE2JUU2JUEwJUExJUU1JUJFJTg4JUU4JUJGJTlDJUUyJTgwJUE2JUUyJTgwJUE2JUU2JUIyJUExJUU2JTk3JUI2JUU5JTk3JUI0JUU3JTlDJThCJUU3JTk0JUI1JUU4JUE3JTg2JUUzJTgwJTgxJUU3JThFJUE5JUU3JTk0JUI1JUU4JTg0JTkxJUU2JUI4JUI4JUU2JTg4JThGJUUzJTgwJTgyJTIyJTJDJTIybm90ZSUyMiUzQSUyMkRlc2NyaWJlJTIwZGFpbHklMjBzY2hlZHVsZSUyMGluJTIwY2hyb25vbG9naWNhbCUyMG9yZGVyJTIwKCVFNiU5NyVBOSVFNCVCOCU4QSUyMCVFMiU4NiU5MiUyMCVFNCVCOCU4QSVFNSU4RCU4OCUyMCVFMiU4NiU5MiUyMCVFNCVCOCVBRCVFNSU4RCU4OCUyMCVFMiU4NiU5MiUyMCVFNCVCOCU4QiVFNSU4RCU4OCUyMCVFMiU4NiU5MiUyMCVFNiU5NCVCRSVFNSVBRCVBNiVFNCVCQiVBNSVFNSU5MCU4RSUyMCVFMiU4NiU5MiUyMCVFNiU5OSU5QSVFNCVCOCU4QSklMkMlMjBpbmNsdWRpbmclMjBjbGFzc2VzJTJDJTIwZXh0cmFjdXJyaWN1bGFycyUyMCglRTglQUYlQkUlRTUlQTQlOTYlRTYlQjQlQkIlRTUlOEElQTgpJTJDJTIwYW5kJTIwY29tbXVuaXR5JTIwc2VydmljZSUyMCglRTclQTQlQkUlRTUlOEMlQkElRTYlOUMlOEQlRTUlOEElQTEpLiUyMiU3RCUyQyU3QiUyMnBhcnQlMjIlM0ElMjJFbmRpbmclMjAoJUU3JUJCJTkzJUU1JUIwJUJFKSUyMiUyQyUyMmxpbmVzJTIyJTNBJTIyJUU2JTg4JTkxJUU1JTlDJUE4JUU1JThDJTk3JUU0JUJBJUFDJUU3JTlBJTg0JUU3JTk0JUI1JUU4JUFGJTlEJUU1JThGJUI3JUU3JUEwJTgxJUU2JTk4JUFGJUUyJTgwJUE2JUUyJTgwJUE2JUU1JTg2JTk5JUU0JUJGJUExJUU1JTkxJThBJUU4JUFGJTg5JUU2JTg4JTkxJUU1JTkwJUE3JUVGJUJDJTgxJTIyJTJDJTIybm90ZSUyMiUzQSUyMlNoYXJlJTIwY29udGFjdCUyMGluZm9ybWF0aW9uJTIwKHBob25lJTJDJTIwZW1haWwlMkMlMjBXZUNoYXQpJTIwYW5kJTIwaW52aXRlJTIwdGhlJTIwcmVjaXBpZW50JTIwdG8lMjByZXBseS4lMjIlN0QlMkMlN0IlMjJwYXJ0JTIyJTNBJTIyQ2xvc2luZyUyMFdpc2hlcyUyMCUyNiUyMFNpZ25hdHVyZSUyMCglRTclQTUlOUQlRTglQUYlQUQlRTMlODAlODElRTclQkQlQjIlRTUlOTAlOEQlRTQlQjglOEUlRTYlOTclQTUlRTYlOUMlOUYpJTIyJTJDJTIybGluZXMlMjIlM0ElMjIlRTclQTUlOUQlMjAlMkYlMjAlRTUlQTUlQkQlRUYlQkMlODElMjAlRTIlODAlOTQlMjAlRTUlQTQlQTclRTUlOEQlQUIlMjAlMkYlMjAyMDIwJUU1JUI5JUI0MTAlRTYlOUMlODgyMyVFNiU5NyVBNSUyMiUyQyUyMm5vdGUlMjIlM0ElMjJTaWduYXR1cmUlMjBhbmQlMjBkYXRlJTIwYXJlJTIwd3JpdHRlbiUyMGluJTIwdHdvJTIwbGluZXMlMjBhdCUyMHRoZSUyMGJvdHRvbSUyMHJpZ2h0LiUyMERhdGUlMjBtdXN0JTIwZm9sbG93JTIwWWVhci1Nb250aC1EYXklMjBvcmRlciUyMChZWVlZJUU1JUI5JUI0TU0lRTYlOUMlODhERCVFNiU5NyVBNSkuJTIyJTdEJTVEJTJDJTIycXVlc3Rpb25zJTIyJTNBJTVCJTIyJUU0JUI4JUJBJUU0JUJCJTgwJUU0JUI5JTg4JUU1JUE0JUE3JUU1JThEJUFCJUU0JUI4JTgwJUU3JTlCJUI0JUU5JTgzJUJEJUU2JUIyJUExJUU4JUI3JTlGJUU2JTlEJUIwJUU2JUEzJUFFJUU4JTgxJTk0JUU3JUIzJUJCJUVGJUJDJTlGJTIwKFdoeSUyMGhhc24ndCUyMERhdmlkJTIwY29udGFjdGVkJTIwSmFzb24lMjBmb3IlMjBhJTIwbG9uZyUyMHRpbWUlM0YpJTIyJTJDJTIyJUU1JUE0JUE3JUU1JThEJUFCJUU2JUFGJThGJUU1JUE0JUE5JUU2JTk3JUE5JUU0JUI4JThBJUU1JTg3JUEwJUU3JTgyJUI5JUU4JUI1JUI3JUU1JUJBJThBJUVGJUJDJTlGJUU0JUJCJTk2JUU2JTgwJThFJUU0JUI5JTg4JUU1JThFJUJCJUU1JUFEJUE2JUU2JUEwJUExJUVGJUJDJTlGJUU0JUJCJThFJUU1JUFFJUI2JUU1JTg4JUIwJUU1JUFEJUE2JUU2JUEwJUExJUU4JUE2JTgxJUU1JUE0JTlBJUU5JTk1JUJGJUU2JTk3JUI2JUU5JTk3JUI0JUVGJUJDJTlGJTIwKFdoYXQlMjB0aW1lJTIwZG9lcyUyMERhdmlkJTIwZ2V0JTIwdXAlMkMlMjBob3clMjBkb2VzJTIwaGUlMjBnbyUyMHRvJTIwc2Nob29sJTJDJTIwYW5kJTIwaG93JTIwbG9uZyUyMGRvZXMlMjBpdCUyMHRha2UlM0YpJTIyJTJDJTIyJUU1JUE0JUE3JUU1JThEJUFCJUU2JTk0JUJFJUU1JUFEJUE2JUU0JUJCJUE1JUU1JTkwJThFJUU2JTlDJTg5JUU1JTkzJUFBJUU0JUJBJTlCJUU4JUFGJUJFJUU1JUE0JTk2JUU2JUI0JUJCJUU1JThBJUE4JUVGJUJDJTlGJUU0JUJCJTk2JUU3JTlBJTg0JUU3JUE0JUJFJUU1JThDJUJBJUU2JTlDJThEJUU1JThBJUExJUU2JTk4JUFGJUU0JUJCJTgwJUU0JUI5JTg4JUVGJUJDJTlGJTIwKFdoYXQlMjBleHRyYWN1cnJpY3VsYXIlMjBhY3Rpdml0aWVzJTIwYW5kJTIwY29tbXVuaXR5JTIwc2VydmljZSUyMGRvZXMlMjBEYXZpZCUyMGRvJTIwYWZ0ZXIlMjBzY2hvb2wlM0YpJTIyJTJDJTIyJUU0JUI4JUFEJUU2JTk2JTg3JUU0JUI5JUE2JUU0JUJGJUExJUU3JTlBJTg0JUU3JUE3JUIwJUU1JTkxJUJDJUU2JUEwJTg3JUU3JTgyJUI5JUU3JUFDJUE2JUU1JThGJUI3JUU1JTkyJThDJUU2JTlDJTgwJUU1JTkwJThFJUU3JTlBJTg0JUU2JTk3JUE1JUU2JTlDJTlGJUU2JUEwJUJDJUU1JUJDJThGJUU4JUI3JTlGJUU4JThCJUIxJUU2JTk2JTg3JUU0JUJGJUExJUU2JTlDJTg5JUU0JUJCJTgwJUU0JUI5JTg4JUU0JUI4JThEJUU1JTkwJThDJUVGJUJDJTlGJTIwKEhvdyUyMGRvJTIwdGhlJTIwcHVuY3R1YXRpb24lMjBhZnRlciUyMHRoZSUyMHNhbHV0YXRpb24lMjBhbmQlMjB0aGUlMjBkYXRlJTIwZm9ybWF0JTIwYXQlMjB0aGUlMjBlbmQlMjBkaWZmZXIlMjBiZXR3ZWVuJTIwYSUyMENoaW5lc2UlMjBsZXR0ZXIlMjBhbmQlMjBhbiUyMEVuZ2xpc2glMjBvbmUlM0YpJTIyJTVEJTdEJTJDJTdCJTIyaWQlMjIlM0ElMjJzYW1wbGUtMiUyMiUyQyUyMnRpdGxlJTIyJTNBJTIyVGV4dCUyMDUuMiUzQSUyMCVFNiU4OCU5MSVFNyU5QSU4NCVFNSU5MSVBOCVFNiU5QyVBQiVFNSVBRSU4OSVFNiU4RSU5MiUyMChNeSUyMFdlZWtlbmQlMjBQbGFucyklMjIlMkMlMjJsZXZlbCUyMiUzQSUyMkJlZ2lubmVyLUludGVybWVkaWF0ZSUyMiUyQyUyMmNhdGVnb3J5JTIyJTNBJTIyJUU2JTk3JUE1JUU1JUI4JUI4JUU1JThGJTk5JUU0JUJBJThCJTIwJUMyJUI3JTIwRGFpbHklMjBMaWZlJTIyJTJDJTIycmVhZFRpbWUlMjIlM0ElMjIyJTIwbWluJTIwcmVhZCUyMiUyQyUyMmNvbnRlbnQlMjIlM0ElMjIlRTYlQUYlOEYlRTQlQjglQUElRTYlOTglOUYlRTYlOUMlOUYlRTQlQjglODAlRTUlODglQjAlRTYlOTglOUYlRTYlOUMlOUYlRTQlQkElOTQlRUYlQkMlOEMlRTYlODglOTElRTklODMlQkQlRTglQTYlODElRTUlOEUlQkIlRTUlQUQlQTYlRTYlQTAlQTElRTQlQjglOEElRTglQUYlQkUlRUYlQkMlOEMlRTQlQkIlOEUlRTYlOTclQTklRTUlQkYlOTklRTUlODglQjAlRTYlOTklOUElRTMlODAlODIlRTUlODglQjAlRTQlQkElODYlRTUlOTElQTglRTYlOUMlQUIlRUYlQkMlOEMlRTYlODglOTElRTclQkIlODglRTQlQkElOEUlRTUlOEYlQUYlRTQlQkIlQTUlRTQlQkMlOTElRTYlODElQUYlRTQlQjglODAlRTQlQjglOEIlRTQlQkElODYlRTMlODAlODIlNUNuJUU2JTk4JTlGJUU2JTlDJTlGJUU1JTg1JUFEJUU2JTk3JUE5JUU0JUI4JThBJUVGJUJDJThDJUU2JTg4JTkxJUU0JUI4JTgwJUU4JTg4JUFDJUU1JTg1JUFCJUU3JTgyJUI5JUU4JUI1JUI3JUU1JUJBJThBJUUzJTgwJTgyJUU1JTkwJTgzJUU2JTk3JUE5JUU5JUE1JUFEJUU0JUJCJUE1JUU1JTkwJThFJUVGJUJDJThDJUU2JTg4JTkxJUU1JTg1JTg4JUU1JTg2JTk5JUU0JUJEJTlDJUU0JUI4JTlBJUUzJTgwJTgxJUU1JUE0JThEJUU0JUI5JUEwJUU0JUI4JUFEJUU2JTk2JTg3JUVGJUJDJThDJUU0JUI4JUJBJUU0JUI4JThCJUU0JUI4JUFBJUU2JTk4JTlGJUU2JTlDJTlGJUU3JTlBJTg0JUU4JTgwJTgzJUU4JUFGJTk1JUU1JTgxJTlBJUU1JTg3JTg2JUU1JUE0JTg3JUUzJTgwJTgyJUU0JUI4JThCJUU1JThEJTg4JUU2JTg4JTkxJUU3JUJCJThGJUU1JUI4JUI4JUU4JUI3JTlGJUU2JTlDJThCJUU1JThGJThCJUU0JUJCJUFDJUU0JUI4JTgwJUU4JUI1JUI3JUU1JThFJUJCJUU2JTg5JTkzJUU3JUJFJUJEJUU2JUFGJTlCJUU3JTkwJTgzJUVGJUJDJThDJUU1JTlCJUEwJUU0JUI4JUJBJUU1JTgxJTlBJUU4JUJGJTkwJUU1JThBJUE4JUU1JUFGJUI5JUU4JUJBJUFCJUU0JUJEJTkzJUU1JTgxJUE1JUU1JUJBJUI3JUU1JUJFJTg4JUU1JUE1JUJEJUUzJTgwJTgyJTVDbiVFNiU5OCU5RiVFNiU5QyU5RiVFNSVBNCVBOSVFNCVCOCU4QSVFNSU4RCU4OCVFRiVCQyU4QyVFNiU4OCU5MSVFNSU5NiU5QyVFNiVBQyVBMiVFNSU4RSVCQiVFNSU5QiVCRSVFNCVCOSVBNiVFOSVBNiU4NiVFNyU5QyU4QiVFNCVCOSVBNiVFRiVCQyU4QyVFNiU4OCU5NiVFOCU4MCU4NSVFNSU5QyVBOCVFNSU5MiU5NiVFNSU5NSVBMSVFNSU4RSU4NSVFNSU5NiU5RCVFNSU5MiU5NiVFNSU5NSVBMSVFMyU4MCU4MiVFNiU5OSU5QSVFNCVCOCU4QSVFNiU4OCU5MSVFNSU5MiU4QyVFNyU4OCVCOCVFNyU4OCVCOCVFNSVBNiU4OCVFNSVBNiU4OCVFNCVCOCU4MCVFOCVCNSVCNyVFNSU5MCU4MyVFNiU5OSU5QSVFOSVBNSVBRCVFRiVCQyU4QyVFNyU5QyU4QiVFNyU5QyU4QiVFNyU5NCVCNSVFOCVBNyU4NiVFRiVCQyU4QyVFNSU4NyU4NiVFNSVBNCU4NyVFNSVCQyU4MCVFNSVBNyU4QiVFNiU5NiVCMCVFNyU5QSU4NCVFNCVCOCU4MCVFNCVCOCVBQSVFNiU5OCU5RiVFNiU5QyU5RiVFMyU4MCU4MiUyMiUyQyUyMnRlYWNoZXJOb3RlcyUyMiUzQSU3QiUyMiVFNSU5MSVBOCVFNiU5QyVBQiUyMiUzQSUyMldlZWtlbmQlMjAoemglQzUlOER1bSVDMyVCMiklMjIlMkMlMjIlRTUlQTQlOEQlRTQlQjklQTAlMjIlM0ElMjJUbyUyMHJldmlldyUyMCUyRiUyMHJldmlzZSUyMChmJUMzJUI5eCVDMyVBRCklMjIlMkMlMjIlRTglQkElQUIlRTQlQkQlOTMlRTUlODElQTUlRTUlQkElQjclMjIlM0ElMjJQaHlzaWNhbCUyMGhlYWx0aCUyMCUyRiUyMGhlYWx0aHklMjBib2R5JTIwKHNoJUM0JTkzbnQlQzclOTAlMjBqaSVDMyVBMG5rJUM0JTgxbmcpJTIyJTdEJTJDJTIyc3RydWN0dXJlQW5ub3RhdGlvbnMlMjIlM0ElNUIlNUQlMkMlMjJxdWVzdGlvbnMlMjIlM0ElNUIlMjIlRTQlQkQlOUMlRTglODAlODUlRTYlOTglOUYlRTYlOUMlOUYlRTUlODUlQUQlRTQlQjglOEElRTUlOEQlODglRTQlQjglODAlRTglODglQUMlRTUlODElOUElRTQlQkIlODAlRTQlQjklODglRUYlQkMlOUYlMjAoV2hhdCUyMGRvZXMlMjB0aGUlMjBhdXRob3IlMjB1c3VhbGx5JTIwZG8lMjBvbiUyMFNhdHVyZGF5JTIwbW9ybmluZyUzRiklMjIlMkMlMjIlRTQlQkQlOUMlRTglODAlODUlRTQlQjglQkElRTQlQkIlODAlRTQlQjklODglRTUlOTYlOUMlRTYlQUMlQTIlRTglQjclOUYlRTYlOUMlOEIlRTUlOEYlOEIlRTQlQjglODAlRTglQjUlQjclRTYlODklOTMlRTclQkUlQkQlRTYlQUYlOUIlRTclOTAlODMlRUYlQkMlOUYlMjAoV2h5JTIwZG9lcyUyMHRoZSUyMGF1dGhvciUyMGxpa2UlMjBwbGF5aW5nJTIwYmFkbWludG9uJTIwd2l0aCUyMGZyaWVuZHMlM0YpJTIyJTVEJTdEJTVE");
+    var savedVocab = decodePayload("JTVCJTdCJTIyd29yZCUyMiUzQSUyMiVFNCVCQSVCMiVFNyU4OCVCMSVFNyU5QSU4NCUyMiUyQyUyMnBpbnlpbiUyMiUzQSUyMnElQzQlQUJuJyVDMyVBMGklMjBkZSUyMiUyQyUyMnBvcyUyMiUzQSUyMmFkai4lMjIlMkMlMjJlbiUyMiUzQSUyMmRlYXIlM0IlMjBiZWxvdmVkJTIwKHVzZWQlMjBpbiUyMHNhbHV0YXRpb25zKSUyMiUyQyUyMmNvbnRleHQlMjIlM0ElMjIlRTQlQkElQjIlRTclODglQjElRTclOUElODQlRTYlOUQlQjAlRTYlQTMlQUUlRUYlQkMlOUElMjIlMkMlMjJhZGRlZEF0JTIyJTNBJTIyVGV4dCUyMDUuMSUyMiU3RCUyQyU3QiUyMndvcmQlMjIlM0ElMjIlRTglQUYlQkUlRTUlQTQlOTYlRTYlQjQlQkIlRTUlOEElQTglMjIlMkMlMjJwaW55aW4lMjIlM0ElMjJrJUMzJUE4dyVDMyVBMGklMjBodSVDMyVCM2QlQzMlQjJuZyUyMiUyQyUyMnBvcyUyMiUzQSUyMm4uJTIyJTJDJTIyZW4lMjIlM0ElMjJleHRyYWN1cnJpY3VsYXIlMjBhY3Rpdml0aWVzJTIyJTJDJTIyY29udGV4dCUyMiUzQSUyMiVFOCVCRiU5OCVFOCVBNiU4MSVFNSU4RiU4MiVFNSU4QSVBMCVFOCVBRiVCRSVFNSVBNCU5NiVFNiVCNCVCQiVFNSU4QSVBOCVFRiVCQyU4QyVFNCVCQiU4RSVFNiU5NyVBOSVFNSVCRiU5OSVFNSU4OCVCMCVFNiU5OSU5QSVFMyU4MCU4MiUyMiUyQyUyMmFkZGVkQXQlMjIlM0ElMjJUZXh0JTIwNS4xJTIyJTdEJTJDJTdCJTIyd29yZCUyMiUzQSUyMiVFNyVBNCVCRSVFNSU4QyVCQSVFNiU5QyU4RCVFNSU4QSVBMSUyMiUyQyUyMnBpbnlpbiUyMiUzQSUyMnNoJUMzJUE4cSVDNSVBQiUyMGYlQzMlQkF3JUMzJUI5JTIyJTJDJTIycG9zJTIyJTNBJTIybi4lMjIlMkMlMjJlbiUyMiUzQSUyMmNvbW11bml0eSUyMHNlcnZpY2UlMjIlMkMlMjJjb250ZXh0JTIyJTNBJTIyJUU2JTg4JTkxJUU3JTlBJTg0JUU3JUE0JUJFJUU1JThDJUJBJUU2JTlDJThEJUU1JThBJUExJUU2JTk4JUFGJUU1JThFJUJCJUU1JThDJUJCJUU5JTk5JUEyJUU3JTg1JUE3JUU5JUExJUJFJUU3JTk3JTg1JUU0JUJBJUJBJUUzJTgwJTgyJTIyJTJDJTIyYWRkZWRBdCUyMiUzQSUyMlRleHQlMjA1LjElMjIlN0QlNUQ=");
+    var activeArticleId = ARTICLES[0].id;
+    var activeTab = "vocab";
+    var vocabSearch = "";
+    var fontSize = "xl";
+    var showStructure = true;
+    var highlightNotes = true;
+    var speechRate = 0.9;
+    var currentPopupWord = null;
 
-    // =========================================================================
-    // RELIABLE MANDARIN AUDIO ENGINE (Web Speech API + Cloud TTS Fallback)
-    // =========================================================================
-    let speechQueue = [];
-    let queueIndex = 0;
-    let audioState = 'idle'; // 'idle' | 'playing' | 'paused'
-    let isCancelled = true;
-    let activeLineIdx = null;
-    let bestZhVoice = null;
-    let fallbackAudioEl = null;
+    var speechQueue = [];
+    var queueIndex = 0;
+    var audioState = "idle";
+    var isCancelled = true;
+    var bestZhVoice = null;
+
+    function isChineseChar(ch) {
+      var code = ch.charCodeAt(0);
+      return code >= 0x4e00 && code <= 0x9fff;
+    }
+
+    function isAlphaNum(ch) {
+      return /^[a-zA-Z0-9@._-]$/.test(ch);
+    }
 
     function findBestMandarinVoice() {
-      if (!('speechSynthesis' in window)) return null;
-      const voices = window.speechSynthesis.getVoices() || [];
-      const zh = voices.filter(v => /zh|cmn|chinese|普通话|国语/i.test((v.lang || '') + ' ' + (v.name || '')));
-      zh.sort((a, b) => {
-        const score = (v) => {
-          const n = (v.name || '').toLowerCase();
-          const l = (v.lang || '').toLowerCase();
-          let s = (l === 'zh-cn' || l === 'cmn-hans-cn') ? 50 : 20;
-          if (n.includes('natural') || n.includes('neural')) s += 100;
-          if (n.includes('xiaoxiao') || n.includes('yunxi') || n.includes('xiaoyi')) s += 90;
-          if (n.includes('google') || n.includes('tingting') || n.includes('siri')) s += 75;
+      if (!("speechSynthesis" in window)) return null;
+      var voices = window.speechSynthesis.getVoices() || [];
+      var zh = voices.filter(function(v) {
+        return /zh|cmn|chinese|普通话|国语/i.test((v.lang || "") + " " + (v.name || ""));
+      });
+      zh.sort(function(a, b) {
+        function score(v) {
+          var n = (v.name || "").toLowerCase();
+          var l = (v.lang || "").toLowerCase();
+          var s = (l === "zh-cn" || l === "cmn-hans-cn") ? 50 : 20;
+          if (n.indexOf("natural") >= 0 || n.indexOf("neural") >= 0) s += 100;
+          if (n.indexOf("xiaoxiao") >= 0 || n.indexOf("yunxi") >= 0 || n.indexOf("xiaoyi") >= 0) s += 90;
+          if (n.indexOf("google") >= 0 || n.indexOf("tingting") >= 0 || n.indexOf("siri") >= 0) s += 75;
           if (!v.localService) s += 20;
           return s;
-        };
+        }
         return score(b) - score(a);
       });
       bestZhVoice = zh[0] || null;
       return bestZhVoice;
     }
 
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       findBestMandarinVoice();
       window.speechSynthesis.onvoiceschanged = findBestMandarinVoice;
     }
 
     function syncAudioUI() {
-      const readBtn = document.getElementById('read-all-btn');
-      const activeBox = document.getElementById('audio-active-controls');
-      const pauseBtn = document.getElementById('pause-resume-btn');
-      if (audioState === 'idle') {
-        readBtn.classList.remove('hidden');
-        activeBox.classList.add('hidden');
-        activeBox.classList.remove('flex');
+      var readBtn = document.getElementById("read-all-btn");
+      var activeBox = document.getElementById("audio-active-controls");
+      var pauseBtn = document.getElementById("pause-resume-btn");
+      if (audioState === "idle") {
+        readBtn.classList.remove("hidden");
+        activeBox.classList.add("hidden");
+        activeBox.classList.remove("flex");
       } else {
-        readBtn.classList.add('hidden');
-        activeBox.classList.remove('hidden');
-        activeBox.classList.add('flex');
-        pauseBtn.textContent = audioState === 'paused' ? '▶ Resume' : '⏸ Pause';
+        readBtn.classList.add("hidden");
+        activeBox.classList.remove("hidden");
+        activeBox.classList.add("flex");
+        pauseBtn.textContent = audioState === "paused" ? "▶ Resume" : "⏸ Pause";
       }
     }
 
@@ -232,37 +247,21 @@
       isCancelled = true;
       speechQueue = [];
       queueIndex = 0;
-      activeLineIdx = null;
-      audioState = 'idle';
-      if ('speechSynthesis' in window) {
+      audioState = "idle";
+      if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
-      }
-      if (fallbackAudioEl) {
-        fallbackAudioEl.pause();
-        fallbackAudioEl = null;
       }
       syncAudioUI();
     }
 
     function togglePauseResume() {
-      if (fallbackAudioEl) {
-        if (audioState === 'playing') {
-          fallbackAudioEl.pause();
-          audioState = 'paused';
-        } else if (audioState === 'paused') {
-          fallbackAudioEl.play();
-          audioState = 'playing';
-        }
-        syncAudioUI();
-        return;
-      }
-      if (!('speechSynthesis' in window)) return;
-      if (audioState === 'playing') {
+      if (!("speechSynthesis" in window)) return;
+      if (audioState === "playing") {
         window.speechSynthesis.pause();
-        audioState = 'paused';
-      } else if (audioState === 'paused') {
+        audioState = "paused";
+      } else if (audioState === "paused") {
         window.speechSynthesis.resume();
-        audioState = 'playing';
+        audioState = "playing";
       }
       syncAudioUI();
     }
@@ -273,22 +272,21 @@
         return;
       }
       queueIndex = idx;
-      const chunkText = speechQueue[idx];
-
-      if ('speechSynthesis' in window) {
-        const u = new SpeechSynthesisUtterance(chunkText);
-        u.lang = 'zh-CN';
+      var chunkText = speechQueue[idx];
+      if ("speechSynthesis" in window) {
+        var u = new SpeechSynthesisUtterance(chunkText);
+        u.lang = "zh-CN";
         u.rate = rateToUse;
         u.pitch = 1.0;
-        const voice = bestZhVoice || findBestMandarinVoice();
+        var voice = bestZhVoice || findBestMandarinVoice();
         if (voice) {
           u.voice = voice;
-          u.lang = voice.lang || 'zh-CN';
+          u.lang = voice.lang || "zh-CN";
         }
-        u.onend = () => {
+        u.onend = function() {
           if (!isCancelled) playNextChunk(idx + 1, rateToUse);
         };
-        u.onerror = () => {
+        u.onerror = function() {
           if (!isCancelled) playNextChunk(idx + 1, rateToUse);
         };
         window.speechSynthesis.resume();
@@ -300,57 +298,63 @@
       if (!text) return;
       stopAllAudio();
       isCancelled = false;
-      const rateToUse = customRate !== undefined && customRate !== null ? customRate : speechRate;
-
-      // Split into natural Chinese clauses so TTS never chokes on long paragraphs
-      const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-      const chunks = [];
-      rawLines.forEach(line => {
-        const parts = line.match(/[^。！？；!?]+[。！？；!?”]*/g) || [line];
-        parts.forEach(p => { if (p.trim()) chunks.push(p.trim()); });
+      var rateToUse = (customRate !== undefined && customRate !== null) ? customRate : speechRate;
+      var rawLines = text.split("\n").map(function(l) { return l.trim(); }).filter(Boolean);
+      var chunks = [];
+      rawLines.forEach(function(line) {
+        var buf = "";
+        for (var i = 0; i < line.length; i++) {
+          var c = line[i];
+          buf += c;
+          if (c === "。" || c === "！" || c === "？" || c === "；" || c === "!" || c === "?") {
+            if (buf.trim()) chunks.push(buf.trim());
+            buf = "";
+          }
+        }
+        if (buf.trim()) chunks.push(buf.trim());
       });
-
       if (chunks.length === 0) return;
       speechQueue = chunks;
-      audioState = 'playing';
+      audioState = "playing";
       syncAudioUI();
-
-      // Important 60ms delay after cancel() so Chrome/Safari/Edge don't cancel the new utterance
-      setTimeout(() => {
-        if (!isCancelled) {
-          playNextChunk(0, rateToUse);
-        }
+      setTimeout(function() {
+        if (!isCancelled) playNextChunk(0, rateToUse);
       }, 60);
     }
 
-    // =========================================================================
-    // SEGMENTATION & READER RENDERING
-    // =========================================================================
     function getActiveArticle() {
-      return ARTICLES.find(a => a.id === activeArticleId) || ARTICLES[0];
+      for (var i = 0; i < ARTICLES.length; i++) {
+        if (ARTICLES[i].id === activeArticleId) return ARTICLES[i];
+      }
+      return ARTICLES[0];
     }
 
     function segmentLine(line, notesMap) {
-      const allKeys = Array.from(new Set([...Object.keys(notesMap || {}), ...Object.keys(DICT)])).sort((a, b) => b.length - a.length);
-      const tokens = [];
-      let i = 0;
+      var dictKeys = Object.keys(DICT);
+      var noteKeys = Object.keys(notesMap || {});
+      var combined = noteKeys.concat(dictKeys).sort(function(a, b) { return b.length - a.length; });
+      var tokens = [];
+      var i = 0;
       while (i < line.length) {
-        const ch = line[i];
-        if (/\s/.test(ch)) {
+        var ch = line[i];
+        if (ch === " " || ch === "\t") {
           tokens.push({ text: ch, isWord: false });
           i++;
           continue;
         }
-        const dateMatch = line.slice(i).match(/^\d{4}年\d{1,2}月\d{1,2}日/);
-        if (dateMatch) {
-          tokens.push({ text: dateMatch[0], isWord: true });
-          i += dateMatch[0].length;
+        if (line.slice(i, i + 11) === "2020年10月23日") {
+          tokens.push({ text: "2020年10月23日", isWord: true });
+          i += 11;
           continue;
         }
-        if (/[\u4e00-\u9fff]/.test(ch)) {
-          let matched = null;
-          for (const k of allKeys) {
-            if (k.length > 1 && line.startsWith(k, i)) { matched = k; break; }
+        if (isChineseChar(ch)) {
+          var matched = null;
+          for (var k = 0; k < combined.length; k++) {
+            var key = combined[k];
+            if (key.length > 1 && line.indexOf(key, i) === i) {
+              matched = key;
+              break;
+            }
           }
           if (matched) {
             tokens.push({ text: matched, isWord: true });
@@ -361,9 +365,9 @@
           i++;
           continue;
         }
-        if (/[a-zA-Z0-9@._-]/.test(ch)) {
-          let j = i + 1;
-          while (j < line.length && /[a-zA-Z0-9@._-]/.test(line[j])) j++;
+        if (isAlphaNum(ch)) {
+          var j = i + 1;
+          while (j < line.length && isAlphaNum(line[j])) j++;
           tokens.push({ text: line.slice(i, j), isWord: false });
           i = j;
           continue;
@@ -375,79 +379,80 @@
     }
 
     function renderArticle() {
-      const art = getActiveArticle();
-      document.getElementById('art-level').textContent = art.level;
-      document.getElementById('art-category').textContent = art.category || 'Mandarin Reading';
-      document.getElementById('art-meta').textContent = '⏱ ' + art.readTime + ' · ' + art.content.replace(/\s+/g, '').length + ' 汉字';
-      document.getElementById('art-title').textContent = art.title;
+      var art = getActiveArticle();
+      document.getElementById("art-level").textContent = art.level;
+      document.getElementById("art-category").textContent = art.category || "Mandarin Reading";
+      var charLen = art.content.split("\n").join("").split(" ").join("").length;
+      document.getElementById("art-meta").textContent = "⏱ " + art.readTime + " · " + charLen + " 汉字";
+      document.getElementById("art-title").textContent = art.title;
 
-      const structWrap = document.getElementById('letter-structure-toggle-wrap');
-      structWrap.style.display = art.id === 'text-5-1' ? 'flex' : 'none';
+      var structWrap = document.getElementById("letter-structure-toggle-wrap");
+      structWrap.style.display = (art.id === "text-5-1") ? "flex" : "none";
 
-      const container = document.getElementById('reader-paragraphs');
-      container.innerHTML = '';
+      var container = document.getElementById("reader-paragraphs");
+      container.innerHTML = "";
 
-      const lines = art.content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-      const notesMap = art.teacherNotes || {};
-      const sizeClass = fontSize === 'base' ? 'text-lg leading-relaxed' : fontSize === 'lg' ? 'text-xl leading-loose' : 'text-2xl leading-[2.2]';
+      var lines = art.content.split("\n").map(function(l) { return l.trim(); }).filter(Boolean);
+      var notesMap = art.teacherNotes || {};
+      var sizeClass = (fontSize === "base") ? "text-lg leading-relaxed" : (fontSize === "lg") ? "text-xl leading-loose" : "text-2xl leading-[2.2]";
 
-      lines.forEach((line, lIdx) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'relative group';
+      lines.forEach(function(line, lIdx) {
+        var wrap = document.createElement("div");
+        wrap.className = "relative group";
 
-        const isSalutation = lIdx === 0 && (line.endsWith('：') || line.endsWith(':'));
-        const isGreeting = lIdx === 1 && line.length <= 6;
-        const isWishStart = line === '祝' || line.startsWith('祝 ');
-        const isWishEnd = line === '好！' || line === '好!';
-        const isSignature = line === '大卫' || /^\d{4}年\d{1,2}月\d{1,2}日$/.test(line);
+        var isSalutation = (lIdx === 0 && (line.slice(-1) === "：" || line.slice(-1) === ":"));
+        var isGreeting = (lIdx === 1 && line.length <= 6);
+        var isWishStart = (line === "祝" || line.indexOf("祝 ") === 0);
+        var isWishEnd = (line === "好！" || line === "好!");
+        var isSignature = (line === "大卫" || line === "2020年10月23日");
 
-        let layoutClass = 'mb-5 indent-8';
-        let badge = null;
+        var layoutClass = "mb-5 indent-8";
+        var badge = null;
 
         if (isSalutation) {
-          layoutClass = 'mb-1 indent-0 font-semibold';
-          if (showStructure && art.id === 'text-5-1') badge = { text: 'Salutation (称呼 - Note the colon ：)', cls: 'bg-amber-100 text-amber-800 border-amber-300' };
+          layoutClass = "mb-1 indent-0 font-semibold";
+          if (showStructure && art.id === "text-5-1") badge = { text: "Salutation (称呼 - Note the colon ：)", cls: "bg-amber-100 text-amber-800 border-amber-300" };
         } else if (isGreeting) {
-          layoutClass = 'mb-5 indent-8';
+          layoutClass = "mb-5 indent-8";
         } else if (isWishStart) {
-          layoutClass = 'mt-4 mb-1 indent-8 font-medium';
-          if (showStructure && art.id === 'text-5-1') badge = { text: 'Closing Wishes (祝语 - Two lines)', cls: 'bg-purple-100 text-purple-800 border-purple-300' };
+          layoutClass = "mt-4 mb-1 indent-8 font-medium";
+          if (showStructure && art.id === "text-5-1") badge = { text: "Closing Wishes (祝语 - Two lines)", cls: "bg-purple-100 text-purple-800 border-purple-300" };
         } else if (isWishEnd) {
-          layoutClass = 'mb-6 indent-0 font-medium';
+          layoutClass = "mb-6 indent-0 font-medium";
         } else if (isSignature) {
-          layoutClass = 'mb-1 text-right indent-0 pr-4 font-medium';
-          if (line.includes('年') && showStructure && art.id === 'text-5-1') badge = { text: 'Signature & Date (Bottom right: Year-Month-Day)', cls: 'bg-emerald-100 text-emerald-800 border-emerald-300' };
-        } else if (lIdx === 2 && showStructure && art.id === 'text-5-1') {
-          badge = { text: 'Opening (开头)', cls: 'bg-sky-100 text-sky-800 border-sky-300' };
-        } else if (lIdx === 3 && showStructure && art.id === 'text-5-1') {
-          badge = { text: 'Body (正文)', cls: 'bg-indigo-100 text-indigo-800 border-indigo-300' };
-        } else if (line.startsWith('我在北京的电话号码') && showStructure && art.id === 'text-5-1') {
-          badge = { text: 'Ending (结尾)', cls: 'bg-rose-100 text-rose-800 border-rose-300' };
+          layoutClass = "mb-1 text-right indent-0 pr-4 font-medium";
+          if (line.indexOf("年") >= 0 && showStructure && art.id === "text-5-1") badge = { text: "Signature & Date (Bottom right: Year-Month-Day)", cls: "bg-emerald-100 text-emerald-800 border-emerald-300" };
+        } else if (lIdx === 2 && showStructure && art.id === "text-5-1") {
+          badge = { text: "Opening (开头)", cls: "bg-sky-100 text-sky-800 border-sky-300" };
+        } else if (lIdx === 3 && showStructure && art.id === "text-5-1") {
+          badge = { text: "Body (正文)", cls: "bg-indigo-100 text-indigo-800 border-indigo-300" };
+        } else if (line.indexOf("我在北京的电话号码") === 0 && showStructure && art.id === "text-5-1") {
+          badge = { text: "Ending (结尾)", cls: "bg-rose-100 text-rose-800 border-rose-300" };
         }
 
         if (badge) {
-          const bEl = document.createElement('div');
-          bEl.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border mb-1.5 ' + badge.cls;
-          bEl.textContent = '📌 ' + badge.text;
+          var bEl = document.createElement("div");
+          bEl.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border mb-1.5 " + badge.cls;
+          bEl.textContent = "📌 " + badge.text;
           wrap.appendChild(bEl);
         }
 
-        const p = document.createElement('p');
-        p.className = layoutClass + ' ' + sizeClass;
+        var p = document.createElement("p");
+        p.className = layoutClass + " " + sizeClass;
 
-        segmentLine(line, notesMap).forEach(tok => {
-          const span = document.createElement('span');
+        segmentLine(line, notesMap).forEach(function(tok) {
+          var span = document.createElement("span");
           span.textContent = tok.text;
           if (tok.isWord) {
-            const isSaved = savedVocab.some(v => v.word === tok.text);
-            const hasNote = Boolean(notesMap[tok.text]);
-            span.className = 'cursor-pointer rounded-md px-0.5 mx-[0.5px] transition-all duration-150 inline-block ' +
+            var isSaved = savedVocab.some(function(v) { return v.word === tok.text; });
+            var hasNote = Boolean(notesMap[tok.text]);
+            span.className = "cursor-pointer rounded-md px-0.5 mx-[0.5px] transition-all duration-150 inline-block " +
               (isSaved
-                ? 'bg-amber-200/80 text-amber-950 border-b-2 border-amber-500'
-                : hasNote && highlightNotes
-                ? 'bg-emerald-100/90 border-b-2 border-dashed border-emerald-600'
-                : 'hover:bg-indigo-100 hover:text-indigo-700');
-            span.addEventListener('click', (e) => {
+                ? "bg-amber-200/80 text-amber-950 border-b-2 border-amber-500"
+                : (hasNote && highlightNotes)
+                ? "bg-emerald-100/90 border-b-2 border-dashed border-emerald-600"
+                : "hover:bg-indigo-100 hover:text-indigo-700");
+            span.addEventListener("click", function(e) {
               e.stopPropagation();
               openPopupForText(tok.text, e.currentTarget.getBoundingClientRect(), line);
             });
@@ -455,11 +460,12 @@
           p.appendChild(span);
         });
 
-        const lineAudioBtn = document.createElement('button');
-        lineAudioBtn.className = 'opacity-0 group-hover:opacity-100 transition-opacity ml-2 px-1.5 py-0.5 rounded-full bg-slate-200/70 text-slate-600 hover:text-indigo-600 text-xs align-middle cursor-pointer';
-        lineAudioBtn.textContent = '🔊';
-        lineAudioBtn.title = 'Listen to this line in Mandarin';
-        lineAudioBtn.addEventListener('click', (e) => {
+        var lineAudioBtn = document.createElement("button");
+        lineAudioBtn.type = "button";
+        lineAudioBtn.className = "opacity-0 group-hover:opacity-100 transition-opacity ml-2 px-1.5 py-0.5 rounded-full bg-slate-200/70 text-slate-600 hover:text-indigo-600 text-xs align-middle cursor-pointer";
+        lineAudioBtn.textContent = "🔊";
+        lineAudioBtn.title = "Listen to this line in Mandarin";
+        lineAudioBtn.addEventListener("click", function(e) {
           e.stopPropagation();
           speakMandarinText(line, speechRate);
         });
@@ -469,22 +475,22 @@
         container.appendChild(wrap);
       });
 
-      // Render Teacher's Key Notes Footer
-      const footer = document.getElementById('teacher-notes-footer');
-      const noteEntries = Object.entries(notesMap);
-      if (noteEntries.length === 0) {
-        footer.innerHTML = '';
+      var footer = document.getElementById("teacher-notes-footer");
+      var noteKeys = Object.keys(notesMap);
+      if (noteKeys.length === 0) {
+        footer.innerHTML = "";
       } else {
-        footer.innerHTML = '<h3 class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-3">👩‍🏫 Teacher's Key Vocabulary &amp; Letter Format Notes (重点词汇与书信格式提示)</h3><div id="notes-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>';
-        const grid = document.getElementById('notes-grid');
-        noteEntries.forEach(([phrase, note]) => {
-          const info = DICT[phrase];
-          const card = document.createElement('div');
-          card.className = 'p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/70 text-xs cursor-pointer hover:bg-emerald-100/70 transition-colors';
-          card.innerHTML = '<div class="font-bold text-sm text-emerald-900 flex items-center justify-between"><div><span>' + phrase + '</span>' +
-            (info && info.pinyin ? ' <span class="text-xs font-mono text-emerald-700 font-normal">[' + info.pinyin + ']</span>' : '') +
-            '</div><span>🔊</span></div><div class="text-slate-700 mt-1 leading-relaxed">' + note + '</div>';
-          card.addEventListener('click', (e) => {
+        footer.innerHTML = "<h3 class=\"text-xs font-bold uppercase tracking-wider text-emerald-700 mb-3\">👩‍🏫 Key Vocabulary &amp; Letter Format Notes (重点词汇与书信格式提示)</h3><div id=\"notes-grid\" class=\"grid grid-cols-1 sm:grid-cols-2 gap-2.5\"></div>";
+        var grid = document.getElementById("notes-grid");
+        noteKeys.forEach(function(phrase) {
+          var note = notesMap[phrase];
+          var info = DICT[phrase];
+          var card = document.createElement("div");
+          card.className = "p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/70 text-xs cursor-pointer hover:bg-emerald-100/70 transition-colors";
+          card.innerHTML = "<div class=\"font-bold text-sm text-emerald-900 flex items-center justify-between\"><div><span>" + phrase + "</span>" +
+            (info && info.pinyin ? " <span class=\"text-xs font-mono text-emerald-700 font-normal\">[" + info.pinyin + "]</span>" : "") +
+            "</div><span>🔊</span></div><div class=\"text-slate-700 mt-1 leading-relaxed\">" + note + "</div>";
+          card.addEventListener("click", function(e) {
             e.stopPropagation();
             openPopupForText(phrase, card.getBoundingClientRect(), phrase);
           });
@@ -493,241 +499,245 @@
       }
     }
 
-    // =========================================================================
-    // POP-UP CHINESE-TO-ENGLISH DICTIONARY
-    // =========================================================================
     function openPopupForText(rawText, rect, contextSentence) {
-      const word = (rawText || '').trim();
+      var word = (rawText || "").trim();
       if (!word || word.length > 80) return;
       currentPopupWord = word;
 
-      const art = getActiveArticle();
-      const tNote = (art.teacherNotes || {})[word] || '';
-      const local = DICT[word];
-      const chars = [...word].filter(c => /[\u4e00-\u9fff]/.test(c));
-      const breakdown = [];
-      chars.forEach(c => {
-        if (DICT[c]) breakdown.push({ char: c, pinyin: DICT[c].pinyin, en: DICT[c].en.split(';')[0] });
-      });
+      var art = getActiveArticle();
+      var tNote = (art.teacherNotes || {})[word] || "";
+      var local = DICT[word];
+      var breakdown = [];
+      for (var i = 0; i < word.length; i++) {
+        var c = word[i];
+        if (isChineseChar(c) && DICT[c]) {
+          breakdown.push({ char: c, pinyin: DICT[c].pinyin, en: DICT[c].en.split(";")[0] });
+        }
+      }
 
-      const assembledPinyin = local ? local.pinyin : breakdown.map(b => b.pinyin).join(' ');
-      const pos = local ? local.pos : (word.length > 2 ? 'phrase' : 'word');
-      const initialEn = local ? local.en : (tNote || (breakdown.length > 0 ? breakdown.map(b => b.char + ': ' + b.en).join(' | ') : 'Looking up English meaning...'));
-      const ex = local ? local.ex : '';
+      var assembledPinyin = local ? local.pinyin : breakdown.map(function(b) { return b.pinyin; }).join(" ");
+      var pos = local ? local.pos : (word.length > 2 ? "phrase" : "word");
+      var initialEn = local ? local.en : (tNote || (breakdown.length > 0 ? breakdown.map(function(b) { return b.char + ": " + b.en; }).join(" | ") : "Looking up English meaning..."));
+      var ex = local ? local.ex : "";
 
-      const pop = document.getElementById('popup-dict');
-      pop.classList.remove('hidden');
+      var pop = document.getElementById("popup-dict");
+      pop.classList.remove("hidden");
 
-      const vw = window.innerWidth;
-      const x = Math.max(180, Math.min(vw - 180, rect.left + rect.width / 2));
-      const showBelow = rect.top < 250;
-      pop.style.left = x + 'px';
-      pop.style.top = (showBelow ? rect.bottom + 10 : rect.top - 10) + 'px';
-      pop.style.transform = showBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)';
+      var vw = window.innerWidth;
+      var x = Math.max(180, Math.min(vw - 180, rect.left + rect.width / 2));
+      var showBelow = rect.top < 250;
+      pop.style.left = x + "px";
+      pop.style.top = (showBelow ? rect.bottom + 10 : rect.top - 10) + "px";
+      pop.style.transform = showBelow ? "translate(-50%, 0)" : "translate(-50%, -100%)";
 
-      const isSaved = savedVocab.some(v => v.word === word);
+      var isSaved = savedVocab.some(function(v) { return v.word === word; });
 
-      pop.innerHTML = `
-        <div class="flex items-start justify-between gap-2">
-          <div>
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <h4 class="font-bold text-2xl text-indigo-600 leading-tight mr-1" id="pop-word-title"></h4>
-              <button id="pop-audio-normal" class="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[11px] font-semibold cursor-pointer">🔊 ${speechRate}x</button>
-              <button id="pop-audio-slow" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer">🐢 0.6x</button>
-              <button id="pop-audio-stop" class="px-2 py-1 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-[11px] font-semibold cursor-pointer">⏹</button>
-            </div>
-            <div class="flex items-center gap-2 mt-1">
-              <span class="text-sm font-mono font-semibold text-rose-600" id="pop-pinyin"></span>
-              <span class="px-1.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-700 font-medium italic" id="pop-pos"></span>
-            </div>
-          </div>
-          <button id="pop-close-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
-        </div>
-        <div class="mt-2.5 pt-2.5 border-t border-slate-100">
-          <div class="text-sm font-semibold text-slate-800 leading-snug" id="pop-en"></div>
-          <p class="mt-1.5 text-xs text-slate-500 leading-relaxed" id="pop-ex"></p>
-        </div>
-        <div id="pop-breakdown-box"></div>
-        <div id="pop-note-box"></div>
-        <div class="mt-3 pt-2.5 border-t border-slate-100">
-          <button id="pop-save-btn" class="w-full py-2 px-3 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${isSaved ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}">
-            ${isSaved ? '✓ Saved in Vocab (已存生词本)' : '+ Save to Vocab (加入生词本)'}
-          </button>
-        </div>
-      `;
+      pop.innerHTML = "" +
+        "<div class=\"flex items-start justify-between gap-2\">" +
+          "<div>" +
+            "<div class=\"flex items-center gap-1.5 flex-wrap\">" +
+              "<h4 class=\"font-bold text-2xl text-indigo-600 leading-tight mr-1\" id=\"pop-word-title\"></h4>" +
+              "<button type=\"button\" id=\"pop-audio-normal\" class=\"px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[11px] font-semibold cursor-pointer\">🔊 " + speechRate + "x</button>" +
+              "<button type=\"button\" id=\"pop-audio-slow\" class=\"px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer\">🐢 0.6x</button>" +
+              "<button type=\"button\" id=\"pop-audio-stop\" class=\"px-2 py-1 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-[11px] font-semibold cursor-pointer\">⏹</button>" +
+            "</div>" +
+            "<div class=\"flex items-center gap-2 mt-1\">" +
+              "<span class=\"text-sm font-mono font-semibold text-rose-600\" id=\"pop-pinyin\"></span>" +
+              "<span class=\"px-1.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-700 font-medium italic\" id=\"pop-pos\"></span>" +
+            "</div>" +
+          "</div>" +
+          "<button type=\"button\" id=\"pop-close-btn\" class=\"p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer\">✕</button>" +
+        "</div>" +
+        "<div class=\"mt-2.5 pt-2.5 border-t border-slate-100\">" +
+          "<div class=\"text-sm font-semibold text-slate-800 leading-snug\" id=\"pop-en\"></div>" +
+          "<p class=\"mt-1.5 text-xs text-slate-500 leading-relaxed\" id=\"pop-ex\"></p>" +
+        "</div>" +
+        "<div id=\"pop-breakdown-box\"></div>" +
+        "<div id=\"pop-note-box\"></div>" +
+        "<div class=\"mt-3 pt-2.5 border-t border-slate-100\">" +
+          "<button type=\"button\" id=\"pop-save-btn\" class=\"w-full py-2 px-3 rounded-lg text-xs font-semibold transition-colors cursor-pointer " + (isSaved ? "bg-amber-100 text-amber-900 border border-amber-300" : "bg-indigo-600 hover:bg-indigo-700 text-white") + "\">" +
+            (isSaved ? "✓ Saved in Vocab (已存生词本)" : "+ Save to Vocab (加入生词本)") +
+          "</button>" +
+        "</div>";
 
-      document.getElementById('pop-word-title').textContent = word;
-      document.getElementById('pop-pinyin').textContent = assembledPinyin;
-      document.getElementById('pop-pos').textContent = pos;
-      document.getElementById('pop-en').textContent = initialEn;
-      document.getElementById('pop-ex').textContent = ex ? '💡 ' + ex : '';
+      document.getElementById("pop-word-title").textContent = word;
+      document.getElementById("pop-pinyin").textContent = assembledPinyin;
+      document.getElementById("pop-pos").textContent = pos;
+      document.getElementById("pop-en").textContent = initialEn;
+      document.getElementById("pop-ex").textContent = ex ? ("💡 " + ex) : "";
 
       if (breakdown.length > 1) {
-        const bBox = document.getElementById('pop-breakdown-box');
-        bBox.className = 'mt-2.5 pt-2 border-t border-slate-100';
-        bBox.innerHTML = '<div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Character Breakdown (字义分解):</div><div class="flex flex-wrap gap-1.5">' +
-          breakdown.map(b => '<div class="px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-[11px]"><span class="font-bold text-indigo-600">' + b.char + '</span> <span class="text-slate-400">(' + b.pinyin + ')</span> <span class="text-slate-700">' + b.en + '</span></div>').join('') +
-          '</div>';
+        var bBox = document.getElementById("pop-breakdown-box");
+        bBox.className = "mt-2.5 pt-2 border-t border-slate-100";
+        bBox.innerHTML = "<div class=\"text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1\">Character Breakdown (字义分解):</div><div class=\"flex flex-wrap gap-1.5\">" +
+          breakdown.map(function(b) { return "<div class=\"px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-[11px]\"><span class=\"font-bold text-indigo-600\">" + b.char + "</span> <span class=\"text-slate-400\">(" + b.pinyin + ")</span> <span class=\"text-slate-700\">" + b.en + "</span></div>"; }).join("") +
+          "</div>";
       }
 
       if (tNote) {
-        const nBox = document.getElementById('pop-note-box');
-        nBox.className = 'mt-2.5 p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-950';
-        nBox.innerHTML = '<b class="text-emerald-800">👩‍🏫 Teacher's Note: </b>' + tNote;
+        var nBox = document.getElementById("pop-note-box");
+        nBox.className = "mt-2.5 p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-950";
+        nBox.innerHTML = "<b class=\"text-emerald-800\">👩‍🏫 Teacher Note: </b>" + tNote;
       }
 
-      document.getElementById('pop-audio-normal').addEventListener('click', (e) => {
+      document.getElementById("pop-audio-normal").addEventListener("click", function(e) {
         e.stopPropagation();
         speakMandarinText(word, speechRate);
       });
-      document.getElementById('pop-audio-slow').addEventListener('click', (e) => {
+      document.getElementById("pop-audio-slow").addEventListener("click", function(e) {
         e.stopPropagation();
         speakMandarinText(word, 0.6);
       });
-      document.getElementById('pop-audio-stop').addEventListener('click', (e) => {
+      document.getElementById("pop-audio-stop").addEventListener("click", function(e) {
         e.stopPropagation();
         stopAllAudio();
       });
-      document.getElementById('pop-close-btn').addEventListener('click', () => {
-        pop.classList.add('hidden');
+      document.getElementById("pop-close-btn").addEventListener("click", function(e) {
+        e.stopPropagation();
+        pop.classList.add("hidden");
       });
-      document.getElementById('pop-save-btn').addEventListener('click', () => {
-        const existingIdx = savedVocab.findIndex(v => v.word === word);
+      document.getElementById("pop-save-btn").addEventListener("click", function(e) {
+        e.stopPropagation();
+        var existingIdx = -1;
+        for (var k = 0; k < savedVocab.length; k++) {
+          if (savedVocab[k].word === word) { existingIdx = k; break; }
+        }
         if (existingIdx >= 0) {
           savedVocab.splice(existingIdx, 1);
         } else {
           savedVocab.unshift({
-            word,
+            word: word,
             pinyin: assembledPinyin,
-            pos,
-            en: document.getElementById('pop-en').textContent,
-            context: contextSentence || ''
+            pos: pos,
+            en: document.getElementById("pop-en").textContent,
+            context: contextSentence || ""
           });
         }
         renderArticle();
         renderSidebar();
-        pop.classList.add('hidden');
+        pop.classList.add("hidden");
       });
 
-      // Live cloud lookup if not in built-in dictionary
       if (!local) {
-        fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(word) + '&langpair=zh-CN|en')
-          .then(r => r.json())
-          .then(data => {
-            const tr = data && data.responseData && data.responseData.translatedText;
-            const enEl = document.getElementById('pop-en');
+        fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(word) + "&langpair=zh-CN|en")
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var tr = data && data.responseData && data.responseData.translatedText;
+            var enEl = document.getElementById("pop-en");
             if (tr && enEl && currentPopupWord === word) {
               enEl.textContent = tr;
             }
           })
-          .catch(() => {});
+          .catch(function() {});
       }
     }
 
-    // =========================================================================
-    // 4-TAB SIDEBAR RENDERING
-    // =========================================================================
     function renderSidebar() {
-      document.getElementById('vocab-count').textContent = savedVocab.length;
-      ['vocab', 'structure', 'questions', 'library'].forEach(t => {
-        const btn = document.getElementById('tab-btn-' + t);
+      document.getElementById("vocab-count").textContent = savedVocab.length;
+      ["vocab", "structure", "questions", "library"].forEach(function(t) {
+        var btn = document.getElementById("tab-btn-" + t);
         if (t === activeTab) {
-          btn.className = 'py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer';
+          btn.className = "py-2 px-1.5 rounded-lg text-[11px] font-semibold bg-white text-indigo-600 shadow-xs cursor-pointer";
         } else {
-          btn.className = 'py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer';
+          btn.className = "py-2 px-1.5 rounded-lg text-[11px] font-semibold text-slate-600 cursor-pointer";
         }
       });
 
-      const box = document.getElementById('sidebar-tab-content');
-      const art = getActiveArticle();
+      var box = document.getElementById("sidebar-tab-content");
+      var art = getActiveArticle();
 
-      if (activeTab === 'vocab') {
-        const filtered = savedVocab.filter(v =>
-          v.word.includes(vocabSearch) ||
-          (v.pinyin || '').toLowerCase().includes(vocabSearch.toLowerCase()) ||
-          (v.en || '').toLowerCase().includes(vocabSearch.toLowerCase())
-        );
-
-        box.innerHTML = `
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <input id="vocab-search-input" type="text" placeholder="Search saved Hanzi, Pinyin, or English..." value="${vocabSearch}" class="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button id="export-csv-btn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 cursor-pointer">⬇ Export CSV</button>
-          </div>
-          <div id="vocab-items-list" class="space-y-2.5 overflow-y-auto max-h-[520px] pr-1"></div>
-        `;
-
-        document.getElementById('vocab-search-input').addEventListener('input', (e) => {
-          vocabSearch = e.target.value;
-          renderSidebar();
-          const input = document.getElementById('vocab-search-input');
-          input.focus();
-          input.setSelectionRange(vocabSearch.length, vocabSearch.length);
+      if (activeTab === "vocab") {
+        var filtered = savedVocab.filter(function(v) {
+          var q = vocabSearch.toLowerCase();
+          return v.word.indexOf(vocabSearch) >= 0 ||
+            (v.pinyin || "").toLowerCase().indexOf(q) >= 0 ||
+            (v.en || "").toLowerCase().indexOf(q) >= 0;
         });
 
-        document.getElementById('export-csv-btn').addEventListener('click', () => {
+        box.innerHTML = "" +
+          "<div class=\"flex items-center justify-between gap-2 mb-3\">" +
+            "<input id=\"vocab-search-input\" type=\"text\" placeholder=\"Search saved Hanzi, Pinyin, or English...\" class=\"flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500\" />" +
+            "<button type=\"button\" id=\"export-csv-btn\" class=\"px-2.5 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 cursor-pointer\">⬇ Export CSV</button>" +
+          "</div>" +
+          "<div id=\"vocab-items-list\" class=\"space-y-2.5 overflow-y-auto max-h-[520px] pr-1\"></div>";
+
+        var sInput = document.getElementById("vocab-search-input");
+        sInput.value = vocabSearch;
+        sInput.addEventListener("input", function(e) {
+          vocabSearch = e.target.value;
+          renderSidebar();
+          var reInput = document.getElementById("vocab-search-input");
+          reInput.focus();
+          reInput.setSelectionRange(vocabSearch.length, vocabSearch.length);
+        });
+
+        document.getElementById("export-csv-btn").addEventListener("click", function() {
           if (savedVocab.length === 0) return;
-          const headers = ['Chinese Word', 'Pinyin', 'Part of Speech', 'English Meaning', 'Context Sentence'];
-          const rows = savedVocab.map(v => [v.word, v.pinyin || '', v.pos || '', v.en || '', v.context || ''].map(s => '"' + String(s).replace(/"/g, '""') + '"').join(','));
-          const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
-          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-          const a = document.createElement('a');
+          var headers = ["Chinese Word", "Pinyin", "Part of Speech", "English Meaning", "Context Sentence"];
+          var rows = savedVocab.map(function(v) {
+            return [v.word, v.pinyin || "", v.pos || "", v.en || "", v.context || ""].map(function(s) {
+              return "\"" + String(s).split("\"").join("\"\"") + "\"";
+            }).join(",");
+          });
+          var csv = "\uFEFF" + [headers.join(",")].concat(rows).join("\n");
+          var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          var a = document.createElement("a");
           a.href = URL.createObjectURL(blob);
-          a.download = 'Mandarin_Vocab.csv';
+          a.download = "Mandarin_Vocab.csv";
           a.click();
         });
 
-        const listEl = document.getElementById('vocab-items-list');
+        var listEl = document.getElementById("vocab-items-list");
         if (filtered.length === 0) {
-          listEl.innerHTML = '<div class="text-center p-6 text-slate-400 text-xs">No saved vocabulary yet. Click any Chinese word while reading and click "+ Save to Vocab"!</div>';
+          listEl.innerHTML = "<div class=\"text-center p-6 text-slate-400 text-xs\">No saved vocabulary yet. Click any Chinese word while reading and click \"+ Save to Vocab\"!</div>";
         } else {
-          filtered.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'p-3 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 transition-all';
-            card.innerHTML = `
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-baseline gap-2 flex-wrap">
-                  <span class="font-bold text-base text-indigo-700">${item.word}</span>
-                  <span class="text-xs text-rose-600 font-mono font-medium">${item.pinyin || ''}</span>
-                  ${item.pos ? '<span class="text-[11px] italic px-1.5 rounded bg-slate-100 text-slate-600">' + item.pos + '</span>' : ''}
-                </div>
-                <div class="flex items-center gap-1">
-                  <button class="v-speak p-1 rounded hover:bg-slate-100 text-slate-500 cursor-pointer" title="Pronounce">🔊</button>
-                  <button class="v-del p-1 rounded hover:bg-rose-50 text-slate-400 hover:text-rose-600 cursor-pointer" title="Remove">🗑</button>
-                </div>
-              </div>
-              <p class="text-xs font-medium text-slate-800 mt-1">${item.en}</p>
-              ${item.context ? '<p class="text-[11px] text-slate-500 mt-1.5 border-l-2 border-indigo-300 pl-2">例: "' + item.context + '"</p>' : ''}
-            `;
-            card.querySelector('.v-speak').addEventListener('click', () => speakMandarinText(item.word, speechRate));
-            card.querySelector('.v-del').addEventListener('click', () => {
-              savedVocab = savedVocab.filter(v => v.word !== item.word);
+          filtered.forEach(function(item) {
+            var card = document.createElement("div");
+            card.className = "p-3 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 transition-all";
+            card.innerHTML = "" +
+              "<div class=\"flex items-start justify-between gap-2\">" +
+                "<div class=\"flex items-baseline gap-2 flex-wrap\">" +
+                  "<span class=\"font-bold text-base text-indigo-700\">" + item.word + "</span>" +
+                  "<span class=\"text-xs text-rose-600 font-mono font-medium\">" + (item.pinyin || "") + "</span>" +
+                  (item.pos ? "<span class=\"text-[11px] italic px-1.5 rounded bg-slate-100 text-slate-600\">" + item.pos + "</span>" : "") +
+                "</div>" +
+                "<div class=\"flex items-center gap-1\">" +
+                  "<button type=\"button\" class=\"v-speak p-1 rounded hover:bg-slate-100 text-slate-500 cursor-pointer\" title=\"Pronounce\">🔊</button>" +
+                  "<button type=\"button\" class=\"v-del p-1 rounded hover:bg-rose-50 text-slate-400 hover:text-rose-600 cursor-pointer\" title=\"Remove\">🗑</button>" +
+                "</div>" +
+              "</div>" +
+              "<p class=\"text-xs font-medium text-slate-800 mt-1\">" + item.en + "</p>" +
+              (item.context ? "<p class=\"text-[11px] text-slate-500 mt-1.5 border-l-2 border-indigo-300 pl-2\">例: \"" + item.context + "\"</p>" : "");
+            card.querySelector(".v-speak").addEventListener("click", function() { speakMandarinText(item.word, speechRate); });
+            card.querySelector(".v-del").addEventListener("click", function() {
+              savedVocab = savedVocab.filter(function(v) { return v.word !== item.word; });
               renderArticle();
               renderSidebar();
             });
             listEl.appendChild(card);
           });
         }
-      } else if (activeTab === 'structure') {
-        const list = art.structureAnnotations || [];
-        box.innerHTML = '<h3 class="text-sm font-bold mb-1">Text Type &amp; Conceptual Understanding</h3><p class="text-xs text-slate-500 mb-3">Key structural conventions of a Chinese Informal Letter (中文私人书信格式):</p><div class="space-y-3">' +
+      } else if (activeTab === "structure") {
+        var list = art.structureAnnotations || [];
+        box.innerHTML = "<h3 class=\"text-sm font-bold mb-1\">Text Type &amp; Conceptual Understanding</h3><p class=\"text-xs text-slate-500 mb-3\">Key structural conventions of a Chinese Informal Letter (中文私人书信格式):</p><div class=\"space-y-3\">" +
           (list.length > 0
-            ? list.map((it, i) => '<div class="p-3 rounded-xl bg-white border border-slate-200 space-y-1"><div class="text-xs font-bold text-indigo-600">' + (i + 1) + '. ' + it.part + '</div><div class="text-xs font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">' + it.lines + '</div><p class="text-xs text-slate-600 leading-relaxed">' + it.note + '</p></div>').join('')
-            : '<div class="p-4 rounded-xl bg-slate-50 text-xs text-slate-500">Select Text 5.1 to view the Chinese Informal Letter structure breakdown.</div>') +
-          '</div>';
-      } else if (activeTab === 'questions') {
-        box.innerHTML = '<h3 class="text-sm font-bold mb-1">Reading Comprehension (阅读理解问题)</h3><p class="text-xs text-slate-500 mb-3">Answer the following questions based on the Mandarin reading passage:</p><div class="space-y-3">' +
-          (art.questions || []).map((q, i) => '<div class="p-3.5 rounded-xl bg-white border border-slate-200"><div class="text-xs sm:text-sm font-medium text-slate-800 mb-2">' + (i + 1) + '. ' + q + '</div><textarea rows="2" placeholder="Type your answer in Chinese or English..." class="w-full text-xs p-2 rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea></div>').join('') +
-          '</div>';
-      } else if (activeTab === 'library') {
-        box.innerHTML = '<div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Mandarin Reading Passages</div><div id="lib-list" class="space-y-2.5"></div>';
-        const libList = document.getElementById('lib-list');
-        ARTICLES.forEach(a => {
-          const item = document.createElement('div');
-          item.className = 'p-3 rounded-xl border transition-all cursor-pointer ' + (a.id === activeArticleId ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-200 bg-white hover:border-indigo-300');
-          item.innerHTML = '<div class="flex items-center justify-between"><span class="text-[11px] font-semibold text-indigo-600">' + a.level + '</span><span class="text-[11px] text-slate-400">' + a.readTime + '</span></div><h4 class="font-bold text-sm mt-0.5 text-slate-900">' + a.title + '</h4>';
-          item.addEventListener('click', () => {
+            ? list.map(function(it, i) { return "<div class=\"p-3 rounded-xl bg-white border border-slate-200 space-y-1\"><div class=\"text-xs font-bold text-indigo-600\">" + (i + 1) + ". " + it.part + "</div><div class=\"text-xs font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded\">" + it.lines + "</div><p class=\"text-xs text-slate-600 leading-relaxed\">" + it.note + "</p></div>"; }).join("")
+            : "<div class=\"p-4 rounded-xl bg-slate-50 text-xs text-slate-500\">Select Text 5.1 to view the Chinese Informal Letter structure breakdown.</div>") +
+          "</div>";
+      } else if (activeTab === "questions") {
+        box.innerHTML = "<h3 class=\"text-sm font-bold mb-1\">Reading Comprehension (阅读理解问题)</h3><p class=\"text-xs text-slate-500 mb-3\">Answer the following questions based on the Mandarin reading passage:</p><div class=\"space-y-3\">" +
+          (art.questions || []).map(function(q, i) { return "<div class=\"p-3.5 rounded-xl bg-white border border-slate-200\"><div class=\"text-xs sm:text-sm font-medium text-slate-800 mb-2\">" + (i + 1) + ". " + q + "</div><textarea rows=\"2\" placeholder=\"Type your answer in Chinese or English...\" class=\"w-full text-xs p-2 rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500\"></textarea></div>"; }).join("") +
+          "</div>";
+      } else if (activeTab === "library") {
+        box.innerHTML = "<div class=\"text-xs font-bold uppercase tracking-wider text-slate-400 mb-2\">Mandarin Reading Passages</div><div id=\"lib-list\" class=\"space-y-2.5\"></div>";
+        var libList = document.getElementById("lib-list");
+        ARTICLES.forEach(function(a) {
+          var item = document.createElement("div");
+          item.className = "p-3 rounded-xl border transition-all cursor-pointer " + (a.id === activeArticleId ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white hover:border-indigo-300");
+          item.innerHTML = "<div class=\"flex items-center justify-between\"><span class=\"text-[11px] font-semibold text-indigo-600\">" + a.level + "</span><span class=\"text-[11px] text-slate-400\">" + a.readTime + "</span></div><h4 class=\"font-bold text-sm mt-0.5 text-slate-900\">" + a.title + "</h4>";
+          item.addEventListener("click", function() {
             activeArticleId = a.id;
-            document.getElementById('article-select').value = a.id;
+            document.getElementById("article-select").value = a.id;
             renderArticle();
             renderSidebar();
           });
@@ -736,93 +746,88 @@
       }
     }
 
-    // =========================================================================
-    // INITIALIZE EVENT LISTENERS
-    // =========================================================================
-    const selEl = document.getElementById('article-select');
-    ARTICLES.forEach(a => {
-      const opt = document.createElement('option');
+    var selEl = document.getElementById("article-select");
+    selEl.innerHTML = "";
+    ARTICLES.forEach(function(a) {
+      var opt = document.createElement("option");
       opt.value = a.id;
       opt.textContent = a.title;
       selEl.appendChild(opt);
     });
-    selEl.addEventListener('change', (e) => {
+    selEl.addEventListener("change", function(e) {
       activeArticleId = e.target.value;
-      document.getElementById('popup-dict').classList.add('hidden');
+      document.getElementById("popup-dict").classList.add("hidden");
       renderArticle();
       renderSidebar();
     });
 
-    document.getElementById('read-all-btn').addEventListener('click', () => {
+    document.getElementById("read-all-btn").addEventListener("click", function() {
       speakMandarinText(getActiveArticle().content, speechRate);
     });
-    document.getElementById('pause-resume-btn').addEventListener('click', togglePauseResume);
-    document.getElementById('stop-audio-btn').addEventListener('click', stopAllAudio);
+    document.getElementById("pause-resume-btn").addEventListener("click", togglePauseResume);
+    document.getElementById("stop-audio-btn").addEventListener("click", stopAllAudio);
 
-    document.getElementById('speed-select').addEventListener('change', (e) => {
+    document.getElementById("speed-select").addEventListener("change", function(e) {
       speechRate = parseFloat(e.target.value);
-      if (audioState !== 'idle' && speechQueue.length > 0) {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (audioState !== "idle" && speechQueue.length > 0) {
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         isCancelled = false;
-        audioState = 'playing';
+        audioState = "playing";
         syncAudioUI();
-        setTimeout(() => { if (!isCancelled) playNextChunk(queueIndex, speechRate); }, 60);
+        setTimeout(function() { if (!isCancelled) playNextChunk(queueIndex, speechRate); }, 60);
       }
     });
 
-    // Theme switching
     function setThemeMode(mode) {
-      document.body.className = 'theme-' + mode + ' min-h-screen flex flex-col transition-colors duration-200';
-      ['light', 'paper', 'dark'].forEach(m => {
-        const b = document.getElementById('theme-' + m + '-btn');
-        b.className = 'px-2 py-1 rounded-md cursor-pointer ' + (m === mode ? 'bg-white shadow-xs' : '');
+      document.body.className = "theme-" + mode + " min-h-screen flex flex-col transition-colors duration-200";
+      ["light", "paper", "dark"].forEach(function(m) {
+        var b = document.getElementById("theme-" + m + "-btn");
+        b.className = "px-2 py-1 rounded-md cursor-pointer " + (m === mode ? "bg-white shadow-xs" : "");
       });
     }
-    document.getElementById('theme-light-btn').addEventListener('click', () => setThemeMode('light'));
-    document.getElementById('theme-paper-btn').addEventListener('click', () => setThemeMode('paper'));
-    document.getElementById('theme-dark-btn').addEventListener('click', () => setThemeMode('dark'));
+    document.getElementById("theme-light-btn").addEventListener("click", function() { setThemeMode("light"); });
+    document.getElementById("theme-paper-btn").addEventListener("click", function() { setThemeMode("paper"); });
+    document.getElementById("theme-dark-btn").addEventListener("click", function() { setThemeMode("dark"); });
 
-    // Font size switching
-    ['base', 'lg', 'xl'].forEach(sz => {
-      document.getElementById('font-' + sz + '-btn').addEventListener('click', () => {
+    ["base", "lg", "xl"].forEach(function(sz) {
+      document.getElementById("font-" + sz + "-btn").addEventListener("click", function() {
         fontSize = sz;
-        ['base', 'lg', 'xl'].forEach(s => {
-          document.getElementById('font-' + s + '-btn').className = 'px-2 py-1 rounded-md cursor-pointer ' + (s === sz ? 'bg-white shadow-xs' : 'opacity-60');
+        ["base", "lg", "xl"].forEach(function(s) {
+          document.getElementById("font-" + s + "-btn").className = "px-2 py-1 rounded-md cursor-pointer " + (s === sz ? "bg-white shadow-xs" : "opacity-60");
         });
         renderArticle();
       });
     });
 
-    document.getElementById('toggle-structure').addEventListener('change', (e) => {
+    document.getElementById("toggle-structure").addEventListener("change", function(e) {
       showStructure = e.target.checked;
       renderArticle();
     });
-    document.getElementById('toggle-notes').addEventListener('change', (e) => {
+    document.getElementById("toggle-notes").addEventListener("change", function(e) {
       highlightNotes = e.target.checked;
       renderArticle();
     });
 
-    ['vocab', 'structure', 'questions', 'library'].forEach(t => {
-      document.getElementById('tab-btn-' + t).addEventListener('click', () => {
+    ["vocab", "structure", "questions", "library"].forEach(function(t) {
+      document.getElementById("tab-btn-" + t).addEventListener("click", function() {
         activeTab = t;
         renderSidebar();
       });
     });
 
-    // Highlight phrase lookup
-    document.getElementById('reader-container').addEventListener('mouseup', () => {
-      const sel = window.getSelection();
+    document.getElementById("reader-container").addEventListener("mouseup", function() {
+      var sel = window.getSelection();
       if (!sel || sel.isCollapsed) return;
-      const txt = sel.toString().trim();
+      var txt = sel.toString().trim();
       if (txt.length >= 2) {
-        const rect = sel.getRangeAt(0).getBoundingClientRect();
+        var rect = sel.getRangeAt(0).getBoundingClientRect();
         if (rect.width > 0) openPopupForText(txt, rect, txt);
       }
     });
 
-    document.addEventListener('click', (e) => {
-      const pop = document.getElementById('popup-dict');
-      if (!pop.contains(e.target)) pop.classList.add('hidden');
+    document.addEventListener("click", function(e) {
+      var pop = document.getElementById("popup-dict");
+      if (!pop.contains(e.target)) pop.classList.add("hidden");
     });
 
     renderArticle();
